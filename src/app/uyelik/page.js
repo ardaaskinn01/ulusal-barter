@@ -10,7 +10,7 @@ export default function Uyelik() {
       {/* Arka plan görseli */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="/background4.jpg"
+          src="/bg09.jpg"
           alt="background"
           fill
           className="object-cover opacity-20"

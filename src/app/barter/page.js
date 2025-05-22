@@ -10,7 +10,7 @@ export default function Barter() {
             {/* Arka plan */}
             <div className="absolute inset-0 z-0">
                 <Image
-                    src="/background4.jpg"
+                    src="/bg12.jpg"
                     alt="background"
                     fill
                     className="object-cover opacity-20"
@@ -27,25 +27,43 @@ export default function Barter() {
                         {/* Barter Nedir? */}
                         <Section
                             title="Barter Nedir?"
-                            content="Barter, para yerine mal veya hizmetlerin doğrudan değiş tokuş edilmesi demektir. Bu yöntemde, sahip olduğunuz bir mal veya hizmeti başka biriyle değiştirirsiniz. Örneğin, bahçenizde yetiştirdiğiniz domatesleri komşunuzun taze yumurtalarına takas edebilirsiniz. Böylece her iki taraf da paraya ihtiyaç duymadan istediği şeye kavuşur. Bu takas sistemi, paranın olmadığı ya da yeterli olmadığı zamanlardan beri kullanılan bir yöntemdir. Günümüzde de bazı takas grupları ve internet siteleri sayesinde uygulanmaya devam etmektedir."
+                            content="Barter, modern ticaret dünyasında nakit kullanımına alternatif olarak geliştirilen, firmaların ürün ve hizmetlerini organize bir sistem içerisinde karşılıklı değer değişimi yoluyla değerlendirmesini sağlayan bir finansal modeldir.
+
+Ulusal Barter Finans A.Ş. olarak biz, barter sistemini sadece bir takas yöntemi olarak değil; firmaların nakit akışlarını rahatlatan, stoklarını eriten, satış hacmini artıran ve yeni iş bağlantıları yaratan güçlü bir ticaret ağı olarak sunuyoruz.
+
+Barter, aynı anda hem alım hem de satım yapmayı mümkün kılan kapalı bir döngü değil, açık ve esnek bir finansal ekosistemdir. Şirketler sistemimize dahil olarak ihtiyaç duydukları ürün veya hizmeti nakit kullanmadan temin ederken, aynı zamanda kendi sundukları değerle sisteme katkı sağlarlar."
                         />
 
                         {/* Barter Avantajları */}
-                        <Section
-                            title="Barter Avantajları"
-                            content="Barter, parası az olanlar için avantajlıdır: sahip olduğunuz eşyalar veya hizmetlerle ihtiyaçlarınızı karşılayabilirsiniz. Böylece nakit para yerine boşa duran eşyalarınız değer kazanır ve israf önlenir. Bu sayede hem paranız cebinizde kalır hem de kullanılmayan eşyalar değerlendirilmiş olur. Ayrıca barter sayesinde komşular ve arkadaşlar arasında yardımlaşma artar, yeni insanlarla tanışır ve güvene dayalı ilişkiler kurarsınız. Dayanışma artarken bütçeniz de rahatlar. Kısacası barter, ihtiyaç duyduğunuz şeylere para yerine takas yoluyla ulaşmanızı sağlar. Diğer bir deyişle barter, az maliyetle çok iş görmenizi ve yardımlaşmayı teşvik etmenizi sağlar."
-                        />
+<Section
+  title="Barter Avantajları"
+  content={`💼 1. Nakit Sıkışıklığına Alternatif
+Nakit çıkışı olmadan alım yapılabilir. Bu sayede likidite sorunu yaşamadan iş süreçlerinizi sürdürebilirsiniz.
 
-                        {/* Barter Örnekleri */}
-                        <Section
-                            title="Barter Örnekleri"
-                            content="Örneğin, evinizdeki fazla meyveleri komşunuzun yumurtalarıyla takas edebilirsiniz. Berber bir arkadaşına ücretsiz saç kesimi yapar ve karşılığında arkadaşından ev temizliğinde yardım alabilir. Öğrenciler arasında ders takası da yaygındır: biri matematik dersi verir, karşılığında fizik dersi alır. Hatta bazı yerlerde giysi, kitap veya oyuncak takas etkinlikleri düzenlenir. Bu örnekler, barter sistemi sayesinde insanların ihtiyaçlarını nakit paraya ihtiyaç duymadan, sahip oldukları eşya veya hizmetlerle doğrudan karşılayabildiklerini gösterir."
-                        />
+📦 2. Stoklarınız Değer Kazanır
+Depoda bekleyen ürünler, sistem içinde işlem görerek sizi yeni müşterilerle buluşturur ve kazanca dönüşür.
 
-                        {/* Karşılıksız Evrak */}
+🤝 3. Yeni Pazarlara Açılırsınız
+Barter ağına katılan firmalar, sistem içerisindeki farklı sektörlerden firmalarla doğal işbirlikleri geliştirir.
+
+📈 4. Satış Hacmi Genişler
+Ürün ya da hizmetiniz, normal pazarın dışında daha fazla kullanıcıya ulaşarak görünürlüğünüzü artırır.
+
+🔄 5. Çift Taraflı Kazanç
+Barter, hem alıcı hem satıcı pozisyonunda olabileceğiniz bir sistemdir. Bu çift yönlü yapı, ticari esneklik sağlar.
+
+🛡️ 6. Ekonomik Dalgalanmalara Karşı Dayanıklılık
+Piyasalardaki belirsizlik ve kriz ortamlarında barter sistemi, firmaların operasyonel gücünü korumasına yardımcı olur.`}
+/>
+
+
                         <Section
-                            title="Karşılıksız Evrak"
-                            content="Karşılıksız evrak, genellikle ödenmeyen veya banka tarafından karşılığı bulunmayan çek ya da senetleri ifade eder. Diyelim ki elinizde bir çek var, ama banka hesabınızda para olmadığı için banka bu çekinizi ödemedi; bu çek artık “karşılıksız” sayılır ve normalde değersiz hale gelir. Ancak barter sistemi içinde bu tür evraklar bile değerlendirilebilir. Bazı barter şirketleri, karşılıksız çek veya senedi belirli bir komisyon karşılığında alır ve çekin tutarı kadar bir değeri size barter hesabınıza ekler. Böylece değersiz görünen bu belgeyi barter ağı içinde alışveriş yapabileceğiniz bir değere dönüştürebilirsiniz."
+                            title="Neden Ulusal Barter Finans A.Ş.?"
+                            content="Çünkü biz sadece bir ticaret platformu değiliz; değerin döndüğü, işletmelerin kazandığı sürdürülebilir bir sistem inşa ediyoruz.
+
+Ulusal ölçekte kurduğumuz geniş barter ağı ve güvenilir işlem yapısı sayesinde, firmalarımıza nakitsiz büyüme imkânı sunuyoruz.
+
+Ulusal Barter Finans A.Ş. — Paradan bağımsız, değerden yana bir ekonomi modeli."
                         />
 
                     </div>

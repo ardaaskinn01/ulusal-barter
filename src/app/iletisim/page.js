@@ -50,7 +50,7 @@ export default function Iletisim() {
 
       <div className="absolute inset-0 z-0">
         <Image
-          src="/background4.jpg"
+          src="/bg11.jpg"
           alt="background"
           fill
           className="object-cover opacity-30"
@@ -98,7 +98,7 @@ export default function Iletisim() {
               <div className="mt-16 max-w-4xl mx-auto rounded-2xl overflow-hidden shadow-2xl border-4 border-yellow-600">
                 <iframe
                   title="Ofis Lokasyonu"
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d8166.897708190554!2d26.979514250444886!3d38.791435599571734!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14ba3027052f83ab%3A0x2446a56ad31b1315!2zxZ5pbcWfZWtvxJ9sdSBHYXlyaW1lbmt1bA!5e0!3m2!1str!2str!4v1747940958125!5m2!1str!2str"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3124.568299509286!2d27.185589076705973!3d38.45143937182271!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14b963ad9314ab8d%3A0x721a011af52f9fff!2sGsk%20plaza!5e0!3m2!1str!2str!4v1747950835918!5m2!1str!2str"
                   width="100%"
                   height="450"
                   style={{ border: 0 }}

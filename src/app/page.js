@@ -3,6 +3,7 @@ import Head from "next/head";
 import Link from "next/link";
 import Navbar from "./components/Navbar";
 import CountUp from 'react-countup';
+import { useRouter } from 'next/router';
 import Image from "next/image";
 import { useRef } from 'react';
 import { useState, useEffect } from 'react';
@@ -265,10 +266,128 @@ export default function Home() {
           </div>
         </section>
 
+        <section
+          ref={el => sectionRefs.current[0] = el}
+          className="w-full py-20 min-h-[400px] relative overflow-hidden bg-cover bg-center opacity-0 translate-y-10 transition-all duration-500"
+          style={{ backgroundImage: "url('/bg08.jpg')" }}
+        >
+          {/* Siyah yarı saydam overlay */}
+          <div className="absolute inset-0 bg-black opacity-60 z-0"></div>
+          <div className="absolute top-0 left-0 w-full h-full opacity-5">
+            <div className="absolute top-20 right-20 w-40 h-40 bg-yellow-500 rounded-full filter blur-[60px]"></div>
+            <div className="absolute bottom-10 left-10 w-60 h-60 bg-yellow-500 rounded-full filter blur-[80px]"></div>
+          </div>
+
+          <div className="max-w-5xl mx-auto px-6 text-center relative z-10">
+            {/* Başlık ve içerik */}
+            <div className="mb-8">
+              <h2 className="text-3xl md:text-5xl font-bold mb-6 text-white">Hoş Geldiniz</h2>
+              <h2 className="text-3xl md:text-3xl font-bold mb-6 text-yellow-600">Ulusal Barter Finans A.Ş.</h2>
+              <div className="w-24 h-1 bg-yellow-500 mx-auto mb-6"></div>
+              <p className="text-lg md:text-xl mb-4 text-yellow-500 font-medium">Nakitin Ötesinde Bir Ekonomi.</p>
+            </div>
+
+            <div className="bg-white p-10 rounded-lg shadow-xl border border-gray-100">
+              <p className="text-base md:text-lg leading-relaxed text-gray-700 mb-4">
+                Ulusal Barter Finans A.Ş., Türkiye çapında faaliyet gösteren yenilikçi barter finans sistemiyle işletmelere nakitsiz ticaretin güçlü altyapısını sunar.
+                İşletmelerin değer üreten yönlerini öne çıkararak, finansal sıkışıklık yaşamadan büyümelerini sağlarız.
+              </p>
+              <p className="text-base md:text-lg leading-relaxed text-gray-700">
+                Biz, işletmelerin yalnızca bugününü değil, yarınını da planlayan güçlü bir barter finans çözüm ortağıyız.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section
+          ref={el => sectionRefs.current[1] = el}
+          className="w-full py-20 min-h-[400px] relative overflow-hidden bg-cover bg-center opacity-0 translate-y-10 transition-all duration-500"
+          style={{ backgroundImage: "url('/bg07.jpg')" }}
+        >
+          {/* Dekoratif arkaplan elementleri */}
+          <div className="absolute inset-0 bg-black opacity-60 z-0"></div>
+          <div className="absolute top-0 left-0 w-full h-full opacity-10">
+            <div className="absolute bottom-20 right-20 w-40 h-40 bg-yellow-500 rounded-full filter blur-[60px]"></div>
+            <div className="absolute top-10 left-1/4 w-60 h-60 bg-yellow-500 rounded-full filter blur-[80px]"></div>
+          </div>
+
+          <div className="max-w-5xl mx-auto px-6 relative z-10">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-bold mb-6 text-yellow-600">Neden Ulusal Barter Finans?</h2>
+              <div className="w-24 h-1 bg-yellow-500 mx-auto mb-6"></div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {/* Avantajlar Listesi */}
+              <div className="bg-white p-8 rounded-lg shadow-lg border border-gray-100">
+                <ul className="space-y-4">
+                  <li className="flex items-start">
+                    <svg className="h-6 w-6 text-yellow-500 mt-1 mr-3 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                    <span className="text-gray-700">Nakit harcamadan büyüme fırsatı</span>
+                  </li>
+                  <li className="flex items-start">
+                    <svg className="h-6 w-6 text-yellow-500 mt-1 mr-3 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                    <span className="text-gray-700">Stokları değere dönüştüren sistem</span>
+                  </li>
+                  <li className="flex items-start">
+                    <svg className="h-6 w-6 text-yellow-500 mt-1 mr-3 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                    <span className="text-gray-700">Türkiye genelinde güçlü ticaret ağı</span>
+                  </li>
+                  <li className="flex items-start">
+                    <svg className="h-6 w-6 text-yellow-500 mt-1 mr-3 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                    <span className="text-gray-700">Şeffaf, kayıtlı ve güvenli işlemler</span>
+                  </li>
+                  <li className="flex items-start">
+                    <svg className="h-6 w-6 text-yellow-500 mt-1 mr-3 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                    <span className="text-gray-700">Her sektöre uygun, kişiye özel çözümler</span>
+                  </li>
+                  <li className="flex items-start">
+                    <svg className="h-6 w-6 text-yellow-500 mt-1 mr-3 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                    <span className="text-gray-700">Krizlere karşı dayanıklı ticaret modeli</span>
+                  </li>
+                </ul>
+              </div>
+
+              {/* Açıklama ve CTA */}
+              <div className="bg-white p-8 rounded-lg shadow-lg border border-gray-100 flex flex-col">
+                <div className="flex-grow">
+                  <p className="text-lg text-gray-700 mb-6">
+                    Ulusal Barter Finans A.Ş. ile ticaretinizin geleceğini bugünden kurun.
+                  </p>
+                  <div className="bg-yellow-50 border-l-4 border-yellow-500 p-4">
+                    <p className="text-gray-700 italic">
+                      "Nakitsiz ticaretin gücünü keşfedin, işletmenizin potansiyelini ortaya çıkarın."
+                    </p>
+                  </div>
+                </div>
+                <div className="mt-8">
+                  <Link href="/iletisim" passHref>
+                    <button className="w-full px-6 py-3 bg-yellow-600 text-white font-medium rounded-lg hover:bg-yellow-700 transition duration-300 shadow-md hover:shadow-lg">
+                      Bize Hemen Ulaşın
+                    </button>
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
 
         {/* Footer */}
         <footer
-          ref={el => sectionRefs.current[4] = el}
+          ref={el => sectionRefs.current[2] = el}
           className="w-full py-12 bg-gradient-to-r from-yellow-600 to-yellow-400 text-white relative overflow-hidden opacity-0 translate-y-10 transition-all duration-500"
         >
           <div className="max-w-6xl mx-auto px-6 relative z-10">
@@ -284,20 +403,19 @@ export default function Home() {
               <div>
                 <h3 className="text-lg font-semibold mb-4">Bağlantılar</h3>
                 <ul className="space-y-2">
-                  <li><a href="/hakkinda" className="text-gray-300 hover:text-white transition">Hakkımızda</a></li>
-                  <li><a href="/barter" className="text-gray-300 hover:text-white transition">Barter Sistemi</a></li>
-                  <li><a href="/uyelik" className="text-gray-300 hover:text-white transition">Üyelik</a></li>
+                  <li><a href="/hakkinda" className="text-gray-200 hover:text-white transition">Hakkımızda</a></li>
+                  <li><a href="/barter" className="text-gray-200 hover:text-white transition">Barter Sistemi</a></li>
+                  <li><a href="/uyelik" className="text-gray-200 hover:text-white transition">Üyelik</a></li>
                 </ul>
               </div>
 
               {/* Sağ Bölüm - İletişim */}
               <div>
                 <h3 className="text-lg font-semibold mb-4">İletişim Bilgileri</h3>
-                <address className="text-gray-300 not-italic">
-                  <p>adres</p>
-                  <p>adres2</p>
-                  <p className="mt-2">numara</p>
-                  <p>email</p>
+                <address className="text-gray-200 not-italic">
+                  <p>Mansuroğlu mah. 283/1 Sk. No:2 GSK Plaza K:1 D:201 Bayraklı/İzmir</p>
+                  <p className="mt-2">+90 (532) 165 52 20</p>
+                  <p>Abdullah Şimşek</p>
                 </address>
               </div>
 
