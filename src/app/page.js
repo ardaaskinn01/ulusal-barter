@@ -174,7 +174,7 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Nurettin Tutak | Geçmişten Gelen Güç, Geleceğe Sağlam Adım</title>
+        <title>Abdullah Şimşek</title>
         <meta name="description" content="Nurettin Tutak - Profesyonel Flutter Geliştirici" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </Head>
@@ -212,41 +212,41 @@ export default function Home() {
               <span className="block text-4xl md:text-6xl font-medium text-white leading-tight mb-4">
                 <span className="bg-clip-text text-transparent bg-gradient-to-r from-yellow-400 to-yellow-600">
                   {animatedText1}
-                  {animatedText1.length < "Geçmişten Gelen Güç".length && (
+                  {animatedText1.length < "Barter Finansın Güvencesi:".length && (
                     <span className="animate-pulse">|</span>
                   )}
                 </span>
               </span>
               <span className="block text-5xl md:text-7xl font-bold text-white leading-tight">
                 {animatedText2}
-                {animatedText1 === "Geçmişten Gelen Güç" && animatedText2.length < "Geleceğe Sağlam Adım".length && (
+                {animatedText1 === "Barter Finansın Güvencesi:" && animatedText2.length < "Ulusal Güç, Yerel Çözüm!".length && (
                   <span className="animate-pulse">|</span>
                 )}
               </span>
               <div
-                className="mt-6 mx-auto w-24 h-1 bg-gradient-to-r from-green-400 to-green-600 transition-all duration-1000 delay-1000 scale-x-0 origin-left"
+                className="mt-6 mx-auto w-24 h-1 bg-gradient-to-r from-yellow-600 to-yellow-400 transition-all duration-1000 delay-1000 scale-x-0 origin-left"
                 style={{
-                  animation: animatedText2 === "Geleceğe Sağlam Adım" ? 'scaleIn 1s forwards' : ''
+                  animation: animatedText2 === "Ulusal Güç, Yerel Çözüm!" ? 'scaleIn 1s forwards' : ''
                 }}
               />
             </h1>
             <p
               className="text-gray-300 text-lg max-w-2xl mx-auto mb-10 font-light opacity-0"
               style={{
-                animation: animatedText2 === "Geleceğe Sağlam Adım" ? 'fadeIn 1s forwards 0.5s' : ''
+                animation: animatedText2 === "Ulusal Güç, Yerel Çözüm!" ? 'fadeIn 1s forwards 0.5s' : ''
               }}
             >
-              50 yılı aşkın tecrübemizle inşaat sektöründe öncü çözümler sunuyoruz
+              ULUSAL BARTER FİNANS
             </p>
 
             <div
               className="mt-16 cursor-pointer opacity-0"
               onClick={scrollToSection}
               style={{
-                animation: animatedText2 === "Geleceğe Sağlam Adım" ? 'fadeInUp 1s forwards 1s' : ''
+                animation: animatedText2 === "Ulusal Güç, Yerel Çözüm!" ? 'fadeInUp 1s forwards 1s' : ''
               }}
             >
-              <svg className="w-8 h-8 text-green-400 mx-auto animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg className="w-8 h-8 text-yellow-600 mx-auto animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
               </svg>
             </div>

@@ -58,10 +58,10 @@ export default function Iletisim() {
         />
       </div>
 
-      <div className="flex-grow py-16 px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="flex-grow py-24 px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-16 mt-8">
-            <h1 className="text-5xl font-bold text-white mb-4">İLETİŞİM</h1>
+            <h1 className="text-5xl font-bold text-gray-200 mb-4">İLETİŞİM</h1>
             <p className="text-lg text-gray-400">Bizimle iletişime geçmekten çekinmeyin.</p>
           </div>
 
@@ -76,9 +76,9 @@ export default function Iletisim() {
                       d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                   </svg>
                   <div>
-                    <p className="text-sm text-gray-600">Email</p>
+                    <p className="text-sm text-gray-600">İsim</p>
                     <a href="mailto:nurettintutak@hotmail.com" className="text-lg font-medium text-gray-900 hover:text-[#1abc9c] transition">
-                      nurettintutak@hotmail.com
+                      Abdullah Şimşek
                     </a>
                   </div>
                 </li>
@@ -90,7 +90,7 @@ export default function Iletisim() {
                   <div>
                     <p className="text-sm text-gray-600">Telefon</p>
                     <a href="tel:+905467689992" className="text-lg font-medium text-gray-900 hover:text-[#1abc9c] transition">
-                      +90 (546) 768 99 92
+                      +90 (532) 165 52 20
                     </a>
                   </div>
                 </li>
