@@ -32,7 +32,6 @@ export default function Navbar() {
             <Link href="/" className={`px-2 py-2 text-md bold ${getLinkClass("/")}`}>ANA SAYFA</Link>
             <Link href="/hakkinda" className={`px-2 py-2 text-md ${getLinkClass("/hakkinda")}`}>HAKKIMIZDA</Link>
             <Link href="/barter" className={`px-2 py-2 text-md ${getLinkClass("/barter")}`}>BARTER SİSTEMİ</Link>
-            <Link href="/projelerimiz" className={`px-2 py-2 text-md ${getLinkClass("/projelerimiz")}`}>HİZMETLER</Link>
             <Link href="/uyelik" className={`px-2 py-2 text-md ${getLinkClass("/uyelik")}`}>ÜYELİK</Link>
             <Link href="/iletisim" className={`px-2 py-2 text-md ${getLinkClass("/iletisim")}`}>İLETİŞİM</Link>
           </div>
@@ -63,7 +62,6 @@ export default function Navbar() {
                 { href: "/", label: "Ana Sayfa" },
                 { href: "/hakkinda", label: "Hakkımızda" },
                 { href: "/barter", label: "Barter Sistemi" },
-                { href: "/projelerimiz", label: "Hizmetler" },
                 { href: "/uyelik", label: "Üyelik" },
                 { href: "/iletisim", label: "İletişim" }
               ].map((item) => (

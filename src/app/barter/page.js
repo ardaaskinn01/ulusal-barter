@@ -21,9 +21,6 @@ export default function Barter() {
             {/* İçerik */}
             <div className="flex-grow px-4 sm:px-8 py-12 relative z-10">
                 <div className="max-w-5xl mx-auto">
-                    <h1 className="text-4xl font-bold text-center text-gray-800 mb-12">
-                        Barter Sistemi Hakkında Bilgilendirme
-                    </h1>
 
                     <div className="space-y-10">
 

@@ -3,6 +3,7 @@ import Head from "next/head";
 import Link from "next/link";
 import Navbar from "./components/Navbar";
 import CountUp from 'react-countup';
+import Image from "next/image";
 import { useRef } from 'react';
 import { useState, useEffect } from 'react';
 
@@ -51,9 +52,9 @@ export default function Home() {
   const [animatedText1, setAnimatedText1] = useState("");
   const [animatedText2, setAnimatedText2] = useState("");
   const backgrounds = [
-    '/background.jpg',
-    '/bg2.jpg',
-    '/bg3.jpg'
+    '/bg01.jpg',
+    '/bg02.jpg',
+    '/bg03.jpg'
   ];
   const containerRef = useRef(null);
   let startX = 0;
@@ -87,8 +88,8 @@ export default function Home() {
 
   // Metin animasyonları için
   useEffect(() => {
-    const text1 = "Yeni";
-    const text2 = "Slogan";
+    const text1 = "Barter Finansın Güvencesi:";
+    const text2 = "Ulusal Güç, Yerel Çözüm!";
 
     // İlk metin animasyonu
     let i = 0;
@@ -274,9 +275,9 @@ export default function Home() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {/* Sol Bölüm - Logo ve Slogan */}
               <div>
-                <h2 className="text-2xl font-bold mb-4">Ulusal Barter Finans</h2>
-                <p className="text-gray-300">Logo</p>
-                <p className="text-gray-300">Slogan</p>
+                <h2 className="text-2xl font-bold mb-0">Ulusal Barter Finans</h2>
+                <Image src="/logo2.png" alt="Ulusal Barter Finans Logo" width={150} height={180} className="mb-2" />
+                <p className="text-gray-300">Barter Finansın Güvencesi: Ulusal Güç, Yerel Çözüm!</p>
               </div>
 
               {/* Orta Bölüm - Bağlantılar */}
@@ -285,7 +286,6 @@ export default function Home() {
                 <ul className="space-y-2">
                   <li><a href="/hakkinda" className="text-gray-300 hover:text-white transition">Hakkımızda</a></li>
                   <li><a href="/barter" className="text-gray-300 hover:text-white transition">Barter Sistemi</a></li>
-                  <li><a href="/projelerimiz" className="text-gray-300 hover:text-white transition">Hizmetler</a></li>
                   <li><a href="/uyelik" className="text-gray-300 hover:text-white transition">Üyelik</a></li>
                 </ul>
               </div>
