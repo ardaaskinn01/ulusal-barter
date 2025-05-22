@@ -20,7 +20,7 @@ export default function Barter() {
 
             {/* İçerik */}
             <div className="flex-grow px-4 sm:px-8 py-12 relative z-10">
-                <div className="max-w-5xl mx-auto">
+                <div className="max-w-5xl mx-auto mt-20">
 
                     <div className="space-y-10">
 
