@@ -368,7 +368,7 @@ export default function Home() {
                   </p>
                   <div className="bg-yellow-50 border-l-4 border-yellow-500 p-4">
                     <p className="text-gray-700 italic">
-                      'Nakitsiz ticaretin gücünü keşfedin, işletmenizin potansiyelini ortaya çıkarın.'
+                      Nakitsiz ticaretin gücünü keşfedin, işletmenizin potansiyelini ortaya çıkarın.
                     </p>
                   </div>
                 </div>
