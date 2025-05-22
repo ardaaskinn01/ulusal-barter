@@ -22,8 +22,8 @@ export default function Navbar() {
             <Image
               src="/logo2.png"
               alt="Nurettin Tutak Logo"
-              width={100}
-              height={20}
+              width={120}
+              height={30}
             />
           </Link>
 
