@@ -15,9 +15,9 @@ export const metadata = {
   title: "Ulusal Barter Finans A.Ş.",
   description: "Ulusal Barter Finans A.Ş.",
   icons: {
-    icon: "/logo2.png",
-    shortcut: "/logo2.png",
-    apple: "/logo2.png",
+    icon: "/yenilogo5.png",
+    shortcut: "/yenilogo5.png",
+    apple: "/yenilogo5.png",
   },
 };
 

@@ -9,27 +9,26 @@ export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const getLinkClass = (href) =>
-    pathname === href || (href === "/projelerimiz" && pathname.startsWith("/projelerimiz"))
-      ? "text-black font-bold border-b-6 border-black"
-      : "text-black hover:text-gray-900 transition-colors duration-300";
+  pathname === href || (href === "/projelerimiz" && pathname.startsWith("/projelerimiz"))
+    ? "relative font-semibold text-gray-100 after:content-[''] after:absolute after:w-full after:h-[3px] after:bg-gray-100 after:bottom-0 after:left-0"
+    : "relative text-gray-100 hover:text-gray-100 transition-colors duration-300 after:content-[''] after:absolute after:w-0 hover:after:w-full after:h-[2px] after:bg-gray-100 after:bottom-0 after:left-0 after:transition-all after:duration-300";
 
   return (
-    <nav className="fixed w-full z-50 bg-gradient-to-r from-yellow-900 via-yellow-500 to-yellow-400 backdrop-blur-md top-0 left-0 right-0 shadow-lg">
+    <nav className="fixed w-full z-50 bg-gradient-to-r from-yellow-900 via-yellow-600 to-yellow-500 backdrop-blur-md top-0 left-0 right-0 shadow-lg">
       <div className="max-w-7xl mx-auto px-6">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <Link href="/" className="text-2xl font-bold">
             <Image
-              src="/logo2.png"
+              src="/yenilogo5.png"
               alt="Nurettin Tutak Logo"
-              width={120}
-              height={30}
+              width={200}
+              height={50}
             />
           </Link>
 
-          {/* Desktop Menü */}
           <div className="hidden md:flex items-center space-x-8">
-            <Link href="/" className={`px-2 py-2 text-md bold ${getLinkClass("/")}`}>ANA SAYFA</Link>
+            <Link href="/" className={`px-2 py-2 text-md ${getLinkClass("/")}`}>ANA SAYFA</Link>
             <Link href="/hakkinda" className={`px-2 py-2 text-md ${getLinkClass("/hakkinda")}`}>HAKKIMIZDA</Link>
             <Link href="/barter" className={`px-2 py-2 text-md ${getLinkClass("/barter")}`}>BARTER SİSTEMİ</Link>
             <Link href="/uyelik" className={`px-2 py-2 text-md ${getLinkClass("/uyelik")}`}>ÜYELİK</Link>

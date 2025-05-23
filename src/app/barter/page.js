@@ -7,20 +7,20 @@ export default function Barter() {
         <div className="min-h-screen bg-white relative flex flex-col">
             <Navbar />
 
-            {/* Arka plan */}
             <div className="absolute inset-0 z-0">
                 <Image
-                    src="/bg12.jpg"
+                    src="/bg11.jpg"
                     alt="background"
                     fill
-                    className="object-cover opacity-20"
+                    className="object-cover"
                     priority
                 />
+                {/* Siyah karartma overlay */}
+                <div className="absolute inset-0 bg-black opacity-60"></div>
             </div>
-
             {/* İçerik */}
-            <div className="flex-grow px-4 sm:px-8 py-12 relative z-10">
-                <div className="max-w-5xl mx-auto mt-20">
+            <div className="flex-grow px-6 sm:px-12 py-16 relative z-10">
+                <div className="max-w-4xl mx-auto mt-24 space-y-16">
 
                     <div className="space-y-10">
 
@@ -35,26 +35,26 @@ Barter, aynı anda hem alım hem de satım yapmayı mümkün kılan kapalı bir 
                         />
 
                         {/* Barter Avantajları */}
-<Section
-  title="Barter Avantajları"
-  content={`💼 1. Nakit Sıkışıklığına Alternatif
+                        <Section
+                            title="Barter Avantajları"
+                            content={`1. Nakit Sıkışıklığına Alternatif
 Nakit çıkışı olmadan alım yapılabilir. Bu sayede likidite sorunu yaşamadan iş süreçlerinizi sürdürebilirsiniz.
 
-📦 2. Stoklarınız Değer Kazanır
+2. Stoklarınız Değer Kazanır
 Depoda bekleyen ürünler, sistem içinde işlem görerek sizi yeni müşterilerle buluşturur ve kazanca dönüşür.
 
-🤝 3. Yeni Pazarlara Açılırsınız
+3. Yeni Pazarlara Açılırsınız
 Barter ağına katılan firmalar, sistem içerisindeki farklı sektörlerden firmalarla doğal işbirlikleri geliştirir.
 
-📈 4. Satış Hacmi Genişler
+4. Satış Hacmi Genişler
 Ürün ya da hizmetiniz, normal pazarın dışında daha fazla kullanıcıya ulaşarak görünürlüğünüzü artırır.
 
-🔄 5. Çift Taraflı Kazanç
+5. Çift Taraflı Kazanç
 Barter, hem alıcı hem satıcı pozisyonunda olabileceğiniz bir sistemdir. Bu çift yönlü yapı, ticari esneklik sağlar.
 
-🛡️ 6. Ekonomik Dalgalanmalara Karşı Dayanıklılık
+6. Ekonomik Dalgalanmalara Karşı Dayanıklılık
 Piyasalardaki belirsizlik ve kriz ortamlarında barter sistemi, firmaların operasyonel gücünü korumasına yardımcı olur.`}
-/>
+                        />
 
 
                         <Section
@@ -73,13 +73,20 @@ Ulusal Barter Finans A.Ş. — Paradan bağımsız, değerden yana bir ekonomi m
     );
 }
 
-// İçerik Bölümü Bileşeni
 function Section({ title, content }) {
-
     return (
-        <div className="bg-white/70 backdrop-blur-md p-6 sm:p-8 rounded-2xl shadow-md border-l-4 border-yellow-400">
-            <h2 className="text-2xl font-semibold text-[#1abc9c] mb-3">{title}</h2>
-            <p className="text-gray-700 whitespace-pre-line leading-relaxed">{content}</p>
-        </div>
+        <section className="relative rounded-3xl p-8 sm:p-10 shadow-lg border border-yellow-500 hover:shadow-2xl transition-shadow duration-300 group overflow-hidden">
+            {/* Saydam degrade arka plan */}
+            <div className="absolute inset-0 bg-gradient-to-br from-yellow-500/70 to-yellow-400/70 -z-10 rounded-3xl"></div>
+
+            <h2 className="text-3xl font-bold text-cyan-600 mb-5 relative inline-block">
+                {title}
+                {/* Alt çizgi efekti */}
+                <span className="absolute left-0 -bottom-1 h-1 w-20 bg-gradient-to-r from-cyan-500 via-cyan-600 to-cyan-700 rounded-full opacity-70 group-hover:opacity-100 transition-opacity duration-300"></span>
+            </h2>
+            <p className="text-white leading-relaxed whitespace-pre-line text-lg tracking-wide relative z-10">
+                {content}
+            </p>
+        </section>
     );
 }
