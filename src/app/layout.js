@@ -12,8 +12,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "Ulusal Barter Finans A.Ş.",
-  description: "Ulusal Barter Finans A.Ş.",
+  title: "Ulusal Barter Yatırım A.Ş.",
+  description: "Ulusal Barter Yatırım A.Ş.",
   icons: {
     icon: "/yenilogo5.png",
     shortcut: "/yenilogo5.png",
