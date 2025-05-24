@@ -232,7 +232,7 @@ export default function Home() {
               />
             </h1>
             <p
-              className="text-cyan-400 text-lg max-w-2xl mx-auto mb-10 font-light opacity-0"
+              className="text-white text-lg max-w-2xl mx-auto mb-10 font-light opacity-0"
               style={{
                 animation: animatedText2 === "Ulusal Güç, Yerel Çözüm!" ? 'fadeIn 1s forwards 0.5s' : ''
               }}
@@ -275,7 +275,7 @@ export default function Home() {
           <div className="absolute inset-0 bg-black opacity-70 z-0"></div>
           <div className="absolute top-0 left-0 w-full h-full opacity-5">
             <div className="absolute top-20 right-20 w-40 h-40 bg-yellow-500 rounded-full filter blur-[60px]"></div>
-            <div className="absolute bottom-10 left-10 w-60 h-60 bg-cyan-500 rounded-full filter blur-[80px]"></div> {/* yellow → cyan */}
+            <div className="absolute bottom-10 left-10 w-60 h-60 bg-indigo-900 rounded-full filter blur-[80px]"></div> {/* yellow → indigo */}
           </div>
 
           <div className="max-w-5xl mx-auto px-6 text-center relative z-10">
@@ -285,8 +285,8 @@ export default function Home() {
               <h2 className="text-3xl md:text-3xl font-bold mb-6 text-yellow-600 drop-shadow-sm">
                 Ulusal Barter Yatırım A.Ş.
               </h2>
-              <div className="w-24 h-1 bg-cyan-500 mx-auto mb-6 rounded"></div> {/* yellow → cyan */}
-              <p className="text-lg md:text-xl mb-4 text-cyan-500 font-medium drop-shadow-sm">Nakitin Ötesinde Bir Ekonomi.</p> {/* yellow → cyan */}
+              <div className="w-24 h-1 bg-yellow-600 mx-auto mb-6 rounded"></div> {/* yellow → indigo */}
+              <p className="text-lg md:text-xl mb-4 text-white font-medium drop-shadow-sm">Nakitin Ötesinde Bir Ekonomi.</p> {/* yellow → indigo */}
             </div>
 
             <p className="text-base md:text-lg leading-relaxed text-gray-200 mb-4">
@@ -306,15 +306,15 @@ export default function Home() {
         >
           <div className="absolute inset-0 bg-black opacity-40 z-0"></div>
           <div className="absolute top-0 left-0 w-full h-full opacity-10">
-            <div className="absolute bottom-20 right-20 w-40 h-40 bg-cyan-400 rounded-full filter blur-[60px]"></div>
-            <div className="absolute top-10 left-1/4 w-60 h-60 bg-cyan-300 rounded-full filter blur-[80px]"></div>
+            <div className="absolute bottom-20 right-20 w-40 h-40 bg-indigo-900 rounded-full filter blur-[60px]"></div>
+            <div className="absolute top-10 left-1/4 w-60 h-60 bg-indigo-900 rounded-full filter blur-[80px]"></div>
           </div>
 
           <div className="max-w-5xl mx-auto px-6 relative z-10">
             <div className="text-center mb-12">
               <h2
                 className="text-3xl md:text-4xl font-bold italic mb-4
-      bg-gradient-to-r from-cyan-600 to-cyan-400
+      bg-gradient-to-r from-gray-300 to-gray-100
       text-transparent bg-clip-text
       drop-shadow-[0_4px_8px_rgba(0,255,255,0.4)] 
       transition-all duration-300 
@@ -322,7 +322,7 @@ export default function Home() {
               >
                 Neden Ulusal Barter Yatırım?
               </h2>
-              <div className="w-24 h-1 bg-cyan-500 mx-auto mb-6"></div>
+              <div className="w-24 h-1 bg-indigo-700 mx-auto mb-6"></div>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -337,7 +337,7 @@ export default function Home() {
                 ].map((text, index) => (
                   <div
                     key={index}
-                    className="bg-gradient-to-r from-yellow-600 to-yellow-400 p-6 rounded-lg shadow-lg border border-cyan-100 flex items-start"
+                    className="bg-gradient-to-r from-yellow-600 to-yellow-400 p-6 rounded-lg shadow-lg border border-indigo-900 flex items-start"
                   >
                     <svg
                       className="h-6 w-6 text-white mt-1 mr-3 flex-shrink-0"
@@ -359,7 +359,7 @@ export default function Home() {
                     Ulusal Barter Yatırım A.Ş. ile ticaretinizin geleceğini bugünden kurun.
                   </p>
 
-                  <div className="bg-white bg-opacity-80 border-l-4 border-cyan-400 p-4 rounded shadow-sm">
+                  <div className="bg-white bg-opacity-80 border-l-4 border-indigo-900 p-4 rounded shadow-sm">
                     <p className="text-gray-700 italic">
                       &quot;Nakitsiz ticaretin gücünü keşfedin, işletmenizin potansiyelini ortaya çıkarın.<br />
                       Barter Yatırım A.Ş. — Paradan bağımsız, değerden yana bir ekonomi modeli.&quot;
@@ -367,7 +367,7 @@ export default function Home() {
                   </div>
 
                   <Link href="/iletisim" passHref>
-                    <button className="w-full px-6 py-3 bg-cyan-400 text-white font-medium rounded-lg hover:bg-yellow-800 transition duration-300 shadow-md hover:shadow-lg">
+                    <button className="w-full px-6 py-3 bg-indigo-900 text-white font-medium rounded-lg hover:bg-yellow-800 transition duration-300 shadow-md hover:shadow-lg">
                       Bize Hemen Ulaşın
                     </button>
                   </Link>

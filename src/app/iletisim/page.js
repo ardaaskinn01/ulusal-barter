@@ -61,35 +61,35 @@ export default function Iletisim() {
       <div className="flex-grow py-24 px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-16 mt-8">
-            <h1 className="text-5xl font-bold text-cyan-400 mb-4">İLETİŞİM</h1>
-            <p className="text-lg text-gray-400">Bizimle iletişime geçmekten çekinmeyin.</p>
+            <h1 className="text-5xl font-bold text-yellow-600 mb-4">İLETİŞİM</h1>
+            <p className="text-lg text-gray-500">Bizimle iletişime geçmekten çekinmeyin.</p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-12">
             {/* İletişim Bilgileri */}
             <div className="bg-white/70 p-8 rounded-2xl border-4 border-yellow-600 shadow-2xl backdrop-blur-md transition-transform hover:scale-[1.02]">
-              <h3 className="text-3xl font-bold text-cyan-500 mb-8 border-b border-cyan-500 pb-2">İletişim Bilgileri</h3>
+              <h3 className="text-3xl font-bold text-yellow-600 mb-8 border-b border-yellow-600 pb-2">İletişim Bilgileri</h3>
               <ul className="space-y-8">
                 <li className="flex gap-4 items-start">
-                  <svg className="w-7 h-7 text-cyan-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-7 h-7 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
                       d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                   </svg>
                   <div>
                     <p className="text-sm text-gray-600">E-Mail</p>
-                    <a href="mailto:nurettintutak@hotmail.com" className="text-lg font-medium text-gray-900 hover:text-[#1abc9c] transition">
+                    <a href="mailto:nurettintutak@hotmail.com" className="text-lg font-medium text-gray-900 hover:text-yellow-600 transition">
                       simsekoglugrup@gmail.com
                     </a>
                   </div>
                 </li>
                 <li className="flex gap-4 items-start">
-                  <svg className="w-7 h-7 text-cyan-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-7 h-7 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
                       d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                   </svg>
                   <div>
                     <p className="text-sm text-gray-600">Telefon</p>
-                    <a href="tel:+905467689992" className="text-lg font-medium text-gray-900 hover:text-[#1abc9c] transition">
+                    <a href="tel:+905467689992" className="text-lg font-medium text-gray-900 hover:text-yellow-600 transition">
                       +90 (532) 165 52 20
                     </a>
                   </div>
@@ -110,7 +110,7 @@ export default function Iletisim() {
             </div>
 
             {/* İletişim Formu */}
-            <div className="bg-white/70 p-8 rounded-2xl border-4 border-cyan-500 shadow-2xl backdrop-blur-md transition-transform hover:scale-[1.02]">
+            <div className="bg-white/70 p-8 rounded-2xl border-4 border-yellow-600 shadow-2xl backdrop-blur-md transition-transform hover:scale-[1.02]">
               <h3 className="text-3xl font-bold text-yellow-600 mb-8 border-b border-yellow-600 pb-2">Mesaj Gönderin</h3>
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
@@ -121,7 +121,7 @@ export default function Iletisim() {
                     name="name"
                     value={formData.name}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 border rounded-lg border-gray-300 focus:ring-2 focus:ring-[#1abc9c] outline-none"
+                    className="w-full px-4 py-3 border rounded-lg border-gray-300 focus:ring-2 focus:ring-yellow-500 outline-none"
                     required
                   />
                 </div>
@@ -133,7 +133,7 @@ export default function Iletisim() {
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 border rounded-lg border-gray-300 focus:ring-2 focus:ring-[#1abc9c] outline-none"
+                    className="w-full px-4 py-3 border rounded-lg border-gray-300 focus:ring-2 focus:ring-yellow-500 outline-none"
                     required
                   />
                 </div>
@@ -145,7 +145,7 @@ export default function Iletisim() {
                     name="phone"
                     value={formData.phone}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 border rounded-lg border-gray-300 focus:ring-2 focus:ring-[#1abc9c] outline-none"
+                    className="w-full px-4 py-3 border rounded-lg border-gray-300 focus:ring-2 focus:ring-yellow-500 outline-none"
                   />
                 </div>
                 <div>
@@ -156,13 +156,13 @@ export default function Iletisim() {
                     rows="4"
                     value={formData.message}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 border rounded-lg border-gray-300 focus:ring-2 focus:ring-[#1abc9c] outline-none"
+                    className="w-full px-4 py-3 border rounded-lg border-gray-300 focus:ring-2 focus:ring-yellow-500 outline-none"
                     required
                   ></textarea>
                 </div>
                 <button
                   type="submit"
-                  className="w-full bg-[#f1c40f] hover:bg-[#f39c12] text-white text-lg font-semibold py-3 rounded-lg shadow-lg transition"
+                  className="w-full bg-yellow-500 hover:bg-yellow-600 text-white text-lg font-semibold py-3 rounded-lg shadow-lg transition"
                 >
                   GÖNDER
                 </button>
