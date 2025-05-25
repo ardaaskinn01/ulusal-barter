@@ -93,7 +93,7 @@ export default function TermsPage() {
                             <li>İşlem ve eylemlerindeki hukuki ve cezai sorumluluğun kendilerine ait olduğunu,</li>
                             <li>İçeriklerin güncelliği konusunda tüm çabalara rağmen farklılıklar olabileceğini,</li>
                             <li>
-                                Üçüncü taraf bağlantıların içeriklerinden Ulusal Barter Yatırım A.Ş.'nin sorumlu olmadığını,
+                                "Üçüncü taraf bağlantıların içeriklerinden Ulusal Barter Yatırım A.Ş.'nin sorumlu olmadığını,"
                             </li>
                             <li>Virüslere karşı gerekli güvenlik önlemlerini kendilerinin alması gerektiğini</li>
                         </ul>
@@ -101,7 +101,7 @@ export default function TermsPage() {
                         <h2>Sorumluluk Sınırları</h2>
                         <p>
                             Ulusal Barter Yatırım A.Ş., İnternet sitesinin kullanımından doğabilecek doğrudan, dolaylı,
-                            özel veya cezai hiçbir zarardan sorumlu tutulamaz. İnternet sitemiz, "olduğu gibi"
+                            özel veya cezai hiçbir zarardan sorumlu tutulamaz. İnternet sitemiz, olduğu gibi
                             sunulmaktadır ve kesintisiz veya hatasız çalışacağına dair herhangi bir garanti
                             verilmemektedir.
                         </p>
@@ -115,10 +115,10 @@ export default function TermsPage() {
 
                         <h2>Son Hükümler</h2>
                         <p>
-                            Bu Kullanım Koşulları, 21 Mayıs 2025 tarihinde yürürlüğe girmiş olup, İnternet sitesini
+                            "Bu Kullanım Koşulları, 21 Mayıs 2025 tarihinde yürürlüğe girmiş olup, İnternet sitesini
                             kullanmaya devam ettiğiniz takdirde işbu Kullanım Koşulları'nı kabul ettiğiniz
                             varsayılacaktır. Kullanım Koşulları içerisinde yer alan herhangi bir hükmün geçersiz
-                            sayılması, diğer hükümlerin geçerliliğini etkilemez.
+                            sayılması, diğer hükümlerin geçerliliğini etkilemez."
                         </p>
                     </div>
                 </div>
