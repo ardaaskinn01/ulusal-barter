@@ -50,7 +50,7 @@ export default function Iletisim() {
 
       <div className="absolute inset-0 z-0">
         <Image
-          src="/bg15.jpg"
+          src="/bg23.jpg"
           alt="background"
           fill
           className="object-cover opacity-30"

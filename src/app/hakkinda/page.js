@@ -5,22 +5,24 @@ import Image from "next/image";
 export default function Hakkinda() {
   return (
     <div className="relative min-h-screen bg-white text-gray-800 flex flex-col font-sans overflow-hidden">
-      {/* Arka Plan Görseli (Sadece bu blur olacak) */}
+      {/* Arka Plan Görseli (Yönetim Kurulu kısmına kadar) */}
       <div className="absolute inset-0 z-0">
-        <Image
-          src="/bg3.jpg"
-          alt="background"
-          fill
-          className="object-cover blur-[4px]"
-          priority
-        />
-        <div className="absolute inset-0 bg-black opacity-65"></div>
+        <div className="h-[1600px] relative">
+          <Image
+            src="/bg25.jpg"
+            alt="background"
+            fill
+            className="object-cover blur-[8px]"
+            priority
+          />
+          <div className="absolute inset-0 bg-black opacity-65"></div>
+        </div>
       </div>
 
       {/* Navbar */}
       <Navbar />
 
-      {/* İçerik (Blur olmayan kısım) */}
+      {/* İçerik */}
       <div className="relative z-20 flex-grow pt-32 px-6 md:px-20 lg:px-36 text-white">
         <div className="max-w-7xl mx-auto">
           {/* Başlık */}
@@ -102,63 +104,65 @@ export default function Hakkinda() {
             </div>
           </div>
 
+
           {/* Slogan */}
           <div className="mt-24 text-center">
             <h2 className="text-3xl font-bold text-yellow-600 tracking-wide">
-              Barter Yatırımın Güvencesi: Ulusal Güç, Yerel Çözüm!
+
             </h2>
           </div>
+        </div>
+      </div>
 
-          <div className="mt-24 text-center">
-            <h2 className="text-3xl font-bold text-white tracking-wide mb-12">
-              Yönetim Kurulu
-            </h2>
+      <div className="relative z-10 bg-gradient-to-b from-yellow-600 to-yellow-500 text-gray-900 py-24 px-6 md:px-20 lg:px-36">
+        <div className="max-w-7xl mx-auto text-center">
+          <h2 className="text-3xl text-white font-bold tracking-wide mb-12">
+            YÖNETİM KURULU
+          </h2>
 
-            {/* Başkan */}
-            <div className="flex justify-center mb-8">
-              <div className="bg-white/10 backdrop-blur-md text-white p-6 rounded-2xl shadow-lg w-72">
-                <h3 className="text-lg text-yellow-600 font-semibold mb-1">Özkan Şimşek</h3>
-                <p className="text-sm text-gray-300">Yönetim Kurulu Başkanı</p>
+          {/* Başkan */}
+          <div className="flex justify-center mb-8">
+            <div className="bg-white/80 text-gray-900 p-6 rounded-2xl shadow-lg w-72">
+              <h3 className="text-lg text-yellow-800 font-semibold mb-1">Özkan Şimşek</h3>
+              <p className="text-sm">Yönetim Kurulu Başkanı</p>
+            </div>
+          </div>
+
+          {/* Başkan Vekili ve Üye */}
+          <div className="flex flex-wrap justify-center gap-6 mb-12">
+            {[
+              { title: 'Yönetim Kurulu Başkan Vekili', name: 'Hasan Ulaşzade' },
+              { title: 'Yönetim Kurulu Üyesi', name: 'Selim Anış' },
+            ].map((member, index) => (
+              <div
+                key={index}
+                className="bg-white/80 text-gray-900 p-6 rounded-2xl shadow-lg w-72"
+              >
+                <h3 className="text-lg text-yellow-800 font-semibold mb-1">{member.name}</h3>
+                <p className="text-sm">{member.title}</p>
               </div>
-            </div>
-
-            {/* Başkan Vekili ve Üye */}
-            <div className="flex flex-wrap justify-center gap-6 mb-12">
-              {[
-                { title: 'Yönetim Kurulu Başkan Vekili', name: 'Hasan Ulaşzade' },
-                { title: 'Yönetim Kurulu Üyesi', name: 'Selim Anış' },
-              ].map((member, index) => (
-                <div
-                  key={index}
-                  className="bg-white/10 backdrop-blur-md text-white p-6 rounded-2xl shadow-lg w-72"
-                >
-                  <h3 className="text-lg text-yellow-600 font-semibold mb-1">{member.name}</h3>
-                  <p className="text-sm text-gray-300">{member.title}</p>
-                </div>
-              ))}
-            </div>
-
-            {/* Koordinatörler */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto px-4">
-              {[
-                { title: 'Pazarlama Koordinatörü', name: 'Cengiz Şimşek' },
-                { title: 'Medya Tanıtım Koordinatörü', name: 'Hüseyin Uşazade' },
-                { title: 'Bilgi İşlem Koordinatörü', name: 'Burak Koçak' },
-                { title: 'Müşteri Koordinatörü', name: 'Mehmet Karabağ' },
-                { title: 'Hukuk Koordinatörü', name: 'Beyza Nur Koşar' },
-                { title: 'Muhasebe Koordinatörü', name: 'Kerim Çakmak' },
-              ].map((member, index) => (
-                <div
-                  key={index}
-                  className="bg-white/10 backdrop-blur-md text-white p-6 rounded-2xl shadow-lg hover:scale-105 transition-transform duration-300"
-                >
-                  <h3 className="text-lg text-yellow-600 font-semibold mb-1">{member.name}</h3>
-                  <p className="text-sm text-gray-300">{member.title}</p>
-                </div>
-              ))}
-            </div>
+            ))}
           </div>
 
+          {/* Koordinatörler */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+            {[
+              { title: 'Pazarlama Koordinatörü', name: 'Cengiz Şimşek' },
+              { title: 'Medya Tanıtım Koordinatörü', name: 'Hüseyin Ulaşzade' },
+              { title: 'Bilgi İşlem Koordinatörü', name: 'Burak Koçak' },
+              { title: 'Müşteri Koordinatörü', name: 'Mehmet Karabağ' },
+              { title: 'Hukuk Koordinatörü', name: 'Beyza Nur Koşar' },
+              { title: 'Muhasebe Koordinatörü', name: 'Kerim Çakmak' },
+            ].map((member, index) => (
+              <div
+                key={index}
+                className="bg-white/80 text-gray-900 p-6 rounded-2xl shadow-lg hover:scale-105 transition-transform duration-300"
+              >
+                <h3 className="text-lg text-yellow-800 font-semibold mb-1">{member.name}</h3>
+                <p className="text-sm">{member.title}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>

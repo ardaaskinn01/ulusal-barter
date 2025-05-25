@@ -53,8 +53,8 @@ export default function Home() {
   const [animatedText1, setAnimatedText1] = useState("");
   const [animatedText2, setAnimatedText2] = useState("");
   const backgrounds = [
-    '/bg14.jpg',
-    '/bg02.jpg',
+    '/bg21.jpg',
+    '/bg20.jpg',
     '/bg03.jpg'
   ];
   const containerRef = useRef(null);
@@ -211,7 +211,7 @@ export default function Home() {
           <div className="relative max-w-4xl mx-auto z-10">
             <h1 className="text-center mb-12 relative">
               <span className="block text-4xl md:text-6xl font-medium text-white leading-tight mb-4">
-                <span className="bg-clip-text text-transparent bg-gradient-to-r from-yellow-400 to-yellow-600">
+                <span className="bg-clip-text text-transparent bg-gradient-to-r from-yellow-600 to-yellow-400">
                   {animatedText1}
                   {animatedText1.length < "Barter Yatırımın Güvencesi:".length && (
                     <span className="animate-pulse">|</span>
@@ -268,25 +268,35 @@ export default function Home() {
 
         <section
           ref={el => sectionRefs.current[0] = el}
-          className="w-full py-20 min-h-[400px] relative overflow-hidden bg-cover bg-center opacity-0 translate-y-10 transition-all duration-500"
-          style={{ backgroundImage: "url('/bg08.jpg')" }}
+          className="w-full py-20 min-h-[400px] relative overflow-hidden opacity-0 translate-y-10 transition-all duration-500"
         >
-          {/* Siyah yarı saydam overlay */}
-          <div className="absolute inset-0 bg-black opacity-70 z-0"></div>
-          <div className="absolute top-0 left-0 w-full h-full opacity-5">
-            <div className="absolute top-20 right-20 w-40 h-40 bg-yellow-500 rounded-full filter blur-[60px]"></div>
-            <div className="absolute bottom-10 left-10 w-60 h-60 bg-indigo-900 rounded-full filter blur-[80px]"></div> {/* yellow → indigo */}
+          {/* Blur uygulanmış arkaplan resmi */}
+          <div className="absolute inset-0 z-[-2]">
+            <img
+              src="/bg08.jpg"
+              alt="Background"
+              className="w-full h-full object-cover filter blur-[4px]"
+            />
           </div>
 
+          {/* Siyah yarı saydam overlay */}
+          <div className="absolute inset-0 bg-black opacity-70 z-[-1]"></div>
+
+          {/* Renkli blur katmanlar */}
+          <div className="absolute top-0 left-0 w-full h-full opacity-5 z-0">
+            <div className="absolute top-20 right-20 w-40 h-40 bg-yellow-500 rounded-full filter blur-[60px]"></div>
+            <div className="absolute bottom-10 left-10 w-60 h-60 bg-indigo-900 rounded-full filter blur-[80px]"></div>
+          </div>
+
+          {/* İçerik */}
           <div className="max-w-5xl mx-auto px-6 text-center relative z-10">
-            {/* Başlık ve içerik */}
             <div className="mb-8">
               <h2 className="text-3xl md:text-5xl font-bold mb-6 text-white drop-shadow-md">Hoş Geldiniz!</h2>
               <h2 className="text-3xl md:text-3xl font-bold mb-6 text-yellow-600 drop-shadow-sm">
                 Ulusal Barter Yatırım A.Ş.
               </h2>
-              <div className="w-24 h-1 bg-yellow-600 mx-auto mb-6 rounded"></div> {/* yellow → indigo */}
-              <p className="text-lg md:text-xl mb-4 text-white font-medium drop-shadow-sm">Nakitin Ötesinde Bir Ekonomi.</p> {/* yellow → indigo */}
+              <div className="w-24 h-1 bg-yellow-600 mx-auto mb-6 rounded"></div>
+              <p className="text-lg md:text-xl mb-4 text-white font-medium drop-shadow-sm">Nakitin Ötesinde Bir Ekonomi.</p>
             </div>
 
             <p className="text-base md:text-lg leading-relaxed text-gray-200 mb-4">

@@ -31,7 +31,7 @@ export default function Navbar() {
             <Link href="/" className={`px-2 py-2 text-md ${getLinkClass("/")}`}>ANA SAYFA</Link>
             <Link href="/hakkinda" className={`px-2 py-2 text-md ${getLinkClass("/hakkinda")}`}>HAKKIMIZDA</Link>
             <Link href="/barter" className={`px-2 py-2 text-md ${getLinkClass("/barter")}`}>BARTER SİSTEMİ</Link>
-            <Link href="/uyelik" className={`px-2 py-2 text-md ${getLinkClass("/uyelik")}`}>ÜYELİK</Link>
+            <Link href="/uyelik" className={`px-2 py-2 text-md ${getLinkClass("/uyelik")}`}>ÜRÜN VE HİZMETLER</Link>
             <Link href="/iletisim" className={`px-2 py-2 text-md ${getLinkClass("/iletisim")}`}>İLETİŞİM</Link>
           </div>
 
