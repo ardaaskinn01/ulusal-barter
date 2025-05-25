@@ -77,7 +77,7 @@ export default function PrivacyPolicy() {
 
                     <h2>Onay ve Yürürlük</h2>
                     <p>
-                        İnternet sitemiz ile kişisel verilerinizi paylaşmak, tamamen sizin tercihinizdir. İnternet sitemizi kullanmaya devam ettiğiniz takdirde, bu Gizlilik Politikası'nı kabul ettiğiniz varsayılacaktır. Bu politika, 21 Mayıs 2025 tarihinde yürürlüğe girmiş olup, gerektiğinde güncellenir.
+                        İnternet sitemiz ile kişisel verilerinizi paylaşmak, tamamen sizin tercihinizdir. İnternet sitemizi kullanmaya devam ettiğiniz takdirde, bu Gizlilik Politikası&apos;nı kabul ettiğiniz varsayılacaktır. Bu politika, 21 Mayıs 2025 tarihinde yürürlüğe girmiş olup, gerektiğinde güncellenir.
                     </p>
                 </div>
             </div>
