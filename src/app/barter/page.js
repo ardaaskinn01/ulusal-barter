@@ -74,10 +74,10 @@ function Section({ title, content }) {
         <section className="relative p-0 sm:p-0">
             {/* Saydam beyaz arka plan + blur */}
             <div className="backdrop-blur-sm bg-white/10 p-6 sm:p-10 rounded-xl border border-white/20">
-                <h2 className="text-3xl font-semibold text-white mb-5 relative inline-block">
+                <h2 className="text-3xl font-semibold text-yellow-600 mb-5 relative inline-block">
                     {title}
                     {/* Alt çizgi efekti */}
-                    <span className="absolute left-0 -bottom-1 h-1 w-24 bg-white rounded-full opacity-80"></span>
+                    <span className="absolute left-0 -bottom-1 h-1 w-24 bg-yellow-600 rounded-full opacity-80"></span>
                 </h2>
                 <p className="text-white leading-relaxed whitespace-pre-line text-lg tracking-wide">
                     {content}

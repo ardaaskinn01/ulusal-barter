@@ -316,13 +316,12 @@ export default function Home() {
                 className="text-3xl md:text-4xl font-bold italic mb-4
       bg-gradient-to-r from-gray-300 to-gray-100
       text-transparent bg-clip-text
-      drop-shadow-[0_4px_8px_rgba(0,255,255,0.4)] 
       transition-all duration-300 
       hover:scale-105"
               >
                 Neden Ulusal Barter Yatırım?
               </h2>
-              <div className="w-24 h-1 bg-indigo-700 mx-auto mb-6"></div>
+              <div className="w-24 h-1 bg-yellow-500 mx-auto mb-6"></div>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -359,7 +358,7 @@ export default function Home() {
                     Ulusal Barter Yatırım A.Ş. ile ticaretinizin geleceğini bugünden kurun.
                   </p>
 
-                  <div className="bg-white bg-opacity-80 border-l-4 border-indigo-900 p-4 rounded shadow-sm">
+                  <div className="bg-white bg-opacity-80 border-l-4 border-cyan-200 p-4 rounded shadow-sm">
                     <p className="text-gray-700 italic">
                       &quot;Nakitsiz ticaretin gücünü keşfedin, işletmenizin potansiyelini ortaya çıkarın.<br />
                       Barter Yatırım A.Ş. — Paradan bağımsız, değerden yana bir ekonomi modeli.&quot;
@@ -367,7 +366,7 @@ export default function Home() {
                   </div>
 
                   <Link href="/iletisim" passHref>
-                    <button className="w-full px-6 py-3 bg-indigo-900 text-white font-medium rounded-lg hover:bg-yellow-800 transition duration-300 shadow-md hover:shadow-lg">
+                    <button className="w-full px-6 py-3 bg-white text-yellow-600 font-medium rounded-lg hover:bg-yellow-800 transition duration-300 shadow-md hover:shadow-lg">
                       Bize Hemen Ulaşın
                     </button>
                   </Link>
@@ -415,17 +414,22 @@ export default function Home() {
                 </ul>
               </div>
 
-              {/* 3. Kart - Telefon */}
+              {/* 3. Kart - İletişim */}
               <div className="bg-yellow-800/40 p-6 rounded-xl border border-yellow-400/20 hover:border-white/50 transition-all duration-300 backdrop-blur-sm flex flex-col items-center justify-center text-center space-y-4 min-h-[300px]">
                 <div className="w-14 h-14 rounded-full bg-yellow-200/10 flex items-center justify-center shadow-lg">
                   <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 1118 0z" />
                   </svg>
                 </div>
-                <h3 className="text-lg font-medium text-white">Telefon</h3>
-                <a href="tel:+905321655220" className="text-yellow-200 hover:text-white transition-colors text-sm font-light">
-                  +90 (532) 165 52 20
-                </a>
+                <h3 className="text-lg font-medium text-white">İletişim</h3>
+                <div className="space-y-2 text-sm text-yellow-200 font-light">
+                  <a href="tel:+905321655220" className="block hover:text-white transition-colors">
+                    +90 (532) 165 52 20
+                  </a>
+                  <a href="mailto:simsekoglugrup@gmail.com" className="block hover:text-white transition-colors">
+                    simsekoglugrup@gmail.com
+                  </a>
+                </div>
               </div>
 
               {/* 4. Kart - Adres */}
@@ -441,9 +445,9 @@ export default function Home() {
                 © {new Date().getFullYear()} Ulusal Barter Yatırım. Tüm hakları saklıdır.
               </p>
               <div className="mt-2 flex justify-center space-x-4">
-                <a href="#" className="text-yellow-300 hover:text-white text-xs transition-colors">Gizlilik Politikası</a>
-                <a href="#" className="text-yellow-300 hover:text-white text-xs transition-colors">Çerezler</a>
-                <a href="#" className="text-yellow-300 hover:text-white text-xs transition-colors">Şartlar</a>
+                <a href="/privacy" className="text-yellow-300 hover:text-white text-xs transition-colors">Gizlilik Politikası</a>
+                <a href="/cookies" className="text-yellow-300 hover:text-white text-xs transition-colors">Çerezler</a>
+                <a href="/terms" className="text-yellow-300 hover:text-white text-xs transition-colors">Şartlar</a>
               </div>
             </div>
           </div>

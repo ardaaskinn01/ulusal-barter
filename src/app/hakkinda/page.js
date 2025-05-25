@@ -4,11 +4,163 @@ import Image from "next/image";
 
 export default function Hakkinda() {
   return (
-    <>
-      <Navbar />
-      <div className="flex flex-col items-center justify-center h-screen">
-        <h1 className="text-3xl font-bold">Düzenleniyor...</h1>
+    <div className="relative min-h-screen bg-white text-gray-800 flex flex-col font-sans overflow-hidden">
+      {/* Arka Plan Görseli (Sadece bu blur olacak) */}
+      <div className="absolute inset-0 z-0">
+        <Image
+          src="/bg3.jpg"
+          alt="background"
+          fill
+          className="object-cover blur-[4px]"
+          priority
+        />
+        <div className="absolute inset-0 bg-black opacity-65"></div>
       </div>
-    </>
+
+      {/* Navbar */}
+      <Navbar />
+
+      {/* İçerik (Blur olmayan kısım) */}
+      <div className="relative z-20 flex-grow pt-32 px-6 md:px-20 lg:px-36 text-white">
+        <div className="max-w-7xl mx-auto">
+          {/* Başlık */}
+          <h1 className="text-4xl font-bold text-white mb-4 md:mb-8 lg:mb-12 border-b-4 border-yellow-600 inline-block pb-2">
+            Hakkımızda
+          </h1>
+
+          {/* Metin İçeriği */}
+          <div className="space-y-6 text-base leading-8 text-white mt-4 md:mt-6 lg:mt-8">
+            <p>
+              ULUSAL Barter Yatırım A.Ş. dünyada yaygın olarak kullanılan barter sisteminin, ülkemizin ticari faaliyetlerine yeni bir soluk getirmesi amacıyla kurulmuştur.
+            </p>
+            <p>
+              Güçlü sermaye ve akılcı ticaret anlayışıyla, ekonomiğe katkısıyla kurumsal yapısının yanı sıra, profesyonel ekibi ile işini sahiplenen, sorunları çözme konusunda yaratıcılığını kullanan, akılcı çözümler üreten, ULUSAL Barter Yatırım A.Ş. gelişmekte olan sektörün en güçlü temsilcisidir.
+            </p>
+            <p>
+              Her yıl başarısını katlayarak arttıran ULUSAL Barter Yatırım A.Ş. ülkenin önde gelen büyük holdingleri ile birçok ortak projede yer almış; hizmet politikası ile yer almış olduğu işlerden olumlu referanslar almıştır. Kazandığı olumlu referansların gücü ile portföyünü zenginleştiren ULUSAL Barter Yatırım A.Ş.
+              5000 aşkın üye sayısına ulaşmıştır.
+            </p>
+            <p>
+              Gün geçtikçe artmaya devam eden üye sayısının ve stratejik ortaklarının desteğiyle elde ettiği başarıları, ülkemizde gelişmekte olan barter sektörünün, yenilikçi, vizyoner ve kazançlı bir ticaret sistemi olarak tanınmasına katkıda bulunmaktadır.
+            </p>
+            <p>
+              Katma değerli dış Ticaret projeleri geliştirirken;
+            </p>
+            <p>
+              ✓ ULUSAL Barter Yatırım A.Ş.
+              misyon, vizyon ve stratejisi ile hareket ederek, Ram iç ve Dış Ticaret olarak her türlü dışve iç
+              ticaret operasyonunu ilgili tarafların ihtiyaç ve beklentilerini karşılayarak yapmayı,
+            </p>
+            <p>
+              ✓ Müşteri odaklı stratejisi ile en iyi hizmeti ve kusursuz hizmet sunmayı hedeflerken; iş ahlakı ve
+              güvenilir duruşundan ödün vermemeyi,
+            </p>
+            <p>
+              ✓ 26 yıllık dış ve iç ticaret sektör tecrübesi, bilgi birikimi ve uzman ekibi ile sektöre öncü olmayı
+              ve sektör standartları belirleyecek adımlar atarak gelişmeyi,
+            </p>
+            <p>
+              ✓ Ülke ekonomisine katkı sağlayacak ihracat faaliyetlerinde, kurumlara sağlayacağı finansal
+              hizmetler ile en verimli ve optimum çözümler sunmayı,
+            </p>
+            <p>
+              ✓ Kusursuz hizmet misyonunu ile çalışanlarını ve etkileşim içinde olduğu ilgili taraflarını da kalite
+              yolculuğunda birlikte yanında taşımayı ve sürekli geliştirmeyi,
+            </p>
+            <p>
+              ✓ Ulusal ve/veya uluslararası mevzuatlara uyum yükümlülüklerini yerine getirirken; çevreci
+              yaklaşımlar ve sosyal sorumluluk projelerine de imza atarak ilgili tarafları ve çalışanlarının bilinç
+              seviyesini artırmayı,
+            </p>
+            <p>
+              ✓ Teknolojik gelişmeleri takip ederek, inovatif yaklaşımlar ile operasyon ve hizmet kalitesini sürekli
+              dijitalleştirmeyi,
+            </p>
+            <p>
+              ✓ Zor olanı başarmak ve hedeflerine ulaşmak için tüm bu faaliyetleri yürütürken bilgi birikimi ve
+              sektör deneyimlerini kalite yönetim sistemi ile kurumsal hafızaya alarak, gelecek nesillere
+              aktarmayı ve sistemi sürekli geliştirerek sürdürmeyi taahhüt eder.
+            </p>
+          </div>
+
+          {/* Kartlar */}
+          <div className="mt-16 grid md:grid-cols-2 gap-12">
+            {/* Misyon */}
+            <div className="bg-gray-800/80 p-8 rounded-3xl shadow-lg border-t-4 border-yellow-600 backdrop-blur-sm">
+              <h2 className="text-2xl font-bold text-white mb-4">Misyonumuz ve Değerlerimiz</h2>
+              <p className="text-base text-white leading-7">
+                Ülkemizin ticaret ve yatırımlar açısından çekim merkezi ve yaşam kalitesini sürekli artıran bir ülke haline getirmek, kaynakları etkin bir şekilde kullanarak geliştirdiği yenilikçi ve özgün projeler ile üyelerinin ticari faaliyetlerini kolaylaştırmak, iş dünyası ve topluma sürdürülebilir hizmetler sunmak.
+              </p>
+            </div>
+
+            {/* Vizyon */}
+            <div className="bg-gray-800/80 p-8 rounded-3xl shadow-lg border-t-4 border-yellow-600 backdrop-blur-sm">
+              <h2 className="text-2xl font-bold text-white mb-4">Geleceğe Yönelik Vizyonumuz</h2>
+              <p className="text-base text-white leading-7">
+                Sürdürülebilir kalkınma amaçları doğrultusunda üyelerinin sektörel gelişim ve dönüşüm süreçlerine rehberlik eden, paydaşlarıyla birlikte değer yaratan, yaşam, ticaret ve yatırımda Ülkemizin Rol Model Barter şirketi olmak.
+              </p>
+            </div>
+          </div>
+
+          {/* Slogan */}
+          <div className="mt-24 text-center">
+            <h2 className="text-3xl font-bold text-yellow-600 tracking-wide">
+              Barter Yatırımın Güvencesi: Ulusal Güç, Yerel Çözüm!
+            </h2>
+          </div>
+
+          <div className="mt-24 text-center">
+            <h2 className="text-3xl font-bold text-white tracking-wide mb-12">
+              Yönetim Kurulu
+            </h2>
+
+            {/* Başkan */}
+            <div className="flex justify-center mb-8">
+              <div className="bg-white/10 backdrop-blur-md text-white p-6 rounded-2xl shadow-lg w-72">
+                <h3 className="text-lg text-yellow-600 font-semibold mb-1">Özkan Şimşek</h3>
+                <p className="text-sm text-gray-300">Yönetim Kurulu Başkanı</p>
+              </div>
+            </div>
+
+            {/* Başkan Vekili ve Üye */}
+            <div className="flex flex-wrap justify-center gap-6 mb-12">
+              {[
+                { title: 'Yönetim Kurulu Başkan Vekili', name: 'Hasan Ulaşzade' },
+                { title: 'Yönetim Kurulu Üyesi', name: 'Selim Anış' },
+              ].map((member, index) => (
+                <div
+                  key={index}
+                  className="bg-white/10 backdrop-blur-md text-white p-6 rounded-2xl shadow-lg w-72"
+                >
+                  <h3 className="text-lg text-yellow-600 font-semibold mb-1">{member.name}</h3>
+                  <p className="text-sm text-gray-300">{member.title}</p>
+                </div>
+              ))}
+            </div>
+
+            {/* Koordinatörler */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto px-4">
+              {[
+                { title: 'Pazarlama Koordinatörü', name: 'Cengiz Şimşek' },
+                { title: 'Medya Tanıtım Koordinatörü', name: 'Hüseyin Uşazade' },
+                { title: 'Bilgi İşlem Koordinatörü', name: 'Burak Koçak' },
+                { title: 'Müşteri Koordinatörü', name: 'Mehmet Karabağ' },
+                { title: 'Hukuk Koordinatörü', name: 'Beyza Nur Koşar' },
+                { title: 'Muhasebe Koordinatörü', name: 'Kerim Çakmak' },
+              ].map((member, index) => (
+                <div
+                  key={index}
+                  className="bg-white/10 backdrop-blur-md text-white p-6 rounded-2xl shadow-lg hover:scale-105 transition-transform duration-300"
+                >
+                  <h3 className="text-lg text-yellow-600 font-semibold mb-1">{member.name}</h3>
+                  <p className="text-sm text-gray-300">{member.title}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
   );
 }

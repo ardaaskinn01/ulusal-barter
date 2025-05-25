@@ -22,7 +22,7 @@ export default function Uyelik() {
       <div className="flex-grow flex items-center justify-center relative z-10 px-4">
         <div className="text-center bg-white/60 backdrop-blur-md p-8 rounded-2xl shadow-lg max-w-xl">
           <h1 className="text-3xl sm:text-4xl font-semibold text-gray-800 mb-4">
-            Mobil uygulamamız çok yakında sizleri bekliyor...
+            Üyelik sistemimiz çok yakında sizleri bekliyor...
           </h1>
         </div>
       </div>

@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "autoprefixer": "^10.4.21",
+    "firebase": "^11.8.1",
     "next": "15.3.2",
     "next-sitemap": "^4.2.3",
     "nodemailer": "^7.0.2",
