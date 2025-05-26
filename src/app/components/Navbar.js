@@ -14,7 +14,7 @@ export default function Navbar() {
     : "relative text-gray-100 hover:text-gray-100 transition-colors duration-300 after:content-[''] after:absolute after:w-0 hover:after:w-full after:h-[2px] after:bg-gray-100 after:bottom-0 after:left-0 after:transition-all after:duration-300";
 
   return (
-    <nav className="fixed w-full z-50 bg-gradient-to-r from-yellow-900 via-yellow-600 to-yellow-500 backdrop-blur-md top-0 left-0 right-0 shadow-lg">
+    <nav className="fixed w-full z-50 bg-gradient-to-r from-yellow-700 via-yellow-500 to-yellow-400 backdrop-blur-md top-0 left-0 right-0 shadow-lg">
       <div className="max-w-7xl mx-auto px-6">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}

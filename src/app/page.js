@@ -266,6 +266,42 @@ export default function Home() {
           </div>
         </section>
 
+        <section className="w-full py-8 bg-gradient-to-r from-yellow-600 via-yellow-400 to-yellow-400">
+          <div className="max-w-6xl mx-auto px-6">
+            <div className="flex flex-col md:flex-row items-center justify-between gap-8">
+              {/* İlk slogan */}
+              <div className="relative flex-1 p-8 bg-white/10 backdrop-blur-sm rounded-xl border-2 border-white/20 shadow-lg">
+                <div className="absolute -top-3 -left-3 w-6 h-6 border-t-2 border-l-2 border-white/50"></div>
+                <div className="absolute -bottom-3 -right-3 w-6 h-6 border-b-2 border-r-2 border-white/50"></div>
+                <p className="text-xl md:text-2xl font-bold text-white drop-shadow-md">
+                  &ldquo;Alım gücünüzü artırıyor,<br />satışlarınızı garanti altına alıyoruz.&rdquo;
+                </p>
+              </div>
+
+              {/* Ayırıcı çember */}
+              <div className="hidden md:flex items-center justify-center">
+                <div className="w-16 h-16 rounded-full bg-white/20 flex items-center justify-center">
+                  <div className="w-12 h-12 rounded-full bg-white/10 border-2 border-dashed border-white/30"></div>
+                </div>
+              </div>
+
+              {/* İkinci slogan */}
+              <div className="relative flex-1 p-8 bg-black/10 backdrop-blur-sm rounded-xl border-2 border-white/20 shadow-lg">
+                <div className="absolute -top-3 -left-3 w-6 h-6 border-t-2 border-l-2 border-white/50"></div>
+                <div className="absolute -bottom-3 -right-3 w-6 h-6 border-b-2 border-r-2 border-white/50"></div>
+                <p className="text-xl md:text-2xl font-bold text-white drop-shadow-md">
+                  &ldquo;Barter sisteminde<br />en güçlü çözüm ortağınız!&rdquo;
+                </p>
+              </div>
+            </div>
+
+            {/* Alt dekorasyon */}
+            <div className="mt-12 flex justify-center">
+              <div className="w-32 h-1 bg-gradient-to-r from-transparent via-white/70 to-transparent rounded-full"></div>
+            </div>
+          </div>
+        </section>
+
         <section
           ref={el => sectionRefs.current[0] = el}
           className="w-full py-20 min-h-[400px] relative overflow-hidden opacity-0 translate-y-10 transition-all duration-500"
@@ -329,7 +365,7 @@ export default function Home() {
       transition-all duration-300 
       hover:scale-105"
               >
-                Neden Ulusal Barter Yatırım?
+                Neden Bizi Seçmelisiniz?
               </h2>
               <div className="w-24 h-1 bg-yellow-500 mx-auto mb-6"></div>
             </div>
