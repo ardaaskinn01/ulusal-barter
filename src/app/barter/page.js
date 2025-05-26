@@ -9,7 +9,7 @@ export default function Barter() {
 
             <div className="absolute inset-0 z-0">
                 <Image
-                    src="/bg24.jpg"
+                    src="/bg32.jpg"
                     alt="background"
                     fill
                     className="object-cover"

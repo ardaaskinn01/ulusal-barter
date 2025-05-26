@@ -9,7 +9,7 @@ export default function Hakkinda() {
       <div className="absolute inset-0 z-0">
         <div className="min-h-screen h-full relative">
           <Image
-            src="/bg28.jpg"
+            src="/bg29.jpg"
             alt="background"
             fill
             className="object-cover blur-[4px]"
@@ -123,7 +123,7 @@ export default function Hakkinda() {
           {/* Başkan */}
           <div className="flex justify-center mb-8">
             <div className="bg-white/80 text-gray-900 p-6 rounded-2xl shadow-lg w-72">
-              <h3 className="text-lg text-yellow-800 font-semibold mb-1">Özkan Şimşek</h3>
+              <h3 className="text-lg text-yellow-800 font-semibold mb-1">Özkan ŞİMŞEK</h3>
               <p className="text-sm">Yönetim Kurulu Başkanı</p>
             </div>
           </div>
@@ -131,8 +131,8 @@ export default function Hakkinda() {
           {/* Başkan Vekili ve Üye */}
           <div className="flex flex-wrap justify-center gap-6 mb-12">
             {[
-              { title: 'Yönetim Kurulu Başkan Vekili', name: 'Hasan Ulaşzade' },
-              { title: 'Yönetim Kurulu Üyesi', name: 'Selim Anış' },
+              { title: 'Yönetim Kurulu Başkan Vekili', name: 'Hasan ULAŞZADE' },
+              { title: 'Yönetim Kurulu Üyesi', name: 'Selim ANIŞ' },
             ].map((member, index) => (
               <div
                 key={index}
@@ -147,12 +147,14 @@ export default function Hakkinda() {
           {/* Koordinatörler */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
             {[
-              { title: 'Pazarlama Koordinatörü', name: 'Cengiz Şimşek' },
-              { title: 'Medya Tanıtım Koordinatörü', name: 'Hüseyin Ulaşzade' },
-              { title: 'Bilgi İşlem Koordinatörü', name: 'Burak Koçak' },
-              { title: 'Müşteri Koordinatörü', name: 'Mehmet Karabağ' },
-              { title: 'Hukuk Koordinatörü', name: 'Beyza Nur Koşar' },
-              { title: 'Muhasebe Koordinatörü', name: 'Kerim Çakmak' },
+              { title: 'Pazarlama Koordinatörü', name: 'Cengiz ŞİMŞEK' },
+              { title: 'Medya Tanıtım Koordinatörü', name: 'Hüseyin ULAŞZADE' },
+              { title: 'Bilgi İşlem Koordinatörü', name: 'Burak KOÇAK' },
+              { title: 'Müşteri Koordinatörü', name: 'Mehmet KARABAĞ' },
+              { title: 'Müşteri Koordinatörü', name: 'Hüseyin GÜRER' },
+              { title: 'Hukuk Koordinatörü', name: 'Beyza Nur KOŞAR' },
+              { title: 'Muhasebe Koordinatörü', name: 'Kerim ÇAKMAK' },
+              { title: 'Müşteri Temsilcisi', name: 'Büşra KOLUKISA' },
             ].map((member, index) => (
               <div
                 key={index}

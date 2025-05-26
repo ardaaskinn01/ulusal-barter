@@ -266,42 +266,6 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="w-full py-8 bg-gradient-to-r from-yellow-600 via-yellow-400 to-yellow-400">
-          <div className="max-w-6xl mx-auto px-6">
-            <div className="flex flex-col md:flex-row items-center justify-between gap-8">
-              {/* İlk slogan */}
-              <div className="relative flex-1 p-8 bg-white/10 backdrop-blur-sm rounded-xl border-2 border-white/20 shadow-lg">
-                <div className="absolute -top-3 -left-3 w-6 h-6 border-t-2 border-l-2 border-white/50"></div>
-                <div className="absolute -bottom-3 -right-3 w-6 h-6 border-b-2 border-r-2 border-white/50"></div>
-                <p className="text-xl md:text-2xl font-bold text-white drop-shadow-md">
-                  &ldquo;Alım gücünüzü artırıyor,<br />satışlarınızı garanti altına alıyoruz.&rdquo;
-                </p>
-              </div>
-
-              {/* Ayırıcı çember */}
-              <div className="hidden md:flex items-center justify-center">
-                <div className="w-16 h-16 rounded-full bg-white/20 flex items-center justify-center">
-                  <div className="w-12 h-12 rounded-full bg-white/10 border-2 border-dashed border-white/30"></div>
-                </div>
-              </div>
-
-              {/* İkinci slogan */}
-              <div className="relative flex-1 p-8 bg-black/10 backdrop-blur-sm rounded-xl border-2 border-white/20 shadow-lg">
-                <div className="absolute -top-3 -left-3 w-6 h-6 border-t-2 border-l-2 border-white/50"></div>
-                <div className="absolute -bottom-3 -right-3 w-6 h-6 border-b-2 border-r-2 border-white/50"></div>
-                <p className="text-xl md:text-2xl font-bold text-white drop-shadow-md">
-                  &ldquo;Barter sisteminde<br />en güçlü çözüm ortağınız!&rdquo;
-                </p>
-              </div>
-            </div>
-
-            {/* Alt dekorasyon */}
-            <div className="mt-12 flex justify-center">
-              <div className="w-32 h-1 bg-gradient-to-r from-transparent via-white/70 to-transparent rounded-full"></div>
-            </div>
-          </div>
-        </section>
-
         <section
           ref={el => sectionRefs.current[0] = el}
           className="w-full py-20 min-h-[400px] relative overflow-hidden opacity-0 translate-y-10 transition-all duration-500"
@@ -328,10 +292,10 @@ export default function Home() {
           <div className="max-w-5xl mx-auto px-6 text-center relative z-10">
             <div className="mb-8">
               <h2 className="text-3xl md:text-5xl font-bold mb-6 text-white drop-shadow-md">Hoş Geldiniz!</h2>
-              <h2 className="text-3xl md:text-3xl font-bold mb-6 text-yellow-600 drop-shadow-sm">
+              <h2 className="text-3xl md:text-3xl font-bold mb-6 text-yellow-500 drop-shadow-sm">
                 Ulusal Barter Yatırım A.Ş.
               </h2>
-              <div className="w-24 h-1 bg-yellow-600 mx-auto mb-6 rounded"></div>
+              <div className="w-24 h-1 bg-yellow-500 mx-auto mb-6 rounded"></div>
               <p className="text-lg md:text-xl mb-4 text-white font-medium drop-shadow-sm">Nakitin Ötesinde Bir Ekonomi.</p>
             </div>
 
@@ -339,8 +303,8 @@ export default function Home() {
               Ulusal Barter Yatırım A.Ş., Türkiye çapında faaliyet gösteren yenilikçi barter Yatırım sistemiyle işletmelere nakitsiz ticaretin güçlü altyapısını sunar.
               İşletmelerin değer üreten yönlerini öne çıkararak, Yatırımal sıkışıklık yaşamadan büyümelerini sağlarız.
             </p>
-            <p className="text-base md:text-lg leading-relaxed text-gray-200">
-              Biz, işletmelerin yalnızca bugününü değil, yarınını da planlayan güçlü bir barter Yatırım çözüm ortağıyız.
+            <p className="text-base md:text-lg leading-relaxed text-yellow-500">
+              Biz, işletmelerin yalnızca bugününü değil, yarınını da planlayan güçlü bir barter yatırım çözüm ortağıyız.
             </p>
           </div>
         </section>
@@ -359,7 +323,7 @@ export default function Home() {
           <div className="max-w-5xl mx-auto px-6 relative z-10">
             <div className="text-center mb-12">
               <h2
-                className="text-3xl md:text-4xl font-bold italic mb-4
+                className="text-3xl md:text-4xl font-bold mb-4
       bg-gradient-to-r from-gray-300 to-gray-100
       text-transparent bg-clip-text
       transition-all duration-300 
@@ -371,7 +335,8 @@ export default function Home() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div className="space-y-4">
+              {/* Sol Card Listesi */}
+              <div className="space-y-4 opacity-80 transition duration-500">
                 {[
                   "Nakit harcamadan büyüme fırsatı",
                   "Stokları değere dönüştüren sistem",
@@ -382,10 +347,10 @@ export default function Home() {
                 ].map((text, index) => (
                   <div
                     key={index}
-                    className="bg-gradient-to-r from-yellow-600 to-yellow-400 p-6 rounded-lg shadow-lg border border-indigo-900 flex items-start"
+                    className="bg-gradient-to-r from-gray-800 to-gray-700 p-6 rounded-lg shadow-lg border border-gray-200 flex items-start bg-opacity-80"
                   >
                     <svg
-                      className="h-6 w-6 text-white mt-1 mr-3 flex-shrink-0"
+                      className="h-6 w-6 text-yellow-500 mt-1 mr-3 flex-shrink-0"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
@@ -397,8 +362,8 @@ export default function Home() {
                 ))}
               </div>
 
-
-              <div className="bg-gradient-to-br from-yellow-500 to-yellow-400 p-6 md:p-6 rounded-lg shadow-xl border border-yellow-200 w-full md:max-w-sm mx-auto self-start">
+              {/* Sağ Card */}
+              <div className="bg-gradient-to-br from-gray-800 to-gray-700 bg-opacity-30 p-6 md:p-6 rounded-lg shadow-xl border border-gray-200 w-full md:max-w-sm mx-auto self-start opacity-80 transition duration-500">
                 <div className="flex flex-col justify-between space-y-6">
                   <p className="text-lg text-gray-100 font-semibold">
                     Ulusal Barter Yatırım A.Ş. ile ticaretinizin geleceğini bugünden kurun.
@@ -412,20 +377,21 @@ export default function Home() {
                   </div>
 
                   <Link href="/iletisim" passHref>
-                    <button className="w-full px-6 py-3 bg-white text-yellow-600 font-medium rounded-lg hover:bg-yellow-800 transition duration-300 shadow-md hover:shadow-lg">
+                    <button className="w-full px-6 py-3 bg-yellow-500 text-white font-medium rounded-lg hover:bg-yellow-800 transition duration-300 shadow-md hover:shadow-lg">
                       Bize Hemen Ulaşın
                     </button>
                   </Link>
                 </div>
               </div>
             </div>
+
           </div>
         </section>
 
 
         <footer
           ref={el => sectionRefs.current[2] = el}
-          className="w-full py-20 relative overflow-hidden bg-gradient-to-br from-yellow-800 via-yellow-700 to-yellow-500 text-white opacity-0 translate-y-10 transition-all duration-500"
+          className="w-full py-20 relative overflow-hidden bg-gradient-to-br from-yellow-700 via-yellow-500 to-yellow-400 text-white opacity-0 translate-y-10 transition-all duration-500"
         >
           {/* Arka Plan Efektleri */}
           <div className="absolute inset-0 z-0">
@@ -434,8 +400,8 @@ export default function Home() {
 
           <div className="max-w-6xl mx-auto px-6 relative z-10">
             <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-white mb-4">
-                <span className="bg-clip-text text-transparent bg-gradient-to-r from-yellow-200 to-white">
+              <h2 className="text-4xl font-bold text-white mb-4">
+                <span className="bg-clip-text text-transparent bg-gradient-to-r from-gray-100 to-white">
                   Bizimle İletişime Geçin
                 </span>
               </h2>

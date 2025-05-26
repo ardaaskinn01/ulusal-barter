@@ -31,7 +31,7 @@ export default function Kayit() {
             const userCredential = await createUserWithEmailAndPassword(auth, email, password);
             const user = userCredential.user;
 
-            // Firestore'a kullanıcı bilgilerini kaydet
+            // Firestore'a kullanıcı bilgilerini kaydet, varsayılan rol: user
             await setDoc(doc(db, "users", user.uid), {
                 uid: user.uid,
                 ad,
@@ -39,6 +39,7 @@ export default function Kayit() {
                 telefon,
                 adres,
                 email,
+                role: "user", // ← Otomatik olarak "user" rolü atanır
                 createdAt: new Date(),
             });
 
@@ -61,10 +62,10 @@ export default function Kayit() {
                     alt="background"
                     fill
                     className="object-cover blur-[8px]"
-          priority
-        />
-        <div className="absolute inset-0 bg-black opacity-65"></div>
-      </div>
+                    priority
+                />
+                <div className="absolute inset-0 bg-black opacity-65"></div>
+            </div>
 
             {/* İçerik */}
             <div className="flex-grow flex items-start justify-center relative z-10 px-4 pt-24">
