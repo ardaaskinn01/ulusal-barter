@@ -21,7 +21,7 @@ export default function Dashboard() {
           setUserData(userDoc.data());
         }
       } else {
-        router.push("/kayit");
+        router.push("/uyelik");
       }
     });
 
