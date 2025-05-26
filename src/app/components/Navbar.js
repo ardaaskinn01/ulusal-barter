@@ -61,7 +61,7 @@ export default function Navbar() {
                 { href: "/", label: "Ana Sayfa" },
                 { href: "/hakkinda", label: "Hakkımızda" },
                 { href: "/barter", label: "Barter Sistemi" },
-                { href: "/uyelik", label: "Üyelik" },
+                { href: "/uyelik", label: "Ürün ve Hizmetler" },
                 { href: "/iletisim", label: "İletişim" }
               ].map((item) => (
                 <Link
