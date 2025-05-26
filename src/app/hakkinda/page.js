@@ -9,10 +9,10 @@ export default function Hakkinda() {
       <div className="absolute inset-0 z-0">
         <div className="min-h-screen h-full relative">
           <Image
-            src="/bg26.jpg"
+            src="/bg28.jpg"
             alt="background"
             fill
-            className="object-contain blur-[8px]"
+            className="object-cover blur-[4px]"
             priority
           />
           <div className="absolute inset-0 bg-black opacity-65"></div>
