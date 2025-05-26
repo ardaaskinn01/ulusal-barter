@@ -45,7 +45,7 @@ export default function Dashboard() {
             </button>
         </div>
 
-        <div className="flex flex-col items-center justify-center pt-24 px-4">
+        <div className="flex flex-col items-center justify-center pt-36 px-4">
             <h1 className="text-3xl sm:text-4xl font-bold mb-4">
                 Hoşgeldiniz {userData ? `${userData.ad} ${userData.soyad}` : "..."}
             </h1>
