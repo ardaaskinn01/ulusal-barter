@@ -6,6 +6,7 @@ import { doc, getDoc } from "firebase/firestore";
 import { signOut } from "firebase/auth";
 import { auth, db } from "../../../firebase";
 import Navbar from "../components/Navbar";
+export const dynamic = "force-dynamic";
 
 export default function Dashboard() {
     const [userData, setUserData] = useState(null);
