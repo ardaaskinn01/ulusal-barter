@@ -7,12 +7,12 @@ export default function Hakkinda() {
     <div className="relative min-h-screen bg-white text-gray-800 flex flex-col font-sans overflow-hidden">
       {/* Arka Plan Görseli (Yönetim Kurulu kısmına kadar) */}
       <div className="absolute inset-0 z-0">
-        <div className="h-[1600px] relative">
+        <div className="min-h-screen h-full relative">
           <Image
-            src="/bg25.jpg"
+            src="/bg26.jpg"
             alt="background"
             fill
-            className="object-cover blur-[8px]"
+            className="object-fill blur-[8px]"
             priority
           />
           <div className="absolute inset-0 bg-black opacity-65"></div>
