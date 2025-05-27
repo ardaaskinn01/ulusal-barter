@@ -16,7 +16,7 @@ export default function ProductDetail() {
     const [modalUrl, setModalUrl] = useState(null);
     const [currentUser, setCurrentUser] = useState(null);
     const [isAdmin, setIsAdmin] = useState(false);
-    const [canEdit, setCanEdit] = useState(false); // 👈 Ekle
+    const [canEdit, setCanEdit] = useState(false);
 
     useEffect(() => {
         const auth = getAuth();
@@ -30,8 +30,6 @@ export default function ProductDetail() {
                     const userSnap = await getDoc(userRef);
                     if (userSnap.exists()) {
                         const userData = userSnap.data();
-
-                        // Admin kontrolü
                         if (userData.role === "admin") {
                             setIsAdmin(true);
                         }
@@ -56,7 +54,6 @@ export default function ProductDetail() {
                     const productData = docSnap.data();
                     setProduct(productData);
 
-                    // 👤 Kullanıcı kendi ürününü eklediyse düzenleyebilir
                     if (currentUser && productData.userId === currentUser.uid) {
                         setCanEdit(true);
                     }
@@ -90,86 +87,139 @@ export default function ProductDetail() {
     };
 
     if (!product) {
-        return <div className="p-10 text-center text-xl">Yükleniyor...</div>;
+        return (
+            <div className="min-h-screen bg-gradient-to-b from-yellow-600 to-yellow-400 flex items-center justify-center">
+                <div className="animate-pulse flex flex-col items-center">
+                    <div className="h-12 w-12 bg-yellow-600 rounded-full mb-4"></div>
+                    <div className="text-yellow-800 font-medium">Yükleniyor...</div>
+                </div>
+            </div>
+        );
     }
 
     return (
-        <div className="min-h-screen bg-gradient-to-b from-yellow-500 to-yellow-400 p-4 sm:p-24">
+        <div className="min-h-screen bg-gradient-to-br from-yellow-600 via-yellow-500 to-yellow-500 text-yellow-400">
             <Navbar />
 
-            <div className="max-w-5xl mx-auto bg-gray-200 rounded-xl shadow-lg p-6 md:p-12 grid grid-cols-1 md:grid-cols-2 gap-8 md:flex-row md:space-x-8">
-                {/* Açıklamalar ve Başlık */}
-                <div className="order-2 md:order-1">
-                    <h1 className="text-3xl font-bold text-gray-800 mb-4">{product.isim}</h1>
+            <div className="container mx-auto px-6 py-24">
+                {/* Başlık ve Fiyat */}
+                <div className="relative mb-16 border-b border-gray-300 pb-8">
+                    {/* Geri Butonu - Sol üst köşe */}
+                    <button
+                        className="absolute left-0 top-1/2 transform -translate-y-1/2 flex items-center bg-red-700 hover:bg-yellow-900 text-white px-4 py-2 rounded-lg shadow-md transition"
+                        onClick={() => window.history.back()}
+                    >
+                        Geri
+                    </button>
 
+                    {/* Başlık - Ortalanmış */}
+                    <h1 className="text-center text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-gray-900">
+                        {product.isim}
+                    </h1>
+
+                    {/* Fiyat - Sağda (opsiyonel, istersen yukarı taşıyabilirim) */}
                     {product.fiyat && (
-                        <div className="bg-yellow-500 text-white px-4 py-2 inline-block rounded font-semibold text-lg mb-4">
+                        <div className="absolute right-0 top-1/2 transform -translate-y-1/2 text-lg sm:text-xl md:text-2xl font-semibold text-yellow-600 bg-yellow-100 px-4 py-2 rounded-xl shadow-sm">
                             {product.fiyat} TL
                         </div>
                     )}
-
-                    {product.aciklamalar?.length > 0 ? (
-                        <ul className="list-disc pl-5 space-y-2 text-gray-700">
-                            {product.aciklamalar.map((desc, idx) => (
-                                <li key={idx}>{desc}</li>
-                            ))}
-                        </ul>
-                    ) : (
-                        <p className="text-gray-500">Açıklama bulunamadı.</p>
-                    )}
-
-                    {/* 🔧 Admin veya ürün sahibi ise butonları göster */}
-                    {(isAdmin || canEdit) && (
-                        <div className="mt-6 space-x-4">
-                            <button
-                                className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded"
-                                onClick={handleEdit}
-                            >
-                                Düzenle
-                            </button>
-                            <button
-                                className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded"
-                                onClick={handleDelete}
-                            >
-                                Sil
-                            </button>
-                        </div>
-                    )}
                 </div>
 
-                {/* Görseller */}
-                <div className="order-1 md:order-2 flex flex-col space-y-4">
-                    <img
-                        src={product.anaGorselUrl}
-                        alt="Ana Görsel"
-                        className="w-full h-auto rounded-lg shadow cursor-pointer"
-                        onClick={() => setModalUrl(product.anaGorselUrl)}
-                    />
-                    {product.ekGorselUrl?.length > 0 && (
-                        <div className="grid grid-cols-2 gap-4">
-                            {product.ekGorselUrl.map((url, idx) => (
-                                <img
-                                    key={idx}
-                                    src={url}
-                                    alt={`Ek Görsel ${idx + 1}`}
-                                    className="w-full h-auto rounded shadow cursor-pointer"
-                                    onClick={() => setModalUrl(url)}
-                                />
-                            ))}
+                {/* Grid yapısı */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
+                    {/* Görseller */}
+                    <div className="space-y-8">
+                        {/* Ana görsel */}
+                        <div className="w-full h-[420px] bg-white shadow-xl rounded-2xl overflow-hidden flex items-center justify-center hover:shadow-2xl transition">
+                            <img
+                                src={product.anaGorselUrl}
+                                alt="Ürün Ana Görseli"
+                                className="object-contain max-h-full cursor-pointer"
+                                onClick={() => setModalUrl(product.anaGorselUrl)}
+                            />
                         </div>
-                    )}
+
+                        {/* Ek görseller */}
+                        {product.ekGorselUrl?.length > 0 && (
+                            <div>
+                                <h2 className="text-lg font-semibold text-gray-700 mb-3">Diğer Görseller</h2>
+                                <div className="grid grid-cols-3 gap-4">
+                                    {product.ekGorselUrl.map((url, idx) => (
+                                        <div
+                                            key={idx}
+                                            className="aspect-square bg-white shadow-md rounded-xl overflow-hidden hover:shadow-xl transition"
+                                        >
+                                            <img
+                                                src={url}
+                                                alt={`Görsel ${idx + 1}`}
+                                                className="w-full h-full object-cover cursor-pointer"
+                                                onClick={() => setModalUrl(url)}
+                                            />
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
+                    </div>
+
+                    {/* Ürün Detayları */}
+                    <div className="space-y-8">
+                        <div className="bg-white shadow-xl rounded-2xl p-8">
+                            <h2 className="text-2xl font-bold text-gray-800 mb-6">Ürün Detayları</h2>
+                            {product.aciklamalar?.length > 0 ? (
+                                <ul className="list-disc list-inside space-y-3 text-gray-700 leading-relaxed">
+                                    {product.aciklamalar.map((desc, idx) => (
+                                        <li key={idx}>{desc}</li>
+                                    ))}
+                                </ul>
+                            ) : (
+                                <p className="text-gray-500 italic">Açıklama bulunamadı.</p>
+                            )}
+                        </div>
+
+                        {/* Admin Butonları */}
+                        {(isAdmin || canEdit) && (
+                            <div className="flex gap-4">
+                                <button
+                                    className="flex items-center gap-2 bg-red-800 hover:bg-red-900 text-white px-6 py-3 rounded-lg shadow-lg transition"
+                                    onClick={handleEdit}
+                                >
+                                    Düzenle
+                                </button>
+                                <button
+                                    className="flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg shadow-lg transition"
+                                    onClick={handleDelete}
+                                >
+                                    Sil
+                                </button>
+                            </div>
+                        )}
+                    </div>
                 </div>
             </div>
 
-            {/* Modal */}
+            {/* Modal Görsel */}
             {modalUrl && (
                 <div
-                    className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50"
+                    className="fixed inset-0 bg-black bg-opacity-80 z-50 flex items-center justify-center p-6"
                     onClick={() => setModalUrl(null)}
                 >
-                    <img src={modalUrl} alt="Odak" className="max-w-full max-h-full rounded-lg shadow-lg" />
+                    <div className="relative max-w-4xl w-full">
+                        <img
+                            src={modalUrl}
+                            alt="Görsel"
+                            className="w-full rounded-xl object-contain max-h-[85vh]"
+                        />
+                        <button
+                            className="absolute top-4 right-4 text-white text-4xl"
+                            onClick={() => setModalUrl(null)}
+                        >
+                            &times;
+                        </button>
+                    </div>
                 </div>
             )}
         </div>
+
     );
 }
