@@ -1,13 +1,11 @@
 "use client";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { doc, setDoc, getDoc } from "firebase/firestore";
+import { doc, setDoc , getDoc} from "firebase/firestore";
 import { db } from "../../../firebase";
 import { getAuth } from "firebase/auth";
+import { useSearchParams } from "next/navigation";
 import { supabase } from "../../../supabase";
-
-// Kullanıcı ve sanitize fonksiyonu burada kalabilir
-const auth = getAuth();
 
 const sanitizeFileName = (text) => {
   return text
@@ -21,21 +19,26 @@ const sanitizeFileName = (text) => {
     .replace(/[^a-z0-9_-]/g, "-");
 };
 
-// Burada searchParams kullanan alt component
-function UrunEkleForm() {
+export default function UrunEkle() {
   const [productName, setProductName] = useState("");
   const [price, setPrice] = useState("");
   const [mainImage, setMainImage] = useState(null);
-  const [mainImageUrl, setMainImageUrl] = useState("");
+  const [mainImageUrl, setMainImageUrl] = useState(""); // edit için
   const [extraImages, setExtraImages] = useState([]);
-  const [extraImageUrls, setExtraImageUrls] = useState([]);
+  const [extraImageUrls, setExtraImageUrls] = useState([]); // edit için
   const [descriptions, setDescriptions] = useState([""]);
 
+  const searchParams = useSearchParams();
+  const editId = searchParams.get("edit");
   const router = useRouter();
 
-  // Burada useSearchParams kullanımı
-  const searchParams = new URLSearchParams(window.location.search);
-  const editId = searchParams.get("edit");
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    // Kullanıcı bilgisini sadece client tarafında al
+    const auth = getAuth();
+    setUser(auth.currentUser);
+  }, []);
 
   useEffect(() => {
     const fetchProductToEdit = async () => {
@@ -99,21 +102,16 @@ function UrunEkleForm() {
       return;
     }
 
+    if (!user) {
+      alert("Kullanıcı bilgisi alınamadı.");
+      return;
+    }
+
     const safeProductName = sanitizeFileName(productName);
     const productRef = doc(db, "products", productName);
 
     try {
-      const user = auth.currentUser;
-
-      if (!user) {
-        alert("Kullanıcı bilgisi alınamadı.");
-        return;
-      }
-
-      const mainImageUrl = await uploadToSupabase(
-        mainImage,
-        `${safeProductName}/main.jpg`
-      );
+      const mainImageUrl = await uploadToSupabase(mainImage, `${safeProductName}/main.jpg`);
 
       const extraImageUrls = [];
       for (let i = 0; i < extraImages.length; i++) {
@@ -128,7 +126,7 @@ function UrunEkleForm() {
         anaGorselUrl: mainImageUrl,
         ekGorselUrl: extraImageUrls,
         aciklamalar: descriptions,
-        userId: user.uid,
+        userId: user.uid, // Firebase kullanıcısının UID'si
       });
 
       alert("Ürün başarıyla eklendi!");
@@ -143,6 +141,7 @@ function UrunEkleForm() {
     <div className="min-h-screen bg-yellow-500 p-6">
       <h1 className="text-3xl text-white font-bold mb-6">Ürün Ekle</h1>
 
+      {/* Ürün İsmi */}
       <div className="mb-4">
         <label className="block mb-2 font-semibold">Ürün İsmi:</label>
         <input
@@ -153,6 +152,7 @@ function UrunEkleForm() {
         />
       </div>
 
+      {/* Fiyat Bilgisi */}
       <div className="mb-4">
         <label className="block mb-2 font-semibold">Fiyat (₺):</label>
         <input
@@ -163,6 +163,7 @@ function UrunEkleForm() {
         />
       </div>
 
+      {/* Ana Görsel */}
       <div className="mb-4">
         <label className="block mb-2 font-semibold">Ürün Görseli:</label>
         <input
@@ -175,6 +176,7 @@ function UrunEkleForm() {
         {mainImage && <p className="mt-2">Seçilen: {mainImage.name}</p>}
       </div>
 
+      {/* Ek Görseller */}
       <div className="mb-6">
         <label className="block mb-2 font-semibold">Ek Görseller:</label>
         <input type="file" accept="image/*" multiple onChange={handleExtraImageAdd} />
@@ -185,6 +187,7 @@ function UrunEkleForm() {
         </ul>
       </div>
 
+      {/* Açıklamalar */}
       <div className="mb-6">
         <label className="block mb-2 font-semibold">Ürün Açıklamaları:</label>
         {descriptions.map((desc, index) => (
@@ -206,6 +209,7 @@ function UrunEkleForm() {
         </button>
       </div>
 
+      {/* Kaydet Butonu */}
       <button
         onClick={handleSubmit}
         className="bg-green-700 text-white px-6 py-2 rounded font-semibold"
@@ -214,9 +218,4 @@ function UrunEkleForm() {
       </button>
     </div>
   );
-}
-
-export default function UrunEkle() {
-  // Bu sayfa sadece alt component'i render ediyor, böylece build hatası önlenir
-  return <UrunEkleForm />;
 }
