@@ -7,6 +7,7 @@ import { getAuth } from "firebase/auth";
 import { useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 import { supabase } from "../../../supabase";
+const searchParams = useSearchParams();
 const auth = getAuth();
 const user = auth.currentUser;
 const sanitizeFileName = (text) => {
@@ -30,7 +31,6 @@ export default function UrunEkle() {
     const [extraImageUrls, setExtraImageUrls] = useState([]); // edit için
     const [descriptions, setDescriptions] = useState([""]);
 
-    const searchParams = useSearchParams();
     const editId = searchParams.get("edit");
 
     useEffect(() => {
