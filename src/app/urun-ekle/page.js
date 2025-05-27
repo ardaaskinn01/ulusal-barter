@@ -1,11 +1,14 @@
 "use client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { doc, setDoc } from "firebase/firestore";
+import { doc, setDoc , getDoc} from "firebase/firestore";
 import { db } from "../../../firebase";
+import { getAuth } from "firebase/auth";
+import { useSearchParams } from "next/navigation";
+import { useEffect } from "react";
 import { supabase } from "../../../supabase";
-
-// Türkçe karakterleri dönüştür
+const auth = getAuth();
+const user = auth.currentUser;
 const sanitizeFileName = (text) => {
     return text
         .toLowerCase()
@@ -15,14 +18,46 @@ const sanitizeFileName = (text) => {
         .replace(/ö/g, "o")
         .replace(/ş/g, "s")
         .replace(/ü/g, "u")
-        .replace(/[^a-z0-9_-]/g, "-"); // Boşluk ve diğer karakterleri tireye çevir
+        .replace(/[^a-z0-9_-]/g, "-");
 };
 
 export default function UrunEkle() {
     const [productName, setProductName] = useState("");
+    const [price, setPrice] = useState("");
     const [mainImage, setMainImage] = useState(null);
+    const [mainImageUrl, setMainImageUrl] = useState(""); // edit için
     const [extraImages, setExtraImages] = useState([]);
+    const [extraImageUrls, setExtraImageUrls] = useState([]); // edit için
     const [descriptions, setDescriptions] = useState([""]);
+
+    const searchParams = useSearchParams();
+    const editId = searchParams.get("edit");
+
+    useEffect(() => {
+        const fetchProductToEdit = async () => {
+            if (!editId) return;
+
+            try {
+                const docRef = doc(db, "products", editId);
+                const docSnap = await getDoc(docRef);
+
+                if (docSnap.exists()) {
+                    const data = docSnap.data();
+                    setProductName(data.isim || "");
+                    setPrice(data.fiyat || "");
+                    setDescriptions(data.aciklamalar || [""]);
+                    setMainImageUrl(data.anaGorselUrl || "");
+                    setExtraImageUrls(data.ekGorselUrl || []);
+                } else {
+                    alert("Düzenlenecek ürün bulunamadı.");
+                }
+            } catch (err) {
+                console.error("Ürün getirilirken hata:", err);
+            }
+        };
+
+        fetchProductToEdit();
+    }, [editId]);
     const router = useRouter();
 
     const handleAddDescription = () => {
@@ -56,15 +91,23 @@ export default function UrunEkle() {
     };
 
     const handleSubmit = async () => {
-        if (!productName || !mainImage) {
-            alert("Lütfen ürün ismi ve ana görsel ekleyin.");
+        if (!productName || !mainImage || !price) {
+            alert("Lütfen ürün ismi, fiyat ve ana görsel ekleyin.");
             return;
         }
 
-        const safeProductName = sanitizeFileName(productName); // 👈 Türkçe karakterleri dönüştür
-        const productRef = doc(db, "products", productName); // Firestore için orijinal isim kullanılabilir
+        const safeProductName = sanitizeFileName(productName);
+        const productRef = doc(db, "products", productName);
 
         try {
+            const auth = getAuth();
+            const user = auth.currentUser;
+
+            if (!user) {
+                alert("Kullanıcı bilgisi alınamadı.");
+                return;
+            }
+
             const mainImageUrl = await uploadToSupabase(mainImage, `${safeProductName}/main.jpg`);
 
             const extraImageUrls = [];
@@ -76,9 +119,11 @@ export default function UrunEkle() {
 
             await setDoc(productRef, {
                 isim: productName,
+                fiyat: price,
                 anaGorselUrl: mainImageUrl,
                 ekGorselUrl: extraImageUrls,
                 aciklamalar: descriptions,
+                userId: user.uid, // Firebase kullanıcısının UID'si
             });
 
             alert("Ürün başarıyla eklendi!");
@@ -93,6 +138,7 @@ export default function UrunEkle() {
         <div className="min-h-screen bg-amber-500 p-6">
             <h1 className="text-3xl text-white font-bold mb-6">Ürün Ekle</h1>
 
+            {/* Ürün İsmi */}
             <div className="mb-4">
                 <label className="block mb-2 font-semibold">Ürün İsmi:</label>
                 <input
@@ -103,6 +149,18 @@ export default function UrunEkle() {
                 />
             </div>
 
+            {/* Fiyat Bilgisi */}
+            <div className="mb-4">
+                <label className="block mb-2 font-semibold">Fiyat (₺):</label>
+                <input
+                    type="number"
+                    className="w-full text-black border p-2 rounded"
+                    value={price}
+                    onChange={(e) => setPrice(e.target.value)}
+                />
+            </div>
+
+            {/* Ana Görsel */}
             <div className="mb-4">
                 <label className="block mb-2 font-semibold">Ürün Görseli:</label>
                 <input
@@ -115,6 +173,7 @@ export default function UrunEkle() {
                 {mainImage && <p className="mt-2">Seçilen: {mainImage.name}</p>}
             </div>
 
+            {/* Ek Görseller */}
             <div className="mb-6">
                 <label className="block mb-2 font-semibold">Ek Görseller:</label>
                 <input type="file" accept="image/*" multiple onChange={handleExtraImageAdd} />
@@ -125,6 +184,7 @@ export default function UrunEkle() {
                 </ul>
             </div>
 
+            {/* Açıklamalar */}
             <div className="mb-6">
                 <label className="block mb-2 font-semibold">Ürün Açıklamaları:</label>
                 {descriptions.map((desc, index) => (
@@ -146,6 +206,7 @@ export default function UrunEkle() {
                 </button>
             </div>
 
+            {/* Kaydet Butonu */}
             <button
                 onClick={handleSubmit}
                 className="bg-green-700 text-white px-6 py-2 rounded font-semibold"

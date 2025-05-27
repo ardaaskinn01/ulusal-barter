@@ -11,6 +11,7 @@ export const dynamic = "force-dynamic";
 export default function Dashboard() {
   const [userData, setUserData] = useState(null);
   const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
   const router = useRouter();
 
   useEffect(() => {
@@ -36,10 +37,21 @@ export default function Dashboard() {
         productsList.push({ id: doc.id, ...doc.data() });
       });
       setProducts(productsList);
+      setLoading(false); // ✅ Veriler geldikten sonra loading kapansın
     };
 
     fetchProducts();
   }, []);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-yellow-600 to-yellow-400 text-white">
+        <div className="w-16 h-16 border-4 border-white border-t-transparent rounded-full animate-spin mb-4"></div>
+        <p className="text-xl font-semibold">Yükleniyor...</p>
+      </div>
+    );
+  }
+
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-yellow-600 to-yellow-400 text-gray-800 relative">
@@ -49,11 +61,18 @@ export default function Dashboard() {
         {userData?.role === "admin" && (
           <button
             onClick={() => router.push("/urun-ekle")}
-            className="px-4 py-2 bg-green-800 text-white rounded-lg shadow hover:bg-green-700"
+            className="px-4 py-2 bg-green-700 text-white rounded-lg shadow hover:bg-green-700"
           >
             Ürün Ekle
           </button>
         )}
+
+        <button
+          onClick={() => router.push("/urunlerim")}
+          className="px-4 py-2 bg-blue-700 text-white rounded-lg shadow hover:bg-blue-800"
+        >
+          Ürünlerim
+        </button>
 
         <button
           onClick={() => {
