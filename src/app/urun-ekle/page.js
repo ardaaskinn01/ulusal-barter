@@ -1,7 +1,7 @@
 "use client";
 
-import UrunEkleClient from "./UrunEkleClient";
+import UrunEkleClient from "./urun-ekle-client";
 
 export default function UrunEklePage() {
-  return <urun-ekle-client />;
+  return <UrunEkleClient />;
 }
