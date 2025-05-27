@@ -3,5 +3,5 @@
 import UrunEkleClient from "./UrunEkleClient";
 
 export default function UrunEklePage() {
-  return <UrunEkleClient />;
+  return <urun-ekle-client />;
 }
