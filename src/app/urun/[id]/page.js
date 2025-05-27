@@ -132,7 +132,7 @@ export default function ProductDetail() {
                     {/* Fiyat - Başlığın altında */}
                     {product.fiyat && (
                         <div className="text-xl sm:text-2xl md:text-3xl font-semibold text-yellow-600 bg-yellow-100 inline-block px-6 py-2 rounded-xl shadow-sm">
-                            {product.fiyat} TL
+                            {product.fiyat}
                         </div>
                     )}
                 </div>
@@ -154,7 +154,7 @@ export default function ProductDetail() {
                         {/* Ek görseller */}
                         {product.ekGorselUrl?.length > 0 && (
                             <div>
-                                <h2 className="text-lg font-semibold text-gray-700 mb-3">Diğer Görseller</h2>
+                                <h2 className="text-lg font-semibold text-gray-700 mb-3">Diğer Medya</h2>
                                 <div className="grid grid-cols-3 gap-4">
                                     {product.ekGorselUrl.map((url, idx) => (
                                         <div

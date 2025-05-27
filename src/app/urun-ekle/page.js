@@ -69,6 +69,12 @@ function UrunEkleContent() {
         setDescriptions([...descriptions, ""]);
     };
 
+    const handleDeleteDescription = () => {
+        if (descriptions.length > 1) {
+            setDescriptions(descriptions.slice(0, -1)); // son öğeyi siler
+        }
+    };
+
     const handleDescriptionChange = (index, value) => {
         const newDescriptions = [...descriptions];
         newDescriptions[index] = value;
@@ -154,7 +160,7 @@ function UrunEkleContent() {
 
             {/* Fiyat Bilgisi */}
             <div className="mb-4">
-                <label className="block mb-2 font-semibold">Fiyat (₺):</label>
+                <label className="block mb-2 font-semibold">Fiyat:</label>
                 <input
                     type="text"
                     className="w-full text-black border p-2 rounded"
@@ -179,11 +185,14 @@ function UrunEkleContent() {
 
             {/* Ek Görseller */}
             <div className="mb-6">
-                <label className="block mb-2 font-semibold">Ek Görseller:</label>
-                <input type="file" accept="image/*" multiple onChange={handleExtraImageAdd} />
+                <label className="block mb-2 font-semibold">Ek Medya:</label>
+                <input type="file" accept="image/*,video/*" multiple onChange={handleExtraImageAdd} />
                 <ul className="mt-2 list-disc list-inside">
                     {extraImages.map((img, i) => (
-                        <li key={i}>{img.name}</li>
+                        <li key={i}>
+                            {img.name} –{" "}
+                            {img.type.startsWith("image/") ? "Görsel" : img.type.startsWith("video/") ? "Video" : "Diğer"}
+                        </li>
                     ))}
                 </ul>
             </div>
@@ -201,13 +210,23 @@ function UrunEkleContent() {
                         onChange={(e) => handleDescriptionChange(index, e.target.value)}
                     />
                 ))}
-                <button
-                    type="button"
-                    onClick={handleAddDescription}
-                    className="mt-2 px-3 py-1 bg-blue-700 text-white rounded"
-                >
-                    Ek Açıklama Ekle
-                </button>
+                <div className="flex gap-4 mt-2">
+                    <button
+                        type="button"
+                        onClick={handleAddDescription}
+                        className="px-3 py-1 bg-blue-700 text-white rounded"
+                    >
+                        Ek Açıklama Ekle
+                    </button>
+
+                    <button
+                        type="button"
+                        onClick={handleDeleteDescription}
+                        className="px-3 py-1 bg-red-700 text-white rounded"
+                    >
+                        Ek Açıklama Sil
+                    </button>
+                </div>
             </div>
 
             {/* Kaydet Butonu */}
