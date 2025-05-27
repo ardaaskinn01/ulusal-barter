@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { onAuthStateChanged, signOut } from "firebase/auth";
-import { doc, getDoc, collection, getDocs } from "firebase/firestore";
+import { doc, getDoc, query, orderBy, collection, getDocs } from "firebase/firestore";
 import { auth, db } from "../../../firebase";
 
 import Navbar from "../components/Navbar";
@@ -30,18 +30,28 @@ export default function Dashboard() {
   }, []);
 
   useEffect(() => {
-    const fetchProducts = async () => {
-      const querySnapshot = await getDocs(collection(db, "products"));
+  const fetchProducts = async () => {
+    try {
+      const q = query(
+        collection(db, "products"),
+        orderBy("createdAt", "desc")
+      );
+      const querySnapshot = await getDocs(q);
+
       const productsList = [];
       querySnapshot.forEach((doc) => {
         productsList.push({ id: doc.id, ...doc.data() });
       });
       setProducts(productsList);
-      setLoading(false); // ✅ Veriler geldikten sonra loading kapansın
-    };
+      setLoading(false);
+    } catch (error) {
+      console.error("Ürünler alınırken hata oluştu:", error);
+      setLoading(false);
+    }
+  };
 
-    fetchProducts();
-  }, []);
+  fetchProducts();
+}, []);
 
   if (loading) {
     return (

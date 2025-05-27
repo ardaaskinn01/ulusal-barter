@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { auth, db } from "../../../firebase";
 import { onAuthStateChanged } from "firebase/auth";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, query, orderBy, getDocs } from "firebase/firestore";
 import Navbar from "../components/Navbar";
 
 export default function UrunlerimPage() {
@@ -20,7 +20,10 @@ export default function UrunlerimPage() {
       }
 
       try {
-        const querySnapshot = await getDocs(collection(db, "products"));
+        // Tüm ürünleri createdAt'e göre sırala (yeni ürünler en başta)
+        const q = query(collection(db, "products"), orderBy("createdAt", "desc"));
+        const querySnapshot = await getDocs(q);
+
         const filtered = [];
         querySnapshot.forEach((doc) => {
           const data = doc.data();
@@ -57,7 +60,7 @@ export default function UrunlerimPage() {
 
       {myProducts.length === 0 ? (
         <p className="text-center text-lg bg-white/80 px-6 py-4 rounded-xl shadow-md">
-          Ürün ekle kısmından eklediğiniz ürünler bu sayfada görünür. Şu an hiçbir ürün yüklememişsiniz.
+          Eklediğiniz ürünler bu sayfada görünür. Şu an hiçbir ürün yüklememişsiniz.
         </p>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
