@@ -61,7 +61,7 @@ export default function Dashboard() {
         {userData?.role === "admin" && (
           <button
             onClick={() => router.push("/urun-ekle")}
-            className="px-4 py-2 bg-green-700 text-white rounded-lg shadow hover:bg-green-700"
+            className="px-4 py-2 bg-red-900 text-white rounded-lg shadow hover:bg-red-200"
           >
             Ürün Ekle
           </button>
@@ -69,7 +69,7 @@ export default function Dashboard() {
 
         <button
           onClick={() => router.push("/urunlerim")}
-          className="px-4 py-2 bg-blue-700 text-white rounded-lg shadow hover:bg-blue-800"
+          className="px-4 py-2 bg-red-700 text-white rounded-lg shadow hover:bg-red-200"
         >
           Ürünlerim
         </button>
@@ -80,7 +80,7 @@ export default function Dashboard() {
               router.push("/uyelik");
             });
           }}
-          className="px-4 py-2 bg-red-900 text-yellow-200 font-semibold rounded-lg shadow hover:bg-white"
+          className="px-4 py-2 bg-red-500 text-white font-semibold rounded-lg shadow hover:bg-red-200"
         >
           Çıkış Yap
         </button>

@@ -57,7 +57,7 @@ export default function UrunlerimPage() {
 
       {myProducts.length === 0 ? (
         <p className="text-center text-lg bg-white/80 px-6 py-4 rounded-xl shadow-md">
-          Henüz eklediğiniz bir ürün yok.
+          Ürün ekle kısmından eklediğiniz ürünler bu sayfada görünür. Şu an hiçbir ürün yüklememişsiniz.
         </p>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">

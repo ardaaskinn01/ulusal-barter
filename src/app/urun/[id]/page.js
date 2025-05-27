@@ -6,6 +6,8 @@ import { doc, getDoc, deleteDoc } from "firebase/firestore";
 import { db } from "../../../../firebase";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import Navbar from "../../components/Navbar";
+import Zoom from 'react-medium-image-zoom';
+import 'react-medium-image-zoom/dist/styles.css';
 
 export default function ProductDetail() {
     const { id: rawId } = useParams();
@@ -17,6 +19,24 @@ export default function ProductDetail() {
     const [currentUser, setCurrentUser] = useState(null);
     const [isAdmin, setIsAdmin] = useState(false);
     const [canEdit, setCanEdit] = useState(false);
+    const [currentIndex, setCurrentIndex] = useState(null);
+
+    const openModal = (index) => {
+        setCurrentIndex(index);
+    };
+
+    const closeModal = () => {
+        setCurrentIndex(null);
+    };
+
+    const goPrev = () => {
+        if (currentIndex > 0) setCurrentIndex(currentIndex - 1);
+    };
+
+    const goNext = () => {
+        if (currentIndex < product.ekGorselUrl.length - 1)
+            setCurrentIndex(currentIndex + 1);
+    };
 
     useEffect(() => {
         const auth = getAuth();
@@ -145,7 +165,7 @@ export default function ProductDetail() {
                                                 src={url}
                                                 alt={`Görsel ${idx + 1}`}
                                                 className="w-full h-full object-cover cursor-pointer"
-                                                onClick={() => setModalUrl(url)}
+                                                onClick={() => openModal(idx)}
                                             />
                                         </div>
                                     ))}
@@ -190,21 +210,38 @@ export default function ProductDetail() {
                 </div>
             </div>
 
-            {/* Modal Görsel */}
-            {modalUrl && (
-                <div
-                    className="fixed inset-0 bg-black bg-opacity-80 z-50 flex items-center justify-center p-6"
-                    onClick={() => setModalUrl(null)}
-                >
-                    <div className="relative max-w-4xl w-full">
+            {currentIndex !== null && (
+                <div className="fixed inset-0 bg-black bg-opacity-80 z-50 flex items-center justify-center p-6">
+                    <div className="relative max-w-4xl w-full flex items-center justify-center">
+                        {/* Sol Ok */}
+                        <button
+                            onClick={goPrev}
+                            disabled={currentIndex === 0}
+                            className="absolute left-4 text-white text-4xl z-10 px-2 py-1 bg-black bg-opacity-50 hover:bg-opacity-70 rounded-full"
+                        >
+                            &#8592;
+                        </button>
+
+                        {/* Görsel */}
                         <img
-                            src={modalUrl}
-                            alt="Görsel"
+                            src={product.ekGorselUrl[currentIndex]}
+                            alt={`Görsel ${currentIndex + 1}`}
                             className="w-full rounded-xl object-contain max-h-[85vh]"
                         />
+
+                        {/* Sağ Ok */}
+                        <button
+                            onClick={goNext}
+                            disabled={currentIndex === product.ekGorselUrl.length - 1}
+                            className="absolute right-4 text-white text-4xl z-10 px-2 py-1 bg-black bg-opacity-50 hover:bg-opacity-70 rounded-full"
+                        >
+                            &#8594;
+                        </button>
+
+                        {/* Kapat Butonu */}
                         <button
                             className="absolute top-4 right-4 text-white text-4xl"
-                            onClick={() => setModalUrl(null)}
+                            onClick={closeModal}
                         >
                             &times;
                         </button>
