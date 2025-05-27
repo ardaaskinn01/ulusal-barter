@@ -98,28 +98,20 @@ export default function ProductDetail() {
     }
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-yellow-600 via-yellow-500 to-yellow-500 text-yellow-400">
+        <div className="min-h-screen bg-gradient-to-br from-yellow-600 via-yellow-400 to-yellow-400 text-yellow-400">
             <Navbar />
 
             <div className="container mx-auto px-6 py-24">
-                {/* Başlık ve Fiyat */}
-                <div className="relative mb-16 border-b border-gray-300 pb-8">
-                    {/* Geri Butonu - Sol üst köşe */}
-                    <button
-                        className="absolute left-0 top-1/2 transform -translate-y-1/2 flex items-center bg-red-700 hover:bg-yellow-900 text-white px-4 py-2 rounded-lg shadow-md transition"
-                        onClick={() => window.history.back()}
-                    >
-                        Geri
-                    </button>
+                <div className="relative mb-16 border-b border-gray-300 pb-16 text-center">
 
-                    {/* Başlık - Ortalanmış */}
-                    <h1 className="text-center text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-gray-900">
+                    {/* Başlık */}
+                    <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-gray-900 mb-4">
                         {product.isim}
                     </h1>
 
-                    {/* Fiyat - Sağda (opsiyonel, istersen yukarı taşıyabilirim) */}
+                    {/* Fiyat - Başlığın altında */}
                     {product.fiyat && (
-                        <div className="absolute right-0 top-1/2 transform -translate-y-1/2 text-lg sm:text-xl md:text-2xl font-semibold text-yellow-600 bg-yellow-100 px-4 py-2 rounded-xl shadow-sm">
+                        <div className="text-xl sm:text-2xl md:text-3xl font-semibold text-yellow-600 bg-yellow-100 inline-block px-6 py-2 rounded-xl shadow-sm">
                             {product.fiyat} TL
                         </div>
                     )}
