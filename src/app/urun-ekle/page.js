@@ -135,7 +135,7 @@ export default function UrunEkle() {
     };
 
     return (
-        <div className="min-h-screen bg-amber-500 p-6">
+        <div className="min-h-screen bg-yellow-500 p-6">
             <h1 className="text-3xl text-white font-bold mb-6">Ürün Ekle</h1>
 
             {/* Ürün İsmi */}
