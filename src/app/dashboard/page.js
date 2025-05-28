@@ -15,10 +15,10 @@ export default function Dashboard() {
   const router = useRouter();
 
   useEffect(() => {
-    const savedPosition = localStorage.getItem('scrollPos');
+    const savedPosition = sessionStorage.getItem('scrollPos');
     if (savedPosition) {
       window.scrollTo(0, parseInt(savedPosition));
-      localStorage.removeItem('scrollPos'); // tekrar kullanılmasın
+      sessionStorage.removeItem('scrollPos'); // tekrar kullanılmasın
     }
   }, []);
 
@@ -120,7 +120,7 @@ export default function Dashboard() {
                 key={product.id}
                 onClick={() => {
                   if (typeof window !== 'undefined') {
-                    localStorage.setItem('scrollPos', window.scrollY.toString());
+                    sessionStorage.setItem('scrollPos', window.scrollY.toString());
                   }
                   router.push(`/urun/${encodeURIComponent(product.id)}`);
                 }}
