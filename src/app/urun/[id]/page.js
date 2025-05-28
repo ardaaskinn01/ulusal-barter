@@ -161,12 +161,21 @@ export default function ProductDetail() {
                                             key={idx}
                                             className="aspect-square bg-white shadow-md rounded-xl overflow-hidden hover:shadow-xl transition"
                                         >
-                                            <img
-                                                src={url}
-                                                alt={`Görsel ${idx + 1}`}
-                                                className="w-full h-full object-cover cursor-pointer"
-                                                onClick={() => openModal(idx)}
-                                            />
+                                            {url.endsWith('.mp4') ? (
+                                                <video
+                                                    controls
+                                                    src={url}
+                                                    className="w-full h-full object-cover cursor-pointer"
+                                                    onClick={() => openModal(idx)}
+                                                />
+                                            ) : (
+                                                <img
+                                                    src={url}
+                                                    alt={`Görsel ${idx + 1}`}
+                                                    className="w-full h-full object-cover cursor-pointer"
+                                                    onClick={() => openModal(idx)}
+                                                />
+                                            )}
                                         </div>
                                     ))}
                                 </div>
@@ -222,12 +231,19 @@ export default function ProductDetail() {
                             &#8592;
                         </button>
 
-                        {/* Görsel */}
-                        <img
-                            src={product.ekGorselUrl[currentIndex]}
-                            alt={`Görsel ${currentIndex + 1}`}
-                            className="w-full rounded-xl object-contain max-h-[85vh]"
-                        />
+                        {product.ekGorselUrl[currentIndex].endsWith('.mp4') ? (
+                            <video
+                                src={product.ekGorselUrl[currentIndex]}
+                                controls
+                                className="w-full rounded-xl object-contain max-h-[85vh]"
+                            />
+                        ) : (
+                            <img
+                                src={product.ekGorselUrl[currentIndex]}
+                                alt={`Görsel ${currentIndex + 1}`}
+                                className="w-full rounded-xl object-contain max-h-[85vh]"
+                            />
+                        )}
 
                         {/* Sağ Ok */}
                         <button

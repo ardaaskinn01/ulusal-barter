@@ -116,12 +116,15 @@ function UrunEkleContent() {
         const productRef = doc(db, "products", productName);
 
         try {
-            const mainImageUrl = await uploadToSupabase(mainImage, `${safeProductName}/main.jpg`);
+            // Ana görselin uzantısını belirle
+            const mainExt = getExtensionByType(mainImage.type);
+            const mainImageUrl = await uploadToSupabase(mainImage, `${safeProductName}/main.${mainExt}`);
 
             const extraImageUrls = [];
             for (let i = 0; i < extraImages.length; i++) {
-                const img = extraImages[i];
-                const url = await uploadToSupabase(img, `${safeProductName}/extra_${i}.jpg`);
+                const file = extraImages[i];
+                const ext = getExtensionByType(file.type);
+                const url = await uploadToSupabase(file, `${safeProductName}/extra_${i}.${ext}`);
                 extraImageUrls.push(url);
             }
 
@@ -142,6 +145,13 @@ function UrunEkleContent() {
             alert("Ürün eklenirken bir hata oluştu: " + (error.message || error));
         }
     };
+
+    function getExtensionByType(type) {
+        if (type.includes("image/jpeg")) return "jpg";
+        if (type.includes("image/png")) return "png";
+        if (type.includes("video/mp4")) return "mp4";
+        return ""; // bilinmeyen tip
+    }
 
     return (
         <div className="min-h-screen bg-yellow-500 p-6">
