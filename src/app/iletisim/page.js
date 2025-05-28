@@ -90,7 +90,7 @@ export default function Iletisim() {
                   <div>
                     <p className="text-sm text-gray-600">Telefon</p>
                     <a href="tel:+905467689992" className="text-lg font-medium text-gray-900 hover:text-yellow-600 transition">
-                      +90 (532) 165 52 20
+                      0232 600 25 25
                     </a>
                   </div>
                 </li>

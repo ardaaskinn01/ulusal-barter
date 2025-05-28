@@ -412,7 +412,7 @@ export default function Home() {
               {/* 1. Kart - Logo ve Slogan */}
               <div className="bg-yellow-800/40 p-6 rounded-xl border border-yellow-400/20 hover:border-white/50 transition-all duration-300 backdrop-blur-sm flex flex-col items-center justify-center text-center space-y-4 min-h-[300px]">
                 <h2 className="text-2xl font-bold text-white">Ulusal Barter Yatırım</h2>
-                <Image src="/newbg02.png" alt="Ulusal Barter Yatırım Logo" width={150} height={180} className="mb-2" />
+                <Image src="/newbg02.png" alt="Ulusal Barter Yatırım Logo" width={130} height={150} className="mb-2" />
                 <p className="text-yellow-100 text-sm">Barter Yatırımın Güvencesi: Ulusal Güç, Yerel Çözüm!</p>
               </div>
 
@@ -436,7 +436,7 @@ export default function Home() {
                 <h3 className="text-lg font-medium text-white">İletişim</h3>
                 <div className="space-y-2 text-sm text-yellow-200 font-light">
                   <a href="tel:+905321655220" className="block hover:text-white transition-colors">
-                    +90 (532) 165 52 20
+                    0232 600 25 25
                   </a>
                   <a href="mailto:simsekoglugrup@gmail.com" className="block hover:text-white transition-colors">
                     simsekoglugrup@gmail.com
