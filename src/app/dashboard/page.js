@@ -15,6 +15,14 @@ export default function Dashboard() {
   const router = useRouter();
 
   useEffect(() => {
+    const savedPosition = localStorage.getItem('scrollPos');
+    if (savedPosition) {
+      window.scrollTo(0, parseInt(savedPosition));
+      localStorage.removeItem('scrollPos'); // tekrar kullanılmasın
+    }
+  }, []);
+
+  useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
         const userDoc = await getDoc(doc(db, "users", user.uid));
@@ -30,28 +38,28 @@ export default function Dashboard() {
   }, []);
 
   useEffect(() => {
-  const fetchProducts = async () => {
-    try {
-      const q = query(
-        collection(db, "products"),
-        orderBy("createdAt", "desc")
-      );
-      const querySnapshot = await getDocs(q);
+    const fetchProducts = async () => {
+      try {
+        const q = query(
+          collection(db, "products"),
+          orderBy("createdAt", "desc")
+        );
+        const querySnapshot = await getDocs(q);
 
-      const productsList = [];
-      querySnapshot.forEach((doc) => {
-        productsList.push({ id: doc.id, ...doc.data() });
-      });
-      setProducts(productsList);
-      setLoading(false);
-    } catch (error) {
-      console.error("Ürünler alınırken hata oluştu:", error);
-      setLoading(false);
-    }
-  };
+        const productsList = [];
+        querySnapshot.forEach((doc) => {
+          productsList.push({ id: doc.id, ...doc.data() });
+        });
+        setProducts(productsList);
+        setLoading(false);
+      } catch (error) {
+        console.error("Ürünler alınırken hata oluştu:", error);
+        setLoading(false);
+      }
+    };
 
-  fetchProducts();
-}, []);
+    fetchProducts();
+  }, []);
 
   if (loading) {
     return (
@@ -110,7 +118,12 @@ export default function Dashboard() {
             {products.map((product) => (
               <div
                 key={product.id}
-                onClick={() => router.push(`/urun/${encodeURIComponent(product.id)}`)}
+                onClick={() => {
+                  if (typeof window !== 'undefined') {
+                    localStorage.setItem('scrollPos', window.scrollY.toString());
+                  }
+                  router.push(`/urun/${encodeURIComponent(product.id)}`);
+                }}
                 className="cursor-pointer bg-white rounded-lg shadow-md hover:shadow-xl transition duration-300 p-4"
               >
                 <img
