@@ -14,14 +14,7 @@ export default function Dashboard() {
   const [loading, setLoading] = useState(true);
   const router = useRouter();
 
-  useEffect(() => {
-    const savedPosition = sessionStorage.getItem('scrollPos');
-    if (savedPosition) {
-      window.scrollTo(0, parseInt(savedPosition));
-      sessionStorage.removeItem('scrollPos'); // tekrar kullanılmasın
-    }
-  }, []);
-
+  // Kullanıcı verisini al
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
@@ -37,19 +30,13 @@ export default function Dashboard() {
     return () => unsubscribe();
   }, []);
 
+  // Ürünleri al
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const q = query(
-          collection(db, "products"),
-          orderBy("createdAt", "desc")
-        );
+        const q = query(collection(db, "products"), orderBy("createdAt", "desc"));
         const querySnapshot = await getDocs(q);
-
-        const productsList = [];
-        querySnapshot.forEach((doc) => {
-          productsList.push({ id: doc.id, ...doc.data() });
-        });
+        const productsList = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
         setProducts(productsList);
         setLoading(false);
       } catch (error) {
@@ -61,6 +48,17 @@ export default function Dashboard() {
     fetchProducts();
   }, []);
 
+  // Scroll pozisyonunu yükle (loading false olduğunda)
+  useEffect(() => {
+    if (!loading) {
+      const savedPosition = sessionStorage.getItem('scrollPos');
+      if (savedPosition) {
+        window.scrollTo(0, parseInt(savedPosition));
+        sessionStorage.removeItem('scrollPos');
+      }
+    }
+  }, [loading]);
+
   if (loading) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-yellow-600 to-yellow-400 text-white">
@@ -69,7 +67,6 @@ export default function Dashboard() {
       </div>
     );
   }
-
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-yellow-600 to-yellow-400 text-gray-800 relative">
@@ -119,8 +116,8 @@ export default function Dashboard() {
               <div
                 key={product.id}
                 onClick={() => {
-                  if (typeof window !== 'undefined') {
-                    sessionStorage.setItem('scrollPos', window.scrollY.toString());
+                  if (typeof window !== "undefined") {
+                    sessionStorage.setItem("scrollPos", window.scrollY.toString());
                   }
                   router.push(`/urun/${encodeURIComponent(product.id)}`);
                 }}
