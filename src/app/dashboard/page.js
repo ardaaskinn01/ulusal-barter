@@ -81,6 +81,7 @@ export default function Dashboard() {
             Ürün Ekle
           </button>
         )}
+
         <button
           onClick={() => {
             signOut(auth).then(() => {
@@ -120,7 +121,17 @@ export default function Dashboard() {
                   alt={product.isim}
                   className="w-full h-48 object-contain rounded-md mb-4"
                 />
-                <h2 className="text-xl font-semibold text-center">{product.isim}</h2>
+                <div className="text-center">
+                  <h2 className="text-xl font-semibold">{product.isim}</h2>
+                  <p className="text-3xl font-bold text-red-600 mt-1">
+                    {
+                      /\d\s*(₺|\$|€)$/.test(product.fiyat.trim())
+                        ? product.fiyat
+                        : `${product.fiyat} ₺`
+                    }
+                  </p>
+                </div>
+
               </div>
             ))}
           </div>
