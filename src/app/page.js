@@ -406,7 +406,7 @@ export default function Home() {
             <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
               {/* 1. Kart - Logo ve Slogan */}
               <div className="bg-yellow-800/40 p-6 rounded-xl border border-yellow-400/20 hover:border-white/50 transition-all duration-300 backdrop-blur-sm flex flex-col items-center justify-center text-center space-y-4 min-h-[300px]">
-                <h2 className="text-2xl font-bold text-white">Ulusal Barter Yatırım</h2>
+                <h2 className="text-2xl font-bold text-white">Ulusal Barter</h2>
                 <Image src="/newbg02.png" alt="Ulusal Barter Yatırım Logo" width={130} height={150} className="mb-2" />
                 <p className="text-yellow-100 text-sm">Barter Yatırımın Güvencesi: Ulusal Güç, Yerel Çözüm!</p>
               </div>
@@ -444,7 +444,7 @@ export default function Home() {
             {/* Alt Kısım - Telif ve Politikalar */}
             <div className="mt-16 pt-8 border-t border-yellow-100/30 w-full text-center">
               <p className="text-yellow-200 text-sm">
-                © {new Date().getFullYear()} Ulusal Barter Yatırım. Tüm hakları saklıdır.
+                © {new Date().getFullYear()} Ulusal Barter A.Ş. Tüm hakları saklıdır.
               </p>
               <div className="mt-2 flex justify-center space-x-4">
                 <a href="/privacy" className="text-yellow-300 hover:text-white text-xs transition-colors">Gizlilik Politikası</a>
