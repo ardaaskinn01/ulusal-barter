@@ -39,7 +39,7 @@ export default function ClientLayout({ children }) {
           }
           setIsPlaying(!isPlaying);
         }}
-        className="fixed bottom-4 right-4 z-50 bg-yellow-500 text-white p-3 rounded-full shadow-lg hover:bg-yellow-500 transition-colors"
+        className="fixed bottom-4 right-4 z-50 bg-yellow-700 text-white p-3 rounded-full shadow-lg hover:bg-yellow-500 transition-colors"
       >
         {isPlaying ? "⏸️" : "▶️"}
       </button>
