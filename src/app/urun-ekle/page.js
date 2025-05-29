@@ -102,7 +102,7 @@ function UrunEkleContent() {
     };
 
     const handleSubmit = async () => {
-        if (!productName || !mainImage || !price) {
+        if (!productName || !price || (!mainImage && !mainImageUrl)) {
             alert("Lütfen ürün ismi, fiyat ve ana görsel ekleyin.");
             return;
         }
@@ -116,35 +116,42 @@ function UrunEkleContent() {
         const productRef = doc(db, "products", productName);
 
         try {
-            // Ana görselin uzantısını belirle
-            const mainExt = getExtensionByType(mainImage.type);
-            const mainImageUrl = await uploadToSupabase(mainImage, `${safeProductName}/main.${mainExt}`);
+            let uploadedMainImageUrl = mainImageUrl;
 
-            const extraImageUrls = [];
+            // Yeni ana görsel yüklendiyse, güncelle
+            if (mainImage) {
+                const mainExt = getExtensionByType(mainImage.type);
+                uploadedMainImageUrl = await uploadToSupabase(mainImage, `${safeProductName}/main.${mainExt}`);
+            }
+
+            const uploadedExtraImageUrls = [...extraImageUrls];
+
+            // Yeni ek görseller varsa, onları da ekle
             for (let i = 0; i < extraImages.length; i++) {
                 const file = extraImages[i];
                 const ext = getExtensionByType(file.type);
-                const url = await uploadToSupabase(file, `${safeProductName}/extra_${i}.${ext}`);
-                extraImageUrls.push(url);
+                const url = await uploadToSupabase(file, `${safeProductName}/extra_${uploadedExtraImageUrls.length + i}.${ext}`);
+                uploadedExtraImageUrls.push(url);
             }
 
             await setDoc(productRef, {
                 isim: productName,
                 fiyat: price,
-                anaGorselUrl: mainImageUrl,
-                ekGorselUrl: extraImageUrls,
+                anaGorselUrl: uploadedMainImageUrl,
+                ekGorselUrl: uploadedExtraImageUrls,
                 aciklamalar: descriptions,
                 userId: user.uid,
                 createdAt: serverTimestamp(),
             });
 
-            alert("Ürün başarıyla eklendi!");
+            alert("Ürün başarıyla kaydedildi!");
             router.push("/dashboard");
         } catch (error) {
             console.error("Hata detayları:", error);
-            alert("Ürün eklenirken bir hata oluştu: " + (error.message || error));
+            alert("Ürün kaydında hata: " + (error.message || error));
         }
     };
+
 
     function getExtensionByType(type) {
         if (type.includes("image/jpeg")) return "jpg";

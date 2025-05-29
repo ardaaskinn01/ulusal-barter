@@ -293,14 +293,14 @@ export default function Home() {
             <div className="mb-8">
               <h2 className="text-3xl md:text-5xl font-bold mb-6 text-white drop-shadow-md">Hoş Geldiniz!</h2>
               <h2 className="text-3xl md:text-3xl font-bold mb-6 text-yellow-500 drop-shadow-sm">
-                Ulusal Barter Yatırım A.Ş.
+                Ulusal Barter A.Ş.
               </h2>
               <div className="w-24 h-1 bg-yellow-500 mx-auto mb-6 rounded"></div>
               <p className="text-lg md:text-xl mb-4 text-white font-medium drop-shadow-sm">Nakitin Ötesinde Bir Ekonomi.</p>
             </div>
 
             <p className="text-base md:text-lg leading-relaxed text-gray-200 mb-4">
-              Ulusal Barter Yatırım A.Ş., Türkiye çapında faaliyet gösteren yenilikçi barter Yatırım sistemiyle işletmelere nakitsiz ticaretin güçlü altyapısını sunar.
+              Ulusal Barter A.Ş., Türkiye çapında faaliyet gösteren yenilikçi barter Yatırım sistemiyle işletmelere nakitsiz ticaretin güçlü altyapısını sunar.
               İşletmelerin değer üreten yönlerini öne çıkararak, Yatırımal sıkışıklık yaşamadan büyümelerini sağlarız.
             </p>
             <p className="text-base md:text-lg leading-relaxed text-yellow-500">
@@ -366,13 +366,13 @@ export default function Home() {
               <div className="bg-gradient-to-br from-gray-800 to-gray-700 bg-opacity-30 p-6 md:p-6 rounded-lg shadow-xl border border-gray-200 w-full md:max-w-sm mx-auto self-start opacity-80 transition duration-500">
                 <div className="flex flex-col justify-between space-y-6">
                   <p className="text-lg text-gray-100 font-semibold">
-                    Ulusal Barter Yatırım A.Ş. ile ticaretinizin geleceğini bugünden kurun.
+                    Ulusal Barter A.Ş. ile ticaretinizin geleceğini bugünden kurun.
                   </p>
 
                   <div className="bg-white bg-opacity-80 border-l-4 border-cyan-200 p-4 rounded shadow-sm">
                     <p className="text-gray-700 italic">
                       &quot;Nakitsiz ticaretin gücünü keşfedin, işletmenizin potansiyelini ortaya çıkarın.<br />
-                      Barter Yatırım A.Ş. — Paradan bağımsız, değerden yana bir ekonomi modeli.&quot;
+                      ULUSAL BARTER A.Ş. — Paradan bağımsız, değerden yana bir ekonomi modeli.&quot;
                     </p>
                   </div>
 
@@ -428,12 +428,7 @@ export default function Home() {
 
               {/* 3. Kart - İletişim */}
               <div className="bg-yellow-800/40 p-6 rounded-xl border border-yellow-400/20 hover:border-white/50 transition-all duration-300 backdrop-blur-sm flex flex-col items-center justify-center text-center space-y-4 min-h-[300px]">
-                <div className="w-14 h-14 rounded-full bg-yellow-200/10 flex items-center justify-center shadow-lg">
-                  <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 1118 0z" />
-                  </svg>
-                </div>
-                <h3 className="text-lg font-medium text-white">İletişim</h3>
+                <h3 className="text-2xl font-bold text-white mb-4">İletişim</h3>
                 <div className="space-y-2 text-sm text-yellow-200 font-light">
                   <a href="tel:+905321655220" className="block hover:text-white transition-colors">
                     0232 600 25 25
@@ -445,9 +440,9 @@ export default function Home() {
               </div>
 
               {/* 4. Kart - Adres */}
-              <div className="bg-yellow-800/40 p-6 rounded-xl border border-yellow-400/20 hover:border-white/50 transition-all duration-300 backdrop-blur-sm flex flex-col items-center justify-center text-center text-yellow-100 text-sm leading-6 min-h-[300px]">
+              <div className="bg-yellow-800/40 p-6 rounded-xl border border-yellow-400/20 hover:border-white/50 transition-all duration-300 backdrop-blur-sm flex flex-col items-center justify-center text-center text-yellow-200 text-sm leading-6 min-h-[300px]">
                 <h2 className="text-2xl font-bold text-white mb-4">Adres</h2>
-                <p>Mansuroğlu mah. 283/1 Sk. No:2 GSK Plaza K:1 D:201 Bayraklı/İzmir</p>
+                <p>Mansuroğlu Mah. 283/1 Sk. No:2 GSK Plaza K:1 D:201 Bayraklı/İzmir</p>
               </div>
             </div>
 

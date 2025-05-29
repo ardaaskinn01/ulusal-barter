@@ -81,14 +81,6 @@ export default function Dashboard() {
             Ürün Ekle
           </button>
         )}
-
-        <button
-          onClick={() => router.push("/urunlerim")}
-          className="px-4 py-2 bg-red-700 text-white rounded-lg shadow hover:bg-red-200"
-        >
-          Ürünlerim
-        </button>
-
         <button
           onClick={() => {
             signOut(auth).then(() => {

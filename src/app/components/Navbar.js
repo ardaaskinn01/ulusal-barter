@@ -21,7 +21,7 @@ export default function Navbar() {
           <Link href="/" className="text-2xl font-bold">
             <Image
               src="/newbg02.png"
-              alt="Nurettin Tutak Logo"
+              alt="Ulusal Barter A.Ş. Logo"
               width={88}
               height={22}
             />

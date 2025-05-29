@@ -33,13 +33,13 @@ export default function Hakkinda() {
           {/* Metin İçeriği */}
           <div className="space-y-6 text-base leading-8 text-white mt-4 md:mt-6 lg:mt-8">
             <p>
-              ULUSAL Barter Yatırım A.Ş. dünyada yaygın olarak kullanılan barter sisteminin, ülkemizin ticari faaliyetlerine yeni bir soluk getirmesi amacıyla kurulmuştur.
+              ULUSAL Barter A.Ş. dünyada yaygın olarak kullanılan barter sisteminin, ülkemizin ticari faaliyetlerine yeni bir soluk getirmesi amacıyla kurulmuştur.
             </p>
             <p>
-              Güçlü sermaye ve akılcı ticaret anlayışıyla, ekonomiğe katkısıyla kurumsal yapısının yanı sıra, profesyonel ekibi ile işini sahiplenen, sorunları çözme konusunda yaratıcılığını kullanan, akılcı çözümler üreten, ULUSAL Barter Yatırım A.Ş. gelişmekte olan sektörün en güçlü temsilcisidir.
+              Güçlü sermaye ve akılcı ticaret anlayışıyla, ekonomiğe katkısıyla kurumsal yapısının yanı sıra, profesyonel ekibi ile işini sahiplenen, sorunları çözme konusunda yaratıcılığını kullanan, akılcı çözümler üreten, ULUSAL Barter A.Ş. gelişmekte olan sektörün en güçlü temsilcisidir.
             </p>
             <p>
-              Her yıl başarısını katlayarak arttıran ULUSAL Barter Yatırım A.Ş. ülkenin önde gelen büyük holdingleri ile birçok ortak projede yer almış; hizmet politikası ile yer almış olduğu işlerden olumlu referanslar almıştır. Kazandığı olumlu referansların gücü ile portföyünü zenginleştiren ULUSAL Barter Yatırım A.Ş.
+              Her yıl başarısını katlayarak arttıran ULUSAL Barter A.Ş. ülkenin önde gelen büyük holdingleri ile birçok ortak projede yer almış; hizmet politikası ile yer almış olduğu işlerden olumlu referanslar almıştır. Kazandığı olumlu referansların gücü ile portföyünü zenginleştiren ULUSAL Barter A.Ş.
               5000 aşkın üye sayısına ulaşmıştır.
             </p>
             <p>
@@ -49,7 +49,7 @@ export default function Hakkinda() {
               Katma değerli dış Ticaret projeleri geliştirirken;
             </p>
             <p>
-              ✓ ULUSAL Barter Yatırım A.Ş.
+              ✓ ULUSAL Barter A.Ş.
               misyon, vizyon ve stratejisi ile hareket ederek, Ram iç ve Dış Ticaret olarak her türlü dışve iç
               ticaret operasyonunu ilgili tarafların ihtiyaç ve beklentilerini karşılayarak yapmayı,
             </p>

@@ -53,9 +53,10 @@ export default function Iletisim() {
           src="/bg23.jpg"
           alt="background"
           fill
-          className="object-cover opacity-30"
+          className="object-cover blur-[4px]"
           priority
         />
+        <div className="absolute inset-0 bg-black opacity-65"></div>
       </div>
 
       <div className="flex-grow py-24 px-4 sm:px-6 lg:px-8 relative z-10">
@@ -82,6 +83,7 @@ export default function Iletisim() {
                     </a>
                   </div>
                 </li>
+
                 <li className="flex gap-4 items-start">
                   <svg className="w-7 h-7 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
@@ -92,6 +94,19 @@ export default function Iletisim() {
                     <a href="tel:+905467689992" className="text-lg font-medium text-gray-900 hover:text-yellow-600 transition">
                       0232 600 25 25
                     </a>
+                  </div>
+                </li>
+
+                <li className="flex gap-4 items-start">
+                  <svg className="w-12 h-12 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                      d="M12 11c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 22s8-6.5 8-13a8 8 0 10-16 0c0 6.5 8 13 8 13z" />
+                  </svg>
+                  <div>
+                    <p className="text-sm text-gray-600">Adres</p>
+                    <p className="text-lg font-medium text-gray-900">
+                      Mansuroğlu Mah. 283/1 Sk. No:2 GSK Plaza K:1 D:201 Bayraklı/İzmir
+                    </p>
                   </div>
                 </li>
               </ul>
