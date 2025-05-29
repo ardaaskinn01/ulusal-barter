@@ -21,7 +21,8 @@ const sanitizeFileName = (text) => {
 
 function UrunEkleContent() {
     const [productName, setProductName] = useState("");
-    const [price, setPrice] = useState("");
+    const [originalPrice, setOriginalPrice] = useState('');
+    const [price, setPrice] = useState('');
     const [mainImage, setMainImage] = useState(null);
     const [mainImageUrl, setMainImageUrl] = useState("");
     const [extraImages, setExtraImages] = useState([]);
@@ -31,6 +32,7 @@ function UrunEkleContent() {
     const searchParams = useSearchParams();
     const editId = searchParams.get("edit");
     const router = useRouter();
+
 
     const [user, setUser] = useState(null);
 
