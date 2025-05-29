@@ -174,11 +174,6 @@ export default function Home() {
 
   return (
     <>
-      <Head>
-        <title>Abdullah Şimşek</title>
-        <meta name="description" content="Nurettin Tutak - Profesyonel Flutter Geliştirici" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      </Head>
 
       <div className="min-h-screen flex flex-col relative bg-gray-950">
         <Navbar />
@@ -237,7 +232,7 @@ export default function Home() {
                 animation: animatedText2 === "Ulusal Güç, Yerel Çözüm!" ? 'fadeIn 1s forwards 0.5s' : ''
               }}
             >
-              ULUSAL BARTER YATIRIM
+              ULUSAL BARTER
             </p>
 
             <div
