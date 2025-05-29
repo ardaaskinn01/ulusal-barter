@@ -182,8 +182,15 @@ function UrunEkleContent() {
                 <input
                     type="text"
                     className="w-full text-black border p-2 rounded"
-                    value={price}
-                    onChange={(e) => setPrice(e.target.value)}
+                    value={originalPrice}
+                    onChange={(e) => {
+                        const inputValue = e.target.value;
+                        if (/^\d*\.?\d*$/.test(inputValue)) {
+                            setOriginalPrice(inputValue);
+                            const multipliedValue = inputValue === '' ? '' : parseFloat(inputValue) * 1.75;
+                            setPrice(multipliedValue.toString());
+                        }
+                    }}
                     placeholder="Fiyat"
                 />
             </div>
