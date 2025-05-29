@@ -21,8 +21,7 @@ const sanitizeFileName = (text) => {
 
 function UrunEkleContent() {
     const [productName, setProductName] = useState("");
-    const [originalPrice, setOriginalPrice] = useState('');
-    const [price, setPrice] = useState('');
+    const [price, setPrice] = useState("");
     const [mainImage, setMainImage] = useState(null);
     const [mainImageUrl, setMainImageUrl] = useState("");
     const [extraImages, setExtraImages] = useState([]);
@@ -32,7 +31,6 @@ function UrunEkleContent() {
     const searchParams = useSearchParams();
     const editId = searchParams.get("edit");
     const router = useRouter();
-
 
     const [user, setUser] = useState(null);
 
@@ -184,15 +182,8 @@ function UrunEkleContent() {
                 <input
                     type="text"
                     className="w-full text-black border p-2 rounded"
-                    value={originalPrice}
-                    onChange={(e) => {
-                        const inputValue = e.target.value;
-                        if (/^\d*\.?\d*$/.test(inputValue)) {
-                            setOriginalPrice(inputValue);
-                            const multipliedValue = inputValue === '' ? '' : parseFloat(inputValue) * 1.75;
-                            setPrice(multipliedValue.toString());
-                        }
-                    }}
+                    value={price}
+                    onChange={(e) => setPrice(e.target.value)}
                     placeholder="Fiyat"
                 />
             </div>
