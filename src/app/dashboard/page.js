@@ -48,6 +48,17 @@ export default function Dashboard() {
     fetchProducts();
   }, []);
 
+  useEffect(() => {
+    if (!loading) {
+      const savedPosition = sessionStorage.getItem('scrollPos');
+      if (savedPosition) {
+        window.scrollTo(0, parseInt(savedPosition));
+        sessionStorage.removeItem('scrollPos');
+      }
+    }
+  }, [loading]);
+
+
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
@@ -131,7 +142,12 @@ export default function Dashboard() {
             {products.map((product) => (
               <div
                 key={product.id}
-                onClick={() => router.push(`/urun/${encodeURIComponent(product.id)}`)}
+                onClick={() => {
+                  if (typeof window !== "undefined") {
+                    sessionStorage.setItem("scrollPos", window.scrollY.toString());
+                  }
+                  router.push(`/urun/${encodeURIComponent(product.id)}`);
+                }}
                 className="group bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition duration-150 ease-in-out cursor-pointer flex flex-col h-full"
               >
                 <div className="aspect-w-1 aspect-h-1 bg-gray-50 relative flex-shrink-0">
