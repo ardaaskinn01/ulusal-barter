@@ -27,7 +27,7 @@ function UrunEkleContent() {
     const [extraImages, setExtraImages] = useState([]);
     const [extraImageUrls, setExtraImageUrls] = useState([]);
     const [descriptions, setDescriptions] = useState([""]);
-
+    const [createdAt, setCreatedAt] = useState(null);
     const searchParams = useSearchParams();
     const editId = searchParams.get("edit");
     const router = useRouter();
@@ -54,6 +54,7 @@ function UrunEkleContent() {
                     setDescriptions(data.aciklamalar || [""]);
                     setMainImageUrl(data.anaGorselUrl || "");
                     setExtraImageUrls(data.ekGorselUrl || []);
+                    setCreatedAt(data.createdAt || null);  // burası önemli
                 } else {
                     alert("Düzenlenecek ürün bulunamadı.");
                 }
@@ -141,7 +142,7 @@ function UrunEkleContent() {
                 ekGorselUrl: uploadedExtraImageUrls,
                 aciklamalar: descriptions,
                 userId: user.uid,
-                createdAt: serverTimestamp(),
+                createdAt: createdAt || serverTimestamp(),  // varsa eskiyi kullan yoksa yenisini ata
             });
 
             alert("Ürün başarıyla kaydedildi!");

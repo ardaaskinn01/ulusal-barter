@@ -131,10 +131,15 @@ export default function ProductDetail() {
 
                     {/* Fiyat - Başlığın altında */}
                     {product.fiyat && (
-                        <div className="text-xl sm:text-2xl md:text-3xl font-semibold text-yellow-600 bg-yellow-100 inline-block px-6 py-2 rounded-xl shadow-sm">
-                            {product.fiyat}
+                        <div className="text-xl sm:text-2xl md:text-3xl font-semibold text-red-600 bg-white inline-block px-6 py-2 rounded-xl shadow-sm">
+                            Fiyat: {
+                                /\d\s*(₺|\$|€)$/.test(product.fiyat.trim())
+                                    ? product.fiyat
+                                    : `${product.fiyat} ₺`
+                            }
                         </div>
                     )}
+
                 </div>
 
                 {/* Grid yapısı */}
