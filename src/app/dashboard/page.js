@@ -72,7 +72,7 @@ export default function Dashboard() {
             {userData?.role === "admin" && (
               <button
                 onClick={() => router.push("/urun-ekle")}
-                className="px-4 py-2 bg-red-600 text-white text-sm font-medium rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+                className="px-4 py-2 bg-red-800 text-white text-sm font-medium rounded-md hover:bg-red-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
               >
                 Ürün Ekle
               </button>
@@ -132,24 +132,26 @@ export default function Dashboard() {
               <div
                 key={product.id}
                 onClick={() => router.push(`/urun/${encodeURIComponent(product.id)}`)}
-                className="group bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition duration-150 ease-in-out cursor-pointer"
+                className="group bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition duration-150 ease-in-out cursor-pointer flex flex-col h-full"
               >
-                <div className="aspect-w-1 aspect-h-1 bg-gray-50 relative">
+                <div className="aspect-w-1 aspect-h-1 bg-gray-50 relative flex-shrink-0">
                   <img
                     src={product.anaGorselUrl}
                     alt={product.isim}
                     className="w-full h-48 object-contain p-4"
                   />
                 </div>
-                <div className="p-4 border-t border-gray-100">
-                  <h3 className="text-sm font-medium text-gray-900 line-clamp-2">{product.isim}</h3>
+                <div className="p-4 border-t border-gray-100 flex flex-col flex-grow">
+                  <h3 className="text-sm font-medium text-gray-900 line-clamp-2 mb-auto">
+                    {product.isim}
+                  </h3>
                   <div className="mt-2 flex justify-between items-center">
                     <p className="text-sm font-semibold text-red-600">
                       {/\d\s*(₺|\$|€)$/.test(product.fiyat.trim())
                         ? product.fiyat
                         : `${product.fiyat} ₺`}
                     </p>
-                    <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-100 text-yellow-800">
+                    <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-100 text-yellow-500">
                       Detay
                     </span>
                   </div>
