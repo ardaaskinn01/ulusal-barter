@@ -162,7 +162,12 @@ export default function Dashboard() {
       {showFilterMobile && (
         <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex justify-start">
           <div className="w-64 bg-white p-4 overflow-y-auto">
-            <button onClick={() => setShowFilterMobile(false)} className="mb-4">Kapat</button>
+            <button
+              onClick={() => setShowFilterMobile(false)}
+              className="mb-6 w-full py-2 bg-red-600 text-white font-semibold rounded-md hover:bg-red-700 transition-colors duration-200"
+            >
+              Kapat
+            </button>
             <FilterPanel
               searchLocation={searchLocation}
               setSearchLocation={setSearchLocation}
@@ -209,7 +214,7 @@ export default function Dashboard() {
                   )}
                 </button>
                 <button
-                  className="md:hidden p-2 bg-red-300 rounded-md"
+                  className="md:hidden px-3 py-1.5 bg-red-300 rounded-md text-white text-sm font-medium"
                   onClick={() => setShowFilterMobile(true)}
                 >
                   Filtre
