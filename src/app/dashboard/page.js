@@ -250,7 +250,7 @@ export default function Dashboard() {
           </aside>
 
           {/* Ürünler - Düzeltilmiş versiyon */}
-          + <section className="md:ml-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <section className="md:ml-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredProducts.length === 0 ? (
               <div className="bg-white rounded-lg shadow-sm p-8 text-center col-span-full flex flex-col items-center justify-center">
                 <svg className="w-12 h-12 text-gray-400 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
