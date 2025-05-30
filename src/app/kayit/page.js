@@ -139,7 +139,7 @@ export default function Kayit() {
                         onClick={handleRegister}
                         className="w-full py-2 text-white font-semibold rounded-lg bg-gradient-to-r from-yellow-600 to-yellow-400 hover:opacity-90 transition"
                     >
-                        Kayıt Ol ve Giriş Yap
+                        Kayıt Ol
                     </button>
                 </div>
             </div>
