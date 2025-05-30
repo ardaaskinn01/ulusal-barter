@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { onAuthStateChanged, signOut } from "firebase/auth";
-import { doc, getDoc, query, orderBy, collection, getDocs } from "firebase/firestore";
+import { doc, getDoc, query, orderBy, collection, getDocs, updateDoc } from "firebase/firestore";
 import { auth, db } from "../../../firebase";
 import Navbar from "../components/Navbar";
 
@@ -13,6 +13,29 @@ export default function Dashboard() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
+  const [showRequestsModal, setShowRequestsModal] = useState(false);
+  const [pendingRequests, setPendingRequests] = useState([]);
+
+  const fetchPendingRequests = async () => {
+    try {
+      const q = query(collection(db, "users"));
+      const snapshot = await getDocs(q);
+      const requests = snapshot.docs
+        .filter(doc => doc.data().isAccept === false)
+        .map(doc => ({ id: doc.id, ...doc.data() }));
+      setPendingRequests(requests);
+    } catch (error) {
+      console.error("İstekler alınırken hata oluştu:", error);
+    }
+  };
+
+  useEffect(() => {
+    const checkPending = async () => {
+      await fetchPendingRequests();
+    };
+    checkPending();
+  }, []);
+
 
   // Kullanıcı verisini al
   useEffect(() => {
@@ -67,26 +90,91 @@ export default function Dashboard() {
     );
   }
 
+
   return (
     <div className="min-h-screen bg-yellow-500">
       <Navbar />
 
+      {
+        showRequestsModal && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
+            <div className="bg-white p-6 rounded-lg max-w-md w-full shadow-lg relative">
+              <h2 className="text-lg text-gray-500 font-bold mb-4">Onay Bekleyen İstekler</h2>
+              {pendingRequests.length === 0 ? (
+                <p className="text-gray-500">Onay bekleyen kullanıcı yok.</p>
+              ) : (
+                <ul className="space-y-3">
+                  {pendingRequests.map((user) => (
+                    <li key={user.id} className="flex justify-between items-center border-b pb-2">
+                      <div>
+                        <p className="font-medium text-gray-500">{user.ad} {user.soyad}</p>
+                        <p className="text-sm text-gray-500">{user.adres}</p>
+                      </div>
+                      <button
+                        onClick={async () => {
+                          try {
+                            await updateDoc(doc(db, "users", user.id), { isAccept: true });
+                            setPendingRequests(prev => prev.filter(u => u.id !== user.id));
+                          } catch (err) {
+                            console.error("Kullanıcı onaylanırken hata:", err);
+                            alert("Bir hata oluştu.");
+                          }
+                        }}
+                        className="text-green-600 hover:text-green-800"
+                        title="Onayla"
+                      >
+                        ✔️
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              )}
+              <button
+                onClick={() => setShowRequestsModal(false)}
+                className="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
+              >
+                ✖
+              </button>
+            </div>
+          </div>
+        )
+      }
+
       {/* Header Section */}
       <header className="bg-yellow-300 shadow-sm mt-16">
-        <div className="max-w-7xl mx-auto px-4 py-6 sm:px-6 lg:px-8 flex justify-between items-center">
+        <div className="max-w-7xl mx-auto px-4 py-6 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-start sm:items-center space-y-3 sm:space-y-0">
           <div>
             <h1 className="text-2xl font-semibold text-gray-900">Hoşgeldiniz, {userData ? `${userData.ad} ${userData.soyad}` : "..."}</h1>
             <p className="text-gray-500 mt-1">{products.length} ürün listeleniyor</p>
           </div>
 
-          <div className="flex space-x-3">
+          <div className="flex flex-wrap sm:flex-nowrap gap-2 sm:gap-3 items-center">
             {userData?.role === "admin" && (
-              <button
-                onClick={() => router.push("/urun-ekle")}
-                className="px-4 py-2 bg-red-800 text-white text-sm font-medium rounded-md hover:bg-red-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
-              >
-                Ürün Ekle
-              </button>
+              <>
+                {/* 1. ve 2. butonlar aynı satırda */}
+                <button
+                  onClick={() => router.push("/urun-ekle")}
+                  className="px-3 py-1.5 bg-red-800 text-white text-sm font-medium rounded-md hover:bg-red-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+                >
+                  Ürün Ekle
+                </button>
+
+                {/* 3. buton mobilde alt satıra düşsün */}
+                <button
+                  onClick={() => {
+                    fetchPendingRequests();
+                    setShowRequestsModal(true);
+                  }}
+                  className="relative px-3 py-1.5 bg-blue-800 text-white text-sm font-medium rounded-md hover:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-2"
+                >
+                  İstekleri Görüntüle
+                  {pendingRequests.length > 0 && (
+                    <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs font-semibold rounded-full w-5 h-5 flex items-center justify-center animate-pulse">
+                      {pendingRequests.length}
+                    </span>
+                  )}
+                </button>
+              </>
             )}
 
             <button
@@ -95,7 +183,7 @@ export default function Dashboard() {
                   router.push("/uyelik");
                 });
               }}
-              className="px-4 py-2 bg-white border border-red-300 text-sm font-medium rounded-md text-red-700 hover:bg-red-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+              className="px-3 py-1.5 bg-white border border-red-300 text-sm font-medium rounded-md text-red-700 hover:bg-red-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
             >
               Çıkış Yap
             </button>
@@ -178,5 +266,8 @@ export default function Dashboard() {
         )}
       </main>
     </div>
+
   );
+
 }
+

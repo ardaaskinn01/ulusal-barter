@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import Navbar from "../components/Navbar";
 import Image from "next/image";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { doc, setDoc } from "firebase/firestore";
+import { doc, setDoc, getDoc } from "firebase/firestore";
 import { auth, db } from "../../../firebase"; // ← firebase yapılandırmanı buraya ekleyeceğiz
 
 export default function Kayit() {
@@ -27,11 +27,9 @@ export default function Kayit() {
         try {
             const { email, password, ad, soyad, telefon, adres } = form;
 
-            // Kullanıcıyı oluştur
             const userCredential = await createUserWithEmailAndPassword(auth, email, password);
             const user = userCredential.user;
 
-            // Firestore'a kullanıcı bilgilerini kaydet, varsayılan rol: user
             await setDoc(doc(db, "users", user.uid), {
                 uid: user.uid,
                 ad,
@@ -39,12 +37,26 @@ export default function Kayit() {
                 telefon,
                 adres,
                 email,
-                role: "user", // ← Otomatik olarak "user" rolü atanır
+                role: "user",
+                isAccept: false,
                 createdAt: new Date(),
             });
 
-            // Oto giriş sonrası yönlendir
-            router.push("/dashboard");
+            // Kullanıcı oluşturulduktan sonra onay kontrolü
+            const userDocRef = doc(db, "users", user.uid);
+            const userDocSnap = await getDoc(userDocRef);
+
+            if (userDocSnap.exists()) {
+                const userData = userDocSnap.data();
+                if (!userData.isAccept) {
+                    setError("Hesabınız yönetici onayı bekliyor.");
+                    // Giriş yapan kullanıcıyı çıkış yap:
+                    await auth.signOut();
+                    return;
+                } else {
+                    router.push("/dashboard");
+                }
+            }
         } catch (err) {
             setError("Kayıt başarısız. Lütfen bilgilerinizi kontrol edin.");
             console.error(err);
@@ -115,7 +127,12 @@ export default function Kayit() {
                         />
                     </div>
 
-                    {error && <p className="text-red-600 mb-4">{error}</p>}
+                    {error && (
+                        <div className="bg-green-100 border border-red-400 text-gray-900 px-4 py-3 rounded relative mb-4" role="alert">
+                            <strong className="font-bold">Uyarı! </strong>
+                            <span className="block sm:inline">{error}</span>
+                        </div>
+                    )}
 
                     {/* Kayıt butonu */}
                     <button

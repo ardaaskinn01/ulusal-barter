@@ -5,7 +5,7 @@ import Navbar from "../components/Navbar";
 import Image from "next/image";
 import { onAuthStateChanged } from "firebase/auth";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../../firebase";
+import { auth} from "../../../firebase";
 
 export default function Uyelik() {
   const router = useRouter();
@@ -37,10 +37,29 @@ export default function Uyelik() {
 
   const handleLogin = async () => {
     try {
-      await signInWithEmailAndPassword(auth, email, password);
-      router.push("/dashboard");
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+
+      // Kullanıcı bilgilerini Firestore'dan al
+      const userDoc = await getDoc(doc(db, "users", user.uid));
+
+      if (userDoc.exists()) {
+        const userData = userDoc.data();
+
+        if (userData.isAccept === true) {
+          router.push("/dashboard");
+        } else {
+          // Hesap henüz onaylanmamış
+          setError("Hesabınız henüz onaylanmadı. Lütfen yönetici onayını bekleyin.");
+          auth.signOut(); // Oturumu kapat
+        }
+      } else {
+        setError("Kullanıcı bilgileri bulunamadı.");
+        auth.signOut();
+      }
     } catch (err) {
       setError("Giriş başarısız. Lütfen bilgilerinizi kontrol edin.");
+      console.error(err);
     }
   };
 
