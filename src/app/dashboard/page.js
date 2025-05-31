@@ -17,18 +17,44 @@ export default function Dashboard() {
   const [showFilterMobile, setShowFilterMobile] = useState(false);
   const [pendingRequests, setPendingRequests] = useState([]);
   const [searchLocation, setSearchLocation] = useState("");
+  const normalizedSearch = normalizeString(searchLocation.trim());
   const [selectedTypes, setSelectedTypes] = useState([]);
   const productTypes = [
     "Arsa", "Arazi", "Otel", "Hizmet", "Çiftlik", "Daire", "Villa", "Santral",
     "Restaurant", "Bahçe", "Tarla", "Parsel", "Tesis", "Zeytinlik", "Fabrika",
     "Beyaz Eşya", "Ofis", "Ev", "Taksi", "Tekstil", "Peyzaj", "Sera", "Estetik"
   ];
-  const filteredProducts = products.filter(product => {
-    const name = product.isim.toLowerCase();
-    const locationMatch = name.includes(searchLocation.toLowerCase());
 
+  function normalizeString(str) {
+    if (!str) return ""; // Eğer boşsa boş string döndür
+
+    const charMap = {
+      ç: "c", Ç: "c",
+      ğ: "i", Ġ: "g", // Ekstra Türkçe karakterler
+      ı: "i", İ: "i", // ÖNEMLİ: Büyük İ için eşleme
+      ö: "o", Ö: "o",
+      ş: "s", Ş: "s",
+      ü: "u", Ü: "u",
+      Ğ: "g", ğ: "g"
+    };
+
+    return str
+      .toString() // String'e garantiye al
+      .toLowerCase() // Önce küçült
+      .replace(/[ÇĞİÖŞÜçğıöşü]/g, char => charMap[char] || char) // Türkçe karakterleri değiştir
+      .replace(/[^a-z0-9]/g, ""); // Sadece harf ve rakam kalsın (opsiyonel)
+  }
+
+  const filteredProducts = products.filter(product => {
+    const productName = normalizeString(product.isim || "");
+    const searchTerm = normalizeString(searchLocation || "");
+
+    // Konum eşleşmesi (arama terimi boşsa veya isimde geçiyorsa)
+    const locationMatch = !searchTerm || productName.includes(searchTerm);
+
+    // Tür eşleşmesi (seçili tür yoksa veya isimde geçiyorsa)
     const typeMatch = selectedTypes.length === 0 ||
-      selectedTypes.some(type => name.includes(type.toLowerCase()));
+      selectedTypes.some(type => productName.includes(normalizeString(type)));
 
     return locationMatch && typeMatch;
   });
@@ -323,7 +349,7 @@ function FilterPanel({ searchLocation, setSearchLocation, selectedTypes, setSele
           value={searchLocation}
           onChange={(e) => setSearchLocation(e.target.value)}
           placeholder="Şehir bölge ilçe..."
-          className="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+          className="w-full border border-gray-300 text-gray-500 rounded-md px-3 py-2 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
         />
       </div>
 
