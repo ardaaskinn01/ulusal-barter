@@ -1,16 +1,5 @@
-import { Geist_Sans, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import ClientLayout from './ClientLayout';
-
-const geistSans = Geist_Sans({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+import ClientLayout from "./ClientLayout";
 
 export const metadata = {
   title: "Ulusal Barter A.Ş.",
@@ -24,16 +13,12 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="tr" className={`${GeistSans.variable} ${GeistMono.variable}`}>
+    <html lang="tr" className="geist-sans geist-mono">
       <head>
-        {/* Favicon için temel tanım */}
+        {/* Favicon tanımları */}
         <link rel="icon" href="/newbg02.png" type="image/png" />
-        
-        {/* Ek favicon formatları (opsiyonel) */}
         <link rel="apple-touch-icon" href="/newbg02.png" />
         <link rel="shortcut icon" href="/newbg02.png" type="image/png" />
-        
-        {/* SEO için meta etiketleri (opsiyonel) */}
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="theme-color" content="#ffffff" />
       </head>
