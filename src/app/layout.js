@@ -1,8 +1,8 @@
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist_Sans, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import ClientLayout from './ClientLayout'; // ClientLayout'u import ediyoruz
+import ClientLayout from './ClientLayout';
 
-const geistSans = Geist({
+const geistSans = Geist_Sans({
   variable: "--font-geist-sans",
   subsets: ["latin"],
 });
