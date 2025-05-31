@@ -295,8 +295,8 @@ export default function Home() {
             </div>
 
             <p className="text-base md:text-lg leading-relaxed text-gray-200 mb-4">
-              Ulusal Barter A.Ş., Türkiye çapında faaliyet gösteren yenilikçi barter Yatırım sistemiyle işletmelere nakitsiz ticaretin güçlü altyapısını sunar.
-              İşletmelerin değer üreten yönlerini öne çıkararak, Yatırımal sıkışıklık yaşamadan büyümelerini sağlarız.
+              Ulusal Barter A.Ş., Türkiye çapında faaliyet gösteren yenilikçi barter yatırım sistemiyle işletmelere nakitsiz ticaretin güçlü altyapısını sunar.
+              İşletmelerin değer üreten yönlerini öne çıkararak, yatırımal sıkışıklık yaşamadan büyümelerini sağlarız.
             </p>
             <p className="text-base md:text-lg leading-relaxed text-yellow-500">
               Biz, işletmelerin yalnızca bugününü değil, yarınını da planlayan güçlü bir barter yatırım çözüm ortağıyız.
