@@ -14,6 +14,8 @@
     "@supabase/supabase-js": "^2.49.8",
     "autoprefixer": "^10.4.21",
     "firebase": "^11.8.1",
+    "keen-slider": "^6.8.6",
+    "lucide-react": "^0.511.0",
     "next": "15.3.2",
     "next-sitemap": "^4.2.3",
     "nodemailer": "^7.0.2",

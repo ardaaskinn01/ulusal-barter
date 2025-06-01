@@ -2,20 +2,43 @@
 import Navbar from "../components/Navbar";
 import Image from "next/image";
 import Head from "next/head";
+import "keen-slider/keen-slider.min.css";
+import { useKeenSlider } from "keen-slider/react";
+import { useState } from "react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 
 export default function Barter() {
+    const [currentSlide, setCurrentSlide] = useState(0);
+    const [sliderRef, instanceRef] = useKeenSlider({
+        loop: false,
+        mode: "snap",
+        slides: {
+            perView: 1,
+        },
+        slideChanged(slider) {
+            setCurrentSlide(slider.track.details.rel);
+        },
+    });
+
+    const slides = [
+        "/1.svg", "/2.svg", "/3.svg", "/4.svg", "/5.svg", "/6.svg",
+        "/7.svg", "/8.svg", "/9.svg", "/10.svg", "/11.svg", "/12.svg",
+    ];
+
+    const nextSlide = () => instanceRef.current?.next();
+    const prevSlide = () => instanceRef.current?.prev();
+
     return (
         <>
-
             <Head>
                 <title>Barter Sistemi | ULUSAL BARTER A.Ş.</title>
                 <meta name="description" content="Ulusal Barter Finans A.Ş. — Paradan bağımsız, değerden yana bir ekonomi modeli." />
                 <meta property="og:title" content="Barter Sistemi | ULUSAL BARTER A.Ş." />
                 <meta property="og:description" content="Ürün ve hizmetlerinizi takas yöntemiyle değerlendirin" />
             </Head>
-            <div className="min-h-screen bg-white relative flex flex-col">
-                <Navbar />
 
+            <div className="min-h-screen relative text-white">
+                {/* Arka plan resmi */}
                 <div className="absolute inset-0 z-0">
                     <Image
                         src="/bg32.jpg"
@@ -28,71 +51,46 @@ export default function Barter() {
                     <div className="absolute inset-0 bg-black opacity-80 backdrop-blur-sm"></div>
                 </div>
 
-                {/* İçerik */}
-                <div className="flex-grow px-6 sm:px-12 py-16 relative z-10">
-                    <div className="max-w-6xl mx-auto mt-24 space-y-16">
+                <Navbar />
 
-                        <div className="space-y-10">
-                            <Section
-                                title="Barter Nedir?"
-                                content={`Barter, modern ticaret dünyasında nakit kullanımına alternatif olarak geliştirilen, firmaların ürün ve hizmetlerini organize bir sistem içerisinde karşılıklı değer değişimi yoluyla değerlendirmesini sağlayan bir finansal modeldir.
+                {/* Slayt Alanı */}
+                <div className="relative z-10 mt-24 px-4 sm:px-16">
+                    <div className="keen-slider h-[80vh] rounded-xl overflow-hidden" ref={sliderRef}>
+                        {slides.map((src, index) => (
+                            <div
+                                className="keen-slider__slide flex justify-center items-center"
+                                key={index}
+                            >
+                                <Image
+                                    src={src}
+                                    alt={`Slide ${index + 1}`}
+                                    width={1200}
+                                    height={700}
+                                    className="rounded-xl shadow-xl"
+                                />
+                            </div>
+                        ))}
+                    </div>
 
-Ulusal Barter Finans A.Ş. olarak biz, barter sistemini sadece bir takas yöntemi olarak değil; firmaların nakit akışlarını rahatlatan, stoklarını eriten, satış hacmini artıran ve yeni iş bağlantıları yaratan güçlü bir ticaret ağı olarak sunuyoruz.
-
-Barter, aynı anda hem alım hem de satım yapmayı mümkün kılan kapalı bir döngü değil, açık ve esnek bir finansal ekosistemdir. Şirketler sistemimize dahil olarak ihtiyaç duydukları ürün veya hizmeti nakit kullanmadan temin ederken, aynı zamanda kendi sundukları değerle sisteme katkı sağlarlar.`}
-                            />
-
-                            <Section
-                                title="Barter Avantajları"
-                                content={`1. Nakit Sıkışıklığına Alternatif
-Nakit çıkışı olmadan alım yapılabilir. Bu sayede likidite sorunu yaşamadan iş süreçlerinizi sürdürebilirsiniz.
-
-2. Stoklarınız Değer Kazanır
-Depoda bekleyen ürünler, sistem içinde işlem görerek sizi yeni müşterilerle buluşturur ve kazanca dönüşür.
-
-3. Yeni Pazarlara Açılırsınız
-Barter ağına katılan firmalar, sistem içerisindeki farklı sektörlerden firmalarla doğal işbirlikleri geliştirir.
-
-4. Satış Hacmi Genişler
-Ürün ya da hizmetiniz, normal pazarın dışında daha fazla kullanıcıya ulaşarak görünürlüğünüzü artırır.
-
-5. Çift Taraflı Kazanç
-Barter, hem alıcı hem satıcı pozisyonunda olabileceğiniz bir sistemdir. Bu çift yönlü yapı, ticari esneklik sağlar.
-
-6. Ekonomik Dalgalanmalara Karşı Dayanıklılık
-Piyasalardaki belirsizlik ve kriz ortamlarında barter sistemi, firmaların operasyonel gücünü korumasına yardımcı olur.`}
-                            />
-
-                            <Section
-                                title="Neden Ulusal Barter Finans A.Ş.?"
-                                content={`Çünkü biz sadece bir ticaret platformu değiliz; değerin döndüğü, işletmelerin kazandığı sürdürülebilir bir sistem inşa ediyoruz.
-
-Ulusal ölçekte kurduğumuz geniş barter ağı ve güvenilir işlem yapısı sayesinde, firmalarımıza nakitsiz büyüme imkânı sunuyoruz.
-
-Ulusal Barter Finans A.Ş. — Paradan bağımsız, değerden yana bir ekonomi modeli.`}
-                            />
-                        </div>
+                    {/* Ok Tuşları */}
+                    <div className="flex justify-between items-center mt-4 max-w-5xl mx-auto px-4">
+                        <button
+                            onClick={prevSlide}
+                            disabled={currentSlide === 0}
+                            className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold px-4 py-2 rounded disabled:opacity-50"
+                        >
+                            <ArrowLeft className="inline mr-1" /> Geri
+                        </button>
+                        <button
+                            onClick={nextSlide}
+                            disabled={currentSlide === slides.length - 1}
+                            className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold px-4 py-2 rounded disabled:opacity-50"
+                        >
+                            İleri <ArrowRight className="inline ml-1" />
+                        </button>
                     </div>
                 </div>
             </div>
         </>
-    );
-}
-
-function Section({ title, content }) {
-    return (
-        <section className="relative p-0 sm:p-0">
-            {/* Saydam beyaz arka plan + blur */}
-            <div className="backdrop-blur-sm bg-white/10 p-6 sm:p-10 rounded-xl border border-white/20">
-                <h2 className="text-3xl font-semibold text-yellow-600 mb-5 relative inline-block">
-                    {title}
-                    {/* Alt çizgi efekti */}
-                    <span className="absolute left-0 -bottom-1 h-1 w-24 bg-yellow-600 rounded-full opacity-80"></span>
-                </h2>
-                <p className="text-white leading-relaxed whitespace-pre-line text-lg tracking-wide">
-                    {content}
-                </p>
-            </div>
-        </section>
     );
 }
