@@ -267,7 +267,11 @@ export default function Home() {
           </div>
         </section>
 
-        <section ref={el => sectionRefs.current[0] = el} className="relative z-10 py-12 bg-gradient-to-r from-yellow-600 via-yellow-500 to-yellow-400 flex justify-center">
+        <section
+          ref={el => sectionRefs.current[0] = el}
+          className="relative z-10 py-12 bg-gradient-to-r from-yellow-600 via-yellow-500 to-yellow-400 flex justify-center
+             opacity-0 translate-y-10 transition-all duration-500"
+        >
           <div className="w-4/5 md:w-3/4 lg:w-2/3">
             <img
               src="/ulusal.svg"
