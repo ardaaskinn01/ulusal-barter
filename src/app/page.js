@@ -69,7 +69,7 @@ export default function Home() {
     },
     breakpoints: {
       '(max-width: 768px)': {
-        slides: { perView: 1.3, spacing: 12 },
+        slides: { perView: 1, spacing: 12 },
       },
     },
   });
