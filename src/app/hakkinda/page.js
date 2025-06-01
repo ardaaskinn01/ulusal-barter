@@ -99,7 +99,7 @@ export default function Hakkinda() {
             <div className="bg-gray-800/80 p-8 rounded-3xl shadow-lg border-t-4 border-yellow-600 backdrop-blur-sm">
               <h2 className="text-2xl font-bold text-white mb-4">Geleceğe Yönelik Vizyonumuz</h2>
               <p className="text-base text-white leading-7">
-                Sürdürülebilir kalkınma amaçları doğrultusunda üyelerinin sektörel gelişim ve dönüşüm süreçlerine rehberlik eden, paydaşlarıyla birlikte değer yaratan, yaşam, ticaret ve yatırımda Ülkemizin Rol Model Barter şirketi olmak.
+                Sürdürülebilir kalkınma amaçları doğrultusunda üyelerinin sektörel gelişim ve dönüşüm süreçlerine rehberlik eden, paydaşlarıyla birlikte değer yaratan, yaşam, ticaret ve yatırımda ülkemizin rol model Barter şirketi olmak.
               </p>
             </div>
           </div>

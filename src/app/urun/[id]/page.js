@@ -193,7 +193,7 @@ export default function ProductDetail() {
                         <div className="bg-white shadow-xl rounded-2xl p-8">
                             <h2 className="text-2xl font-bold text-gray-800 mb-6">Ürün Detayları</h2>
                             {product.aciklamalar?.length > 0 ? (
-                                <ul className="list-disc list-inside space-y-3 text-gray-700 leading-relaxed">
+                                <ul className="list-none list-inside space-y-3 text-gray-700 leading-relaxed">
                                     {product.aciklamalar.map((desc, idx) => (
                                         <li key={idx}>{desc}</li>
                                     ))}
