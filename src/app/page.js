@@ -352,7 +352,7 @@ export default function Home() {
           ref={el => sectionRefs.current[1] = el}
           className="relative z-10 py-12 px-6 md:px-16 flex flex-col justify-center items-center text-white text-center opacity-0 translate-y-10 transition-all duration-500"
         >
-          {/* Arka plan görseli */}
+          {/* Arka plan */}
           <div className="absolute inset-0 z-[-2]">
             <img
               src="/bg35.jpg"
@@ -361,6 +361,7 @@ export default function Home() {
             />
           </div>
 
+          {/* Slider container */}
           <div className="relative w-full px-4 md:px-12 mb-8">
             <div
               ref={sliderRef}
@@ -379,24 +380,24 @@ export default function Home() {
                 </div>
               ))}
             </div>
+          </div>
 
-            {/* Slider Okları */}
-            <div className="absolute top-1/2 -translate-y-1/2 left-4 z-10">
-              <button
-                onClick={() => instanceRef.current?.prev()}
-                className="bg-white/20 hover:bg-white/30 text-white p-2 rounded-full backdrop-blur-sm transition"
-              >
-                <ArrowLeft />
-              </button>
-            </div>
-            <div className="absolute top-1/2 -translate-y-1/2 right-4 z-10">
-              <button
-                onClick={() => instanceRef.current?.next()}
-                className="bg-white/20 hover:bg-white/30 text-white p-2 rounded-full backdrop-blur-sm transition"
-              >
-                <ArrowRight />
-              </button>
-            </div>
+          {/* Oklar slider container dışında, sayfa genelinde sağ ve solda */}
+          <div className="absolute top-1/2 left-4 -translate-y-1/2 z-10">
+            <button
+              onClick={() => instanceRef.current?.prev()}
+              className="bg-white/20 hover:bg-white/30 text-white p-2 rounded-full backdrop-blur-sm transition"
+            >
+              <ArrowLeft />
+            </button>
+          </div>
+          <div className="absolute top-1/2 right-4 -translate-y-1/2 z-10">
+            <button
+              onClick={() => instanceRef.current?.next()}
+              className="bg-white/20 hover:bg-white/30 text-white p-2 rounded-full backdrop-blur-sm transition"
+            >
+              <ArrowRight />
+            </button>
           </div>
 
           {/* Daha Fazlasını Gör Butonu */}
