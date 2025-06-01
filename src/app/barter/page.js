@@ -21,8 +21,8 @@ export default function Barter() {
     });
 
     const slides = [
-        "/1.svg", "/2.svg", "/3.svg", "/4.svg", "/5.svg", "/6.svg",
-        "/7.svg", "/8.svg", "/9.svg", "/10.svg", "/11.svg", "/12.svg",
+        "/1.png", "/2.png", "/3.png", "/4.png", "/5.png", "/6.png",
+        "/7.png", "/8.png", "/9.png", "/10.png", "/11.png", "/12.png",
     ];
 
     const nextSlide = () => instanceRef.current?.next();
@@ -54,8 +54,8 @@ export default function Barter() {
                 <Navbar />
 
                 {/* Slayt Alanı */}
-                <div className="relative z-10 mt-24 px-4 sm:px-16">
-                    <div className="keen-slider h-[80vh] rounded-xl overflow-hidden" ref={sliderRef}>
+                <div className="relative z-10 mt-4 px-4 sm:px-16">
+                    <div className="keen-slider h-[100vh] rounded-xl overflow-hidden" ref={sliderRef}>
                         {slides.map((src, index) => (
                             <div
                                 className="keen-slider__slide flex justify-center items-center"
@@ -64,8 +64,8 @@ export default function Barter() {
                                 <Image
                                     src={src}
                                     alt={`Slide ${index + 1}`}
-                                    width={1200}
-                                    height={700}
+                                    width={1000}
+                                    height={564}
                                     className="rounded-xl shadow-xl"
                                 />
                             </div>
@@ -73,7 +73,7 @@ export default function Barter() {
                     </div>
 
                     {/* Ok Tuşları */}
-                    <div className="flex justify-between items-center mt-4 max-w-5xl mx-auto px-4">
+                    <div className="flex justify-between items-center mt-0 max-w-5xl mx-auto px-4">
                         <button
                             onClick={prevSlide}
                             disabled={currentSlide === 0}
