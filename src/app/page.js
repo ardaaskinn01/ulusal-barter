@@ -7,6 +7,8 @@ import { useRouter } from 'next/router';
 import Image from "next/image";
 import { useRef } from 'react';
 import { useState, useEffect } from 'react';
+import { collection, getDocs, getDoc, query, orderBy, limit } from "firebase/firestore";
+import { db } from "../../firebase";
 
 
 const useSectionAnimation = (setStartCountUp) => { // setStartCountUp parametre olarak eklendi
@@ -61,6 +63,26 @@ export default function Home() {
   let startX = 0;
   let currentX = 0;
   let isDragging = false;
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    const fetchRecentProducts = async () => {
+      try {
+        const q = query(
+          collection(db, "products"),
+          orderBy("createdAt", "desc"),
+          limit(3)
+        );
+        const snapshot = await getDocs(q);
+        const data = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        setProducts(data);
+      } catch (error) {
+        console.error("Ürünler alınırken hata:", error);
+      }
+    };
+
+    fetchRecentProducts();
+  }, []);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -269,20 +291,6 @@ export default function Home() {
 
         <section
           ref={el => sectionRefs.current[0] = el}
-          className="relative z-10 py-12 bg-gradient-to-r from-yellow-600 via-yellow-500 to-yellow-400 flex justify-center
-             opacity-0 translate-y-10 transition-all duration-500"
-        >
-          <div className="w-4/5 md:w-5/6 lg:w-4/5">
-            <img
-              src="/ulusal.png"
-              alt="Ulusal Barter Logo"
-              className="w-full h-auto object-contain rounded-xl shadow-xl border border-yellow-300"
-            />
-          </div>
-        </section>
-
-        <section
-          ref={el => sectionRefs.current[1] = el}
           className="w-full py-20 min-h-[400px] relative overflow-hidden opacity-0 translate-y-10 transition-all duration-500"
         >
           {/* Blur uygulanmış arkaplan resmi */}
@@ -321,6 +329,61 @@ export default function Home() {
             <p className="text-base md:text-lg leading-relaxed text-yellow-500">
               Biz, işletmelerin yalnızca bugününü değil, yarınını da planlayan güçlü bir barter yatırım çözüm ortağıyız.
             </p>
+          </div>
+        </section>
+
+        <section
+          ref={(el) => (sectionRefs.current[1] = el)}
+          className="relative z-10 py-12 px-6 md:px-16 flex justify-center items-center text-white text-center opacity-0 translate-y-10 transition-all duration-500"
+        >
+          <div className="absolute inset-0 z-[-2]">
+            <img
+              src="/bg35.jpg"
+              alt="Background"
+              className="w-full h-full object-cover filter blur-[4px]"
+            />
+          </div>
+          <div className="max-w-4xl bg-black/20 backdrop-blur-md rounded-xl p-6 md:p-10 shadow-xl">
+            <h2 className="text-2xl md:text-3xl font-bold mb-6">Ulusal Barter A.Ş.</h2>
+            <p className="text-sm md:text-base leading-relaxed">
+              Ticaret alanındaki köklü tecrübemizi, güçlü bir barter sistemine dönüştürerek Ulusal Barter A.Ş. çatısı altında bir araya getirdik. Nakit kullanmadan yapılan alışverişleri kolaylaştırıyor, firmaların kaynaklarını en verimli şekilde değerlendirmesini sağlıyoruz.
+              <br /><br />
+              Her sektöre özel çözümler sunuyor, iş ortaklarımızla sağlam, sürdürülebilir ve kazandıran ticari ilişkiler kuruyoruz. Barter sistemini sadece öneren değil, başarıyla uygulayan bir yapıyla hizmet veriyoruz.
+              <br /><br />
+              Ulusal Barter A.Ş. olarak; ticarette güveni, sürekliliği ve karşılıklı kazancı birlikte inşa ediyoruz.
+            </p>
+          </div>
+        </section>
+
+        <section className="relative z-10 py-16 px-4 sm:px-12 lg:px-24 bg-neutral-900 text-white">
+          <div className="max-w-7xl mx-auto">
+            <h2 className="text-3xl font-bold mb-10 text-center text-yellow-500">Son Eklenen Ürünler</h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {products.map(product => (
+                <div
+                  key={product.id}
+                  className="bg-neutral-800 rounded-xl shadow-lg overflow-hidden hover:scale-105 transition-transform duration-300"
+                >
+                  <img
+                    src={product.anaGorselUrl || "/placeholder.jpg"}
+                    alt={product.isim}
+                    className="w-full h-48 object-cover"
+                  />
+                  <div className="p-4">
+                    <h3 className="text-xl font-semibold text-yellow-500 mb-2">{product.isim}</h3>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-12 text-center">
+              <a
+                href="/uyelik"
+                className="inline-block bg-yellow-500 hover:bg-yellow-600 text-black font-semibold py-3 px-6 rounded-full shadow-lg transition"
+              >
+                Üye Ol ve Hepsini Gör
+              </a>
+            </div>
           </div>
         </section>
 

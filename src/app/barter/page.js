@@ -36,7 +36,7 @@ export default function Barter() {
                 {/* Arka Plan */}
                 <div className="absolute inset-0 z-0">
                     <Image
-                        src="/bg32.jpg"
+                        src="/bg35.jpg"
                         alt="background"
                         fill
                         className="object-cover"
