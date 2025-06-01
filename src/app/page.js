@@ -267,7 +267,7 @@ export default function Home() {
           </div>
         </section>
 
-        <div ref={el => sectionRefs.current[0] = el} className="relative z-10 py-12 bg-gradient-to-r from-yellow-600 via-yellow-500 to-yellow-400 flex justify-center">
+        <section ref={el => sectionRefs.current[0] = el} className="relative z-10 py-12 bg-gradient-to-r from-yellow-600 via-yellow-500 to-yellow-400 flex justify-center">
           <div className="w-4/5 md:w-3/4 lg:w-2/3">
             <img
               src="/ulusal.svg"
@@ -275,7 +275,7 @@ export default function Home() {
               className="w-full h-auto object-contain rounded-xl shadow-xl border border-yellow-300"
             />
           </div>
-        </div>
+        </section>
 
         <section
           ref={el => sectionRefs.current[1] = el}
