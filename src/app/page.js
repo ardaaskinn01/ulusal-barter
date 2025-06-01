@@ -348,7 +348,10 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="relative z-10 py-12 px-6 md:px-16 flex flex-col justify-center items-center text-white text-center">
+        <section
+          ref={el => sectionRefs.current[1] = el}
+          className="relative z-10 py-12 px-6 md:px-16 flex flex-col justify-center items-center text-white text-center opacity-0 translate-y-10 transition-all duration-500"
+        >
           {/* Arka plan görseli */}
           <div className="absolute inset-0 z-[-2]">
             <img
@@ -442,7 +445,7 @@ export default function Home() {
 
         <section
           ref={el => sectionRefs.current[3] = el}
-          className="w-full py-20 min-h-[400px] relative overflow-hidden bg-cover bg-center opacity-0 translate-y-10 transition-all duration-500"
+          className="w-full py-20 min-h-[400px] relative overflow-hidden bg-cover bg-center opacity-100 translate-y-10 transition-all duration-500"
           style={{ backgroundImage: "url('/bg07.jpg')" }}
         >
           <div className="absolute inset-0 bg-black opacity-40 z-0"></div>
@@ -518,7 +521,6 @@ export default function Home() {
 
           </div>
         </section>
-
 
         <footer
           ref={el => sectionRefs.current[3] = el}
