@@ -2,13 +2,15 @@
 import Head from "next/head";
 import Link from "next/link";
 import Navbar from "./components/Navbar";
-import CountUp from 'react-countup';
-import { useRouter } from 'next/router';
 import Image from "next/image";
 import { useRef } from 'react';
+
 import { useState, useEffect } from 'react';
 import { collection, getDocs, getDoc, query, orderBy, limit } from "firebase/firestore";
 import { db } from "../../firebase";
+import { ArrowLeft, ArrowRight } from 'lucide-react';
+import { useKeenSlider } from 'keen-slider/react';
+import 'keen-slider/keen-slider.min.css';
 
 
 const useSectionAnimation = (setStartCountUp) => { // setStartCountUp parametre olarak eklendi
@@ -59,6 +61,20 @@ export default function Home() {
     '/bg20.jpg',
     '/bg03.jpg'
   ];
+  const [sliderRef, instanceRef] = useKeenSlider({
+    loop: true,
+    slides: {
+      perView: 1,
+      spacing: 16,
+    },
+    breakpoints: {
+      '(max-width: 768px)': {
+        slides: { perView: 1.3, spacing: 12 },
+      },
+    },
+  });
+
+  const images = ['2.png', '3.png', '8.png', '11.png'];
   const containerRef = useRef(null);
   let startX = 0;
   let currentX = 0;
@@ -332,10 +348,8 @@ export default function Home() {
           </div>
         </section>
 
-        <section
-          ref={(el) => (sectionRefs.current[1] = el)}
-          className="relative z-10 py-12 px-6 md:px-16 flex justify-center items-center text-white text-center opacity-0 translate-y-10 transition-all duration-500"
-        >
+        <section className="relative z-10 py-12 px-6 md:px-16 flex flex-col justify-center items-center text-white text-center">
+          {/* Arka plan görseli */}
           <div className="absolute inset-0 z-[-2]">
             <img
               src="/bg35.jpg"
@@ -343,26 +357,63 @@ export default function Home() {
               className="w-full h-full object-cover filter blur-[4px]"
             />
           </div>
-          <div className="max-w-4xl bg-black/20 backdrop-blur-md rounded-xl p-6 md:p-10 shadow-xl">
-            <h2 className="text-2xl md:text-3xl font-bold mb-6">Ulusal Barter A.Ş.</h2>
-            <p className="text-sm md:text-base leading-relaxed">
-              Ticaret alanındaki köklü tecrübemizi, güçlü bir barter sistemine dönüştürerek Ulusal Barter A.Ş. çatısı altında bir araya getirdik. Nakit kullanmadan yapılan alışverişleri kolaylaştırıyor, firmaların kaynaklarını en verimli şekilde değerlendirmesini sağlıyoruz.
-              <br /><br />
-              Her sektöre özel çözümler sunuyor, iş ortaklarımızla sağlam, sürdürülebilir ve kazandıran ticari ilişkiler kuruyoruz. Barter sistemini sadece öneren değil, başarıyla uygulayan bir yapıyla hizmet veriyoruz.
-              <br /><br />
-              Ulusal Barter A.Ş. olarak; ticarette güveni, sürekliliği ve karşılıklı kazancı birlikte inşa ediyoruz.
-            </p>
+
+          {/* Slider alanı */}
+          <div className="relative w-full max-w-3xl mb-8">
+            <div ref={sliderRef} className="keen-slider">
+              {images.map((img, index) => (
+                <div
+                  key={index}
+                  className="keen-slider__slide bg-white/10 rounded-xl overflow-hidden shadow-lg min-h-[300px] flex items-center justify-center"
+                >
+                  <img
+                    src={`/${img}`}
+                    alt={`Slide ${index + 1}`}
+                    className="w-full h-100 object-cover"
+                  />
+                </div>
+              ))}
+            </div>
+
+            {/* Slider Okları */}
+            <div className="absolute top-1/2 -translate-y-1/2 left-0 z-10 p-2">
+              <button
+                onClick={() => instanceRef.current?.prev()}
+                className="bg-white/20 hover:bg-white/30 text-white p-2 rounded-full backdrop-blur-sm transition"
+              >
+                <ArrowLeft />
+              </button>
+            </div>
+            <div className="absolute top-1/2 -translate-y-1/2 right-0 z-10 p-2">
+              <button
+                onClick={() => instanceRef.current?.next()}
+                className="bg-white/20 hover:bg-white/30 text-white p-2 rounded-full backdrop-blur-sm transition"
+              >
+                <ArrowRight />
+              </button>
+            </div>
           </div>
+
+          {/* Daha Fazlasını Gör Butonu */}
+          <a
+            href="/barter"
+            className="bg-white text-black font-semibold py-2 px-6 rounded-xl hover:bg-gray-200 transition inline-block"
+          >
+            Daha Fazlasını Gör
+          </a>
         </section>
 
-        <section className="relative z-10 py-16 px-4 sm:px-12 lg:px-24 bg-neutral-900 text-white">
-          <div className="max-w-7xl mx-auto">
-            <h2 className="text-3xl font-bold mb-10 text-center text-yellow-500">Son Eklenen Ürünler</h2>
+        <section
+          ref={el => sectionRefs.current[2] = el}
+          className="w-full py-20 min-h-[400px] relative overflow-hidden bg-gradient-to-b from-neutral-900 to-neutral-800 opacity-0 translate-y-10 transition-all duration-500"
+        >
+          <div className="max-w-7xl mx-auto px-4 sm:px-12 lg:px-24 text-white">
+            <h2 className="text-3xl font-bold mb-10 text-center text-yellow-500">Son Eklenen İlanlar</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {products.map(product => (
                 <div
                   key={product.id}
-                  className="bg-neutral-800 rounded-xl shadow-lg overflow-hidden hover:scale-105 transition-transform duration-300"
+                  className="bg-neutral-700 bg-opacity-90 rounded-xl shadow-lg overflow-hidden hover:scale-105 transition-transform duration-300"
                 >
                   <img
                     src={product.anaGorselUrl || "/placeholder.jpg"}
@@ -388,7 +439,7 @@ export default function Home() {
         </section>
 
         <section
-          ref={el => sectionRefs.current[2] = el}
+          ref={el => sectionRefs.current[3] = el}
           className="w-full py-20 min-h-[400px] relative overflow-hidden bg-cover bg-center opacity-0 translate-y-10 transition-all duration-500"
           style={{ backgroundImage: "url('/bg07.jpg')" }}
         >
