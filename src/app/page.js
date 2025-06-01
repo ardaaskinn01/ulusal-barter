@@ -261,12 +261,14 @@ export default function Home() {
           </div>
         </section>
 
-        <div className="relative z-10 py-12 bg-gray-950 flex justify-center">
-          <img
-            src="/ulusal.png"
-            alt="Ulusal Barter Logo"
-            className="w-auto max-h-90 md:max-h-120 object-cover"
-          />
+        <div className="relative z-10 py-12 bg-gradient-to-r from-yellow-600 via-yellow-500 to-yellow-400 flex justify-center">
+          <div className="w-4/5 md:w-3/4 lg:w-2/3">
+            <img
+              src="/ulusal.svg"
+              alt="Ulusal Barter Logo"
+              className="w-full h-auto object-contain rounded-xl shadow-xl border border-yellow-300"
+            />
+          </div>
         </div>
 
         <section
