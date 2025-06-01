@@ -154,6 +154,8 @@ export default function Hakkinda() {
               { title: 'Müşteri Koordinatörü', name: 'Hüseyin GÜRER' },
               { title: 'Hukuk Koordinatörü', name: 'Beyza Nur KOŞAR' },
               { title: 'Muhasebe Koordinatörü', name: 'Kerim ÇAKMAK' },
+              { title: 'Emlak Koordinatörü', name: 'Yunus GÖREL' },
+              { title: 'Emlak Koordinatörü', name: 'İbrahim KAHRAMAN' },
               { title: 'Müşteri Temsilcisi', name: 'Büşra KOLUKISA' },
             ].map((member, index) => (
               <div

@@ -261,6 +261,14 @@ export default function Home() {
           </div>
         </section>
 
+        <div className="relative z-10 py-12 bg-gray-950 flex justify-center">
+          <img
+            src="/ulusal.png"
+            alt="Ulusal Barter Logo"
+            className="w-auto max-h-90 md:max-h-120 object-cover"
+          />
+        </div>
+
         <section
           ref={el => sectionRefs.current[0] = el}
           className="w-full py-20 min-h-[400px] relative overflow-hidden opacity-0 translate-y-10 transition-all duration-500"
