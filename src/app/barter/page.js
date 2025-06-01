@@ -15,7 +15,7 @@ export default function Barter() {
 
     const scrollTo = (direction) => {
         if (containerRef.current) {
-            const scrollAmount = 612; // her resmin yüksekliği + boşluk
+            const scrollAmount = window.innerWidth < 640 ? 320 : 540; // mobilde 320, büyük ekranda 612
             containerRef.current.scrollBy({
                 top: direction === "up" ? -scrollAmount : scrollAmount,
                 behavior: "smooth",
@@ -48,42 +48,44 @@ export default function Barter() {
                 <Navbar />
 
                 {/* Ana İçerik */}
-                <div className="relative z-10 mt-24 px-4 sm:px-16 flex">
+                <div className="relative z-10 mt-24 px-4 sm:px-16 flex justify-center">
                     {/* Slaytlar */}
-                    <div
-                        ref={containerRef}
-                        className="h-[90vh] flex-1 overflow-y-scroll scroll-smooth space-y-12 pr-4"
-                    >
-                        {slides.map((src, index) => (
-                            <div
-                                key={index}
-                                className="flex justify-center items-center snap-center transition-transform duration-500"
-                            >
-                                <Image
-                                    src={src}
-                                    alt={`Slide ${index + 1}`}
-                                    width={1000}
-                                    height={564}
-                                    className="rounded-xl shadow-xl"
-                                />
-                            </div>
-                        ))}
-                    </div>
+                    <div className="relative w-full max-w-4xl">
+                        <div
+                            ref={containerRef}
+                            className="h-[90vh] overflow-y-scroll scroll-smooth space-y-12 pr-2"
+                        >
+                            {slides.map((src, index) => (
+                                <div
+                                    key={index}
+                                    className="flex justify-center items-center snap-center transition-transform duration-500"
+                                >
+                                    <Image
+                                        src={src}
+                                        alt={`Slide ${index + 1}`}
+                                        width={1200}
+                                        height={700}
+                                        className="rounded-xl shadow-xl"
+                                    />
+                                </div>
+                            ))}
+                        </div>
 
-                    {/* Ok Butonları */}
-                    <div className="flex flex-col justify-center items-center gap-4 pl-4">
-                        <button
-                            onClick={() => scrollTo("up")}
-                            className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold p-3 rounded-full shadow"
-                        >
-                            <ArrowUp />
-                        </button>
-                        <button
-                            onClick={() => scrollTo("down")}
-                            className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold p-3 rounded-full shadow"
-                        >
-                            <ArrowDown />
-                        </button>
+                        {/* Şeffaf Oklar */}
+                        <div className="absolute top-4 right-4 flex flex-col items-center gap-4 sm:right-[-60px]">
+                            <button
+                                onClick={() => scrollTo("up")}
+                                className="bg-white/20 hover:bg-white/30 text-white p-2 rounded-full backdrop-blur-md transition"
+                            >
+                                <ArrowUp />
+                            </button>
+                            <button
+                                onClick={() => scrollTo("down")}
+                                className="bg-white/20 hover:bg-white/30 text-white p-2 rounded-full backdrop-blur-md transition"
+                            >
+                                <ArrowDown />
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
