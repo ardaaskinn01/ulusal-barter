@@ -381,7 +381,7 @@ export default function Home() {
             </div>
 
             {/* Slider Okları */}
-            <div className="absolute top-1/2 -translate-y-1/2 left-4 z-10 hidden md:block">
+            <div className="absolute top-1/2 -translate-y-1/2 left-4 z-10">
               <button
                 onClick={() => instanceRef.current?.prev()}
                 className="bg-white/20 hover:bg-white/30 text-white p-2 rounded-full backdrop-blur-sm transition"
@@ -389,7 +389,7 @@ export default function Home() {
                 <ArrowLeft />
               </button>
             </div>
-            <div className="absolute top-1/2 -translate-y-1/2 right-4 z-10 hidden md:block">
+            <div className="absolute top-1/2 -translate-y-1/2 right-4 z-10">
               <button
                 onClick={() => instanceRef.current?.next()}
                 className="bg-white/20 hover:bg-white/30 text-white p-2 rounded-full backdrop-blur-sm transition"
