@@ -1,41 +1,50 @@
 "use client";
 import Navbar from "../components/Navbar";
 import Image from "next/image";
+import Head from "next/head";
 
 export default function Barter() {
     return (
-        <div className="min-h-screen bg-white relative flex flex-col">
-            <Navbar />
+        <>
 
-            <div className="absolute inset-0 z-0">
-                <Image
-                    src="/bg32.jpg"
-                    alt="background"
-                    fill
-                    className="object-cover"
-                    priority
-                />
-                {/* Siyah karartma overlay */}
-                <div className="absolute inset-0 bg-black opacity-80 backdrop-blur-sm"></div>
-            </div>
+            <Head>
+                <title>Barter Sistemi | ULUSAL BARTER A.Ş.</title>
+                <meta name="description" content="Ulusal Barter Finans A.Ş. — Paradan bağımsız, değerden yana bir ekonomi modeli." />
+                <meta property="og:title" content="Barter Sistemi | ULUSAL BARTER A.Ş." />
+                <meta property="og:description" content="Ürün ve hizmetlerinizi takas yöntemiyle değerlendirin" />
+            </Head>
+            <div className="min-h-screen bg-white relative flex flex-col">
+                <Navbar />
 
-            {/* İçerik */}
-            <div className="flex-grow px-6 sm:px-12 py-16 relative z-10">
-                <div className="max-w-6xl mx-auto mt-24 space-y-16">
+                <div className="absolute inset-0 z-0">
+                    <Image
+                        src="/bg32.jpg"
+                        alt="background"
+                        fill
+                        className="object-cover"
+                        priority
+                    />
+                    {/* Siyah karartma overlay */}
+                    <div className="absolute inset-0 bg-black opacity-80 backdrop-blur-sm"></div>
+                </div>
 
-                    <div className="space-y-10">
-                        <Section
-                            title="Barter Nedir?"
-                            content={`Barter, modern ticaret dünyasında nakit kullanımına alternatif olarak geliştirilen, firmaların ürün ve hizmetlerini organize bir sistem içerisinde karşılıklı değer değişimi yoluyla değerlendirmesini sağlayan bir finansal modeldir.
+                {/* İçerik */}
+                <div className="flex-grow px-6 sm:px-12 py-16 relative z-10">
+                    <div className="max-w-6xl mx-auto mt-24 space-y-16">
+
+                        <div className="space-y-10">
+                            <Section
+                                title="Barter Nedir?"
+                                content={`Barter, modern ticaret dünyasında nakit kullanımına alternatif olarak geliştirilen, firmaların ürün ve hizmetlerini organize bir sistem içerisinde karşılıklı değer değişimi yoluyla değerlendirmesini sağlayan bir finansal modeldir.
 
 Ulusal Barter Finans A.Ş. olarak biz, barter sistemini sadece bir takas yöntemi olarak değil; firmaların nakit akışlarını rahatlatan, stoklarını eriten, satış hacmini artıran ve yeni iş bağlantıları yaratan güçlü bir ticaret ağı olarak sunuyoruz.
 
 Barter, aynı anda hem alım hem de satım yapmayı mümkün kılan kapalı bir döngü değil, açık ve esnek bir finansal ekosistemdir. Şirketler sistemimize dahil olarak ihtiyaç duydukları ürün veya hizmeti nakit kullanmadan temin ederken, aynı zamanda kendi sundukları değerle sisteme katkı sağlarlar.`}
-                        />
+                            />
 
-                        <Section
-                            title="Barter Avantajları"
-                            content={`1. Nakit Sıkışıklığına Alternatif
+                            <Section
+                                title="Barter Avantajları"
+                                content={`1. Nakit Sıkışıklığına Alternatif
 Nakit çıkışı olmadan alım yapılabilir. Bu sayede likidite sorunu yaşamadan iş süreçlerinizi sürdürebilirsiniz.
 
 2. Stoklarınız Değer Kazanır
@@ -52,20 +61,21 @@ Barter, hem alıcı hem satıcı pozisyonunda olabileceğiniz bir sistemdir. Bu 
 
 6. Ekonomik Dalgalanmalara Karşı Dayanıklılık
 Piyasalardaki belirsizlik ve kriz ortamlarında barter sistemi, firmaların operasyonel gücünü korumasına yardımcı olur.`}
-                        />
+                            />
 
-                        <Section
-                            title="Neden Ulusal Barter Finans A.Ş.?"
-                            content={`Çünkü biz sadece bir ticaret platformu değiliz; değerin döndüğü, işletmelerin kazandığı sürdürülebilir bir sistem inşa ediyoruz.
+                            <Section
+                                title="Neden Ulusal Barter Finans A.Ş.?"
+                                content={`Çünkü biz sadece bir ticaret platformu değiliz; değerin döndüğü, işletmelerin kazandığı sürdürülebilir bir sistem inşa ediyoruz.
 
 Ulusal ölçekte kurduğumuz geniş barter ağı ve güvenilir işlem yapısı sayesinde, firmalarımıza nakitsiz büyüme imkânı sunuyoruz.
 
 Ulusal Barter Finans A.Ş. — Paradan bağımsız, değerden yana bir ekonomi modeli.`}
-                        />
+                            />
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </>
     );
 }
 

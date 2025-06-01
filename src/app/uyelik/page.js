@@ -3,9 +3,10 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Navbar from "../components/Navbar";
 import Image from "next/image";
+import Head from "next/head";
 import { onAuthStateChanged } from "firebase/auth";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth} from "../../../firebase";
+import { auth } from "../../../firebase";
 
 export default function Uyelik() {
   const router = useRouter();
@@ -86,59 +87,68 @@ export default function Uyelik() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-white relative">
-      <Navbar />
+    <>
+      <Head>
+        <title>Üyelik Girişi | ULUSAL BARTER A.Ş.</title>
+        <meta name="description" content="Ulusal Barter A.Ş. üyelik giriş sayfası. Barter sistemine giriş yaparak takas ekonomisine katılın." />
+        <meta property="og:title" content="Üyelik Girişi | ULUSAL BARTER A.Ş." />
+        <meta property="og:description" content="Barter sistemine giriş yapın" />
+        <meta name="robots" content="noindex, nofollow" /> 
+      </Head>
+      <div className="min-h-screen flex flex-col bg-white relative">
+        <Navbar />
 
-      <div className="absolute inset-0 z-0">
-        <Image
-          src="/bg22.jpg"
-          alt="background"
-          fill
-          className="object-cover blur-[2px]"
-          priority
-        />
-        <div className="absolute inset-0 bg-black opacity-55"></div>
-      </div>
-
-      <div className="flex-grow flex items-center justify-center relative z-10 px-4">
-        <div className="text-center bg-white/60 backdrop-blur-md p-8 rounded-2xl shadow-lg max-w-md w-full">
-          <h1 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-6">
-            Giriş Yap
-          </h1>
-
-          <input
-            type="email"
-            placeholder="E-posta"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="w-full px-4 py-2 mb-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500 text-black"
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="/bg22.jpg"
+            alt="background"
+            fill
+            className="object-cover blur-[2px]"
+            priority
           />
+          <div className="absolute inset-0 bg-black opacity-55"></div>
+        </div>
 
-          <input
-            type="password"
-            placeholder="Şifre"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="w-full px-4 py-2 mb-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500 text-black"
-          />
+        <div className="flex-grow flex items-center justify-center relative z-10 px-4">
+          <div className="text-center bg-white/60 backdrop-blur-md p-8 rounded-2xl shadow-lg max-w-md w-full">
+            <h1 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-6">
+              Giriş Yap
+            </h1>
 
-          {error && <p className="text-red-600 mb-4">{error}</p>}
+            <input
+              type="email"
+              placeholder="E-posta"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="w-full px-4 py-2 mb-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500 text-black"
+            />
 
-          <button
-            onClick={handleLogin}
-            className="w-full py-2 text-white font-semibold rounded-lg bg-gradient-to-r from-yellow-600 to-yellow-400 hover:opacity-90 mb-4 transition"
-          >
-            Giriş Yap
-          </button>
+            <input
+              type="password"
+              placeholder="Şifre"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="w-full px-4 py-2 mb-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500 text-black"
+            />
 
-          <div className="flex justify-between text-sm text-yellow-700 font-medium">
-            <button onClick={() => router.push("/kayit")}>Kayıt Ol</button>
-            <button onClick={() => router.push("/sifremi-unuttum")}>
-              Şifremi Unuttum
+            {error && <p className="text-red-600 mb-4">{error}</p>}
+
+            <button
+              onClick={handleLogin}
+              className="w-full py-2 text-white font-semibold rounded-lg bg-gradient-to-r from-yellow-600 to-yellow-400 hover:opacity-90 mb-4 transition"
+            >
+              Giriş Yap
             </button>
+
+            <div className="flex justify-between text-sm text-yellow-700 font-medium">
+              <button onClick={() => router.push("/kayit")}>Kayıt Ol</button>
+              <button onClick={() => router.push("/sifremi-unuttum")}>
+                Şifremi Unuttum
+              </button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }

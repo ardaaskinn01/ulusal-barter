@@ -174,6 +174,12 @@ export default function Home() {
 
   return (
     <>
+      <Head>
+        <title>ULUSAL BARTER A.Ş.</title>
+        <meta name="description" content="Ulusal Barter A.Ş. - Türkiye'nin en güvenilir barter platformu. Ürün ve hizmetlerinizi takas yoluyla değerlendirin." />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
 
       <div className="min-h-screen flex flex-col relative bg-gray-950">
         <Navbar />
