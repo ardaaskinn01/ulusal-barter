@@ -352,6 +352,10 @@ export default function Home() {
           ref={el => sectionRefs.current[1] = el}
           className="relative z-10 py-12 px-6 md:px-16 flex flex-col justify-center items-center text-white text-center opacity-0 translate-y-10 transition-all duration-500"
         >
+          {/* Başlık */}
+          <h2 className="text-3xl md:text-5xl font-bold mb-8">
+            Barter Sistemiyle Tanışın!
+          </h2>
           {/* Arka plan */}
           <div className="absolute inset-0 z-[-2]">
             <img
