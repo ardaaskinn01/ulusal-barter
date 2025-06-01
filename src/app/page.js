@@ -272,9 +272,9 @@ export default function Home() {
           className="relative z-10 py-12 bg-gradient-to-r from-yellow-600 via-yellow-500 to-yellow-400 flex justify-center
              opacity-0 translate-y-10 transition-all duration-500"
         >
-          <div className="w-4/5 md:w-3/4 lg:w-2/3">
+          <div className="w-4/5 md:w-5/6 lg:w-4/5">
             <img
-              src="/ulusal.svg"
+              src="/ulusal.png"
               alt="Ulusal Barter Logo"
               className="w-full h-auto object-contain rounded-xl shadow-xl border border-yellow-300"
             />
