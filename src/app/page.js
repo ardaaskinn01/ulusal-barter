@@ -267,7 +267,7 @@ export default function Home() {
           </div>
         </section>
 
-        <div className="relative z-10 py-12 bg-gradient-to-r from-yellow-600 via-yellow-500 to-yellow-400 flex justify-center">
+        <div ref={el => sectionRefs.current[0] = el} className="relative z-10 py-12 bg-gradient-to-r from-yellow-600 via-yellow-500 to-yellow-400 flex justify-center">
           <div className="w-4/5 md:w-3/4 lg:w-2/3">
             <img
               src="/ulusal.svg"
@@ -278,7 +278,7 @@ export default function Home() {
         </div>
 
         <section
-          ref={el => sectionRefs.current[0] = el}
+          ref={el => sectionRefs.current[1] = el}
           className="w-full py-20 min-h-[400px] relative overflow-hidden opacity-0 translate-y-10 transition-all duration-500"
         >
           {/* Blur uygulanmış arkaplan resmi */}
@@ -321,7 +321,7 @@ export default function Home() {
         </section>
 
         <section
-          ref={el => sectionRefs.current[1] = el}
+          ref={el => sectionRefs.current[2] = el}
           className="w-full py-20 min-h-[400px] relative overflow-hidden bg-cover bg-center opacity-0 translate-y-10 transition-all duration-500"
           style={{ backgroundImage: "url('/bg07.jpg')" }}
         >
@@ -401,7 +401,7 @@ export default function Home() {
 
 
         <footer
-          ref={el => sectionRefs.current[2] = el}
+          ref={el => sectionRefs.current[3] = el}
           className="w-full py-20 relative overflow-hidden bg-gradient-to-br from-yellow-700 via-yellow-500 to-yellow-400 text-white opacity-0 translate-y-10 transition-all duration-500"
         >
           {/* Arka Plan Efektleri */}
