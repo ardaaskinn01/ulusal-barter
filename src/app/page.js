@@ -383,18 +383,47 @@ export default function Home() {
           </div>
 
           {/* Oklar slider container dışında, sayfa genelinde sağ ve solda */}
-          <div className="absolute top-1/2 left-4 -translate-y-1/2 z-10">
+          <div
+            className="
+    absolute 
+    left-4 
+    -translate-y-1/2 
+    z-10 
+    top-1/2 
+    md:top-1/2 
+    top-[90%]  /* Mobilde slider altına yakın */
+  "
+          >
             <button
               onClick={() => instanceRef.current?.prev()}
-              className="bg-white/20 hover:bg-white/30 text-white p-2 rounded-full backdrop-blur-sm transition"
+              className="bg-white/20 hover:bg-white/30 text-white p-2 rounded-full backdrop-blur-sm transition
+      md:p-2 
+      p-1.5  /* Mobilde küçük buton */
+    "
+              style={{ width: '2.5rem', height: '2.5rem' }} // Küçük boyut
             >
               <ArrowLeft />
             </button>
           </div>
-          <div className="absolute top-1/2 right-4 -translate-y-1/2 z-10">
+
+          <div
+            className="
+    absolute 
+    right-4 
+    -translate-y-1/2 
+    z-10 
+    top-1/2 
+    md:top-1/2 
+    top-[90%] /* Mobilde slider altına yakın */
+  "
+          >
             <button
               onClick={() => instanceRef.current?.next()}
-              className="bg-white/20 hover:bg-white/30 text-white p-2 rounded-full backdrop-blur-sm transition"
+              className="bg-white/20 hover:bg-white/30 text-white p-2 rounded-full backdrop-blur-sm transition
+      md:p-2 
+      p-1.5
+    "
+              style={{ width: '2.5rem', height: '2.5rem' }}
             >
               <ArrowRight />
             </button>
