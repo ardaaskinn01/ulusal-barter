@@ -359,23 +359,26 @@ export default function Home() {
           </div>
 
           <div className="relative w-full px-4 md:px-12 mb-8">
-            <div ref={sliderRef} className="keen-slider h-[600px]">
+            <div
+              ref={sliderRef}
+              className="keen-slider h-auto md:h-[600px]"
+            >
               {images.map((img, index) => (
                 <div
                   key={index}
-                  className="keen-slider__slide bg-white/10 rounded-xl overflow-hidden shadow-lg h-full flex items-center justify-center"
+                  className="keen-slider__slide bg-white/10 rounded-xl overflow-hidden shadow-lg flex items-center justify-center"
                 >
                   <img
                     src={`/${img}`}
                     alt={`Slide ${index + 1}`}
-                    className="w-full h-full object-cover"
+                    className="w-full h-auto md:h-full object-cover"
                   />
                 </div>
               ))}
             </div>
 
             {/* Slider Okları */}
-            <div className="absolute top-1/2 -translate-y-1/2 left-4 z-10">
+            <div className="absolute top-1/2 -translate-y-1/2 left-4 z-10 hidden md:block">
               <button
                 onClick={() => instanceRef.current?.prev()}
                 className="bg-white/20 hover:bg-white/30 text-white p-2 rounded-full backdrop-blur-sm transition"
@@ -383,7 +386,7 @@ export default function Home() {
                 <ArrowLeft />
               </button>
             </div>
-            <div className="absolute top-1/2 -translate-y-1/2 right-4 z-10">
+            <div className="absolute top-1/2 -translate-y-1/2 right-4 z-10 hidden md:block">
               <button
                 onClick={() => instanceRef.current?.next()}
                 className="bg-white/20 hover:bg-white/30 text-white p-2 rounded-full backdrop-blur-sm transition"
