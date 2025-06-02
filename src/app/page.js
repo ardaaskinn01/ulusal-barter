@@ -369,7 +369,7 @@ export default function Home() {
           <div className="relative w-full px-4 md:px-12 mb-8">
             <div
               ref={sliderRef}
-              className="keen-slider h-auto md:h-[600px]"
+              className="keen-slider h-auto md:h-[700px]"
             >
               {images.map((img, index) => (
                 <div
