@@ -239,14 +239,16 @@ export default function Dashboard() {
                     </span>
                   )}
                 </button>
-                <button
+                
+              </>
+            )}
+
+            <button
                   className="md:hidden px-3 py-1.5 bg-red-300 rounded-md text-white text-sm font-medium"
                   onClick={() => setShowFilterMobile(true)}
                 >
                   Filtre
                 </button>
-              </>
-            )}
 
             <button
               onClick={() => {
