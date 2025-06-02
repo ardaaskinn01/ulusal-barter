@@ -585,7 +585,7 @@ export default function Home() {
 
               {/* 2. Kart - Bağlantılar */}
               <div className="bg-yellow-800/40 p-6 rounded-xl border border-yellow-400/20 hover:border-white/50 transition-all duration-300 backdrop-blur-sm flex flex-col items-center justify-center text-center space-y-4 min-h-[300px]">
-                <h3 className="text-lg font-semibold text-white">Bağlantılar</h3>
+                <h3 className="text-2xl font-semibold text-white">Bağlantılar</h3>
                 <ul className="space-y-2">
                   <li><a href="/hakkinda" className="text-yellow-200 hover:text-white transition">Hakkımızda</a></li>
                   <li><a href="/barter" className="text-yellow-200 hover:text-white transition">Barter Sistemi</a></li>
