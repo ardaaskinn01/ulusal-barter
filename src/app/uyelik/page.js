@@ -6,7 +6,8 @@ import Image from "next/image";
 import Head from "next/head";
 import { onAuthStateChanged } from "firebase/auth";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../../firebase";
+import { doc, getDoc, query, orderBy, collection, getDocs, updateDoc } from "firebase/firestore";
+import { auth, db } from "../../../firebase";
 
 export default function Uyelik() {
   const router = useRouter();
@@ -47,12 +48,13 @@ export default function Uyelik() {
       if (userDoc.exists()) {
         const userData = userDoc.data();
 
-        if (userData.isAccept === true) {
-          router.push("/dashboard");
-        } else {
-          // Hesap henüz onaylanmamış
+        // Eğer isAccept === false ise onay bekliyor
+        if (userData.isAccept === false) {
           setError("Hesabınız henüz onaylanmadı. Lütfen yönetici onayını bekleyin.");
           auth.signOut(); // Oturumu kapat
+        } else {
+          // isAccept true veya tanımsızsa (undefined/null) girişe izin ver
+          router.push("/dashboard");
         }
       } else {
         setError("Kullanıcı bilgileri bulunamadı.");
@@ -93,7 +95,7 @@ export default function Uyelik() {
         <meta name="description" content="Ulusal Barter A.Ş. üyelik giriş sayfası. Barter sistemine giriş yaparak takas ekonomisine katılın." />
         <meta property="og:title" content="Üyelik Girişi | ULUSAL BARTER A.Ş." />
         <meta property="og:description" content="Barter sistemine giriş yapın" />
-        <meta name="robots" content="noindex, nofollow" /> 
+        <meta name="robots" content="noindex, nofollow" />
       </Head>
       <div className="min-h-screen flex flex-col bg-white relative">
         <Navbar />

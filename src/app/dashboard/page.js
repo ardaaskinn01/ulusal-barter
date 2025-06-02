@@ -265,7 +265,7 @@ export default function Dashboard() {
       <main className="max-w-7xl mx-auto px-4 py-6 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row gap-14 max-w-7xl mx-auto items-start">
           {/* Filtre Paneli */}
-          <aside className="hidden md:block w-72 bg-white p-6 rounded-lg shadow-sm h-fit top-6">
+          <aside className="hidden md:block w-80 bg-white p-6 rounded-lg shadow-sm h-fit top-6">
             <FilterPanel
               searchLocation={searchLocation}
               setSearchLocation={setSearchLocation}
