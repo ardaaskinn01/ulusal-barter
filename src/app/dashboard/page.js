@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { onAuthStateChanged, signOut } from "firebase/auth";
-import { doc, getDoc, query, orderBy, collection, getDocs, updateDoc } from "firebase/firestore";
+import { doc, getDoc, query, orderBy, collection, getDocs, updateDoc, where } from "firebase/firestore";
 import { auth, db } from "../../../firebase";
 import Navbar from "../components/Navbar";
 
@@ -13,6 +13,9 @@ export default function Dashboard() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
+  const [showBalanceModal, setShowBalanceModal] = useState(false);
+  const [allUsers, setAllUsers] = useState([]); // user rolündeki kullanıcılar
+  const [balanceInputs, setBalanceInputs] = useState({});
   const [showRequestsModal, setShowRequestsModal] = useState(false);
   const [showFilterMobile, setShowFilterMobile] = useState(false);
   const [pendingRequests, setPendingRequests] = useState([]);
@@ -133,12 +136,166 @@ export default function Dashboard() {
     );
   }
 
+  const openBalanceModal = async () => {
+    try {
+      // user rolündeki kullanıcıları çek (örneğin Firestore’dan)
+      const usersSnapshot = await getDocs(query(collection(db, "users"), where("role", "==", "user")));
+      const usersList = usersSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      setAllUsers(usersList);
+      setShowBalanceModal(true);
+    } catch (err) {
+      console.error("Kullanıcılar alınırken hata:", err);
+      alert("Kullanıcılar alınırken hata oluştu.");
+    }
+  }
+
+  // input değişim fonksiyonu
+  const handleBalanceInputChange = (id, value) => {
+    setBalanceInputs(prev => ({ ...prev, [id]: value }));
+  }
+
+  // bakiye ekleme işlemi
+  const addBalance = async (userId) => {
+    try {
+      let val = balanceInputs[userId];
+
+      // Binlik ayracı olan nokta ve virgülü tamamen kaldır
+      // Sadece rakamları ve isteğe bağlı + - karakterlerini tut
+      val = val.replace(/[.,]/g, '');
+
+      // Sonra parseInt ile tam sayı olarak al
+      const amount = parseInt(val, 10);
+
+      if (isNaN(amount) || amount <= 0) {
+        alert("Geçerli bir bakiye miktarı girin.");
+        return;
+      }
+
+      const userRef = doc(db, "users", userId);
+      const user = allUsers.find(u => u.id === userId);
+      const newBalance = (parseFloat(user.bakiye) || 0) + amount;
+
+      await updateDoc(userRef, { bakiye: newBalance.toString() });
+
+      // local state güncelle
+      setAllUsers(prev => prev.map(u => u.id === userId ? { ...u, bakiye: newBalance.toString() } : u));
+      setBalanceInputs(prev => ({ ...prev, [userId]: '' }));
+      alert("Bakiye başarıyla eklendi.");
+    } catch (err) {
+      console.error("Bakiye eklenirken hata:", err);
+      alert("Bakiye eklenirken hata oluştu.");
+    }
+  }
+
+  const subtractBalance = async (userId) => {
+    try {
+      let val = balanceInputs[userId];
+      if (!val) {
+        alert("Lütfen bakiye miktarı girin.");
+        return;
+      }
+
+      // Binlik ayraçları temizle
+      val = val.replace(/[.,]/g, '');
+      const amount = parseInt(val, 10);
+
+      if (isNaN(amount) || amount <= 0) {
+        alert("Geçerli bir bakiye miktarı girin.");
+        return;
+      }
+
+      const userRef = doc(db, "users", userId);
+      const user = allUsers.find(u => u.id === userId);
+      const currentBalance = parseInt(user.bakiye, 10) || 0;
+
+      if (currentBalance < amount) {
+        alert("Çıkarılacak bakiye, mevcut bakiyeden büyük olamaz.");
+        return;
+      }
+
+      const newBalance = currentBalance - amount;
+
+      await updateDoc(userRef, { bakiye: newBalance.toString() });
+
+      // local state güncelle
+      setAllUsers(prev => prev.map(u => u.id === userId ? { ...u, bakiye: newBalance.toString() } : u));
+      setBalanceInputs(prev => ({ ...prev, [userId]: '' }));
+      alert("Bakiye başarıyla çıkarıldı.");
+    } catch (err) {
+      console.error("Bakiye çıkarılırken hata:", err);
+      alert("Bakiye çıkarılırken hata oluştu.");
+    }
+  }
 
   return (
     <div className="min-h-screen bg-yellow-500">
       <Navbar />
 
+      {showBalanceModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
+          <div className="bg-yellow-300 p-6 rounded-lg max-w-3xl w-full shadow-lg relative">
+            <h2 className="text-xl font-bold text-black mb-4 border-b border-yellow-600 pb-2">
+              Kullanıcı Bakiyeleri
+            </h2>
 
+            <div className="max-h-96 overflow-y-auto">
+              {allUsers.length === 0 ? (
+                <p className="text-black">User rolünde kayıtlı kullanıcı bulunamadı.</p>
+              ) : (
+                <table className="w-full text-black">
+                  <thead>
+                    <tr className="border-b border-yellow-600">
+                      <th className="py-2 text-left">Ad Soyad</th>
+                      <th className="py-2 text-right">Bakiye</th>
+                      <th className="py-2 text-center">Miktar</th>
+                      <th className="py-2 text-center">İşlem</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {allUsers.map(user => (
+                      <tr key={user.id} className="border-b border-yellow-200">
+                        <td className="py-2">{user.ad} {user.soyad}</td>
+                        <td className="py-2 text-right font-mono">{user.bakiye || "0"}</td>
+                        <td className="py-2 text-center">
+                          <input
+                            type="text"
+                            placeholder="Miktar"
+                            value={balanceInputs[user.id] || ""}
+                            onChange={e => handleBalanceInputChange(user.id, e.target.value)}
+                            className="border border-yellow-600 rounded-md px-2 py-1 w-24 text-right focus:outline-yellow-500"
+                          />
+                        </td>
+                        <td className="py-2 text-center space-x-2">
+                          <button
+                            onClick={() => addBalance(user.id)}
+                            className="bg-cyan-600 hover:bg-cyan-700 text-white px-3 py-1 rounded-md font-semibold"
+                          >
+                            Ekle
+                          </button>
+                          <button
+                            onClick={() => subtractBalance(user.id)}
+                            className="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded-md font-semibold"
+                          >
+                            Çıkar
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              )}
+            </div>
+
+            <button
+              onClick={() => setShowBalanceModal(false)}
+              className="absolute top-2 right-2 text-black hover:text-yellow-700 font-bold text-xl"
+              title="Kapat"
+            >
+              ×
+            </button>
+          </div>
+        </div>
+      )}
 
       {
         showRequestsModal && (
@@ -205,7 +362,6 @@ export default function Dashboard() {
         </div>
       )}
 
-      {/* Header Section */}
       <header className="bg-yellow-300 shadow-sm mt-16">
         <div className="max-w-7xl mx-auto px-4 py-6 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-start sm:items-center space-y-3 sm:space-y-0">
           <div>
@@ -214,12 +370,29 @@ export default function Dashboard() {
           </div>
 
           <div className="flex flex-wrap sm:flex-nowrap gap-2 sm:gap-3 items-center">
+
+            {/* Yeni kısım burada */}
+            {userData?.role === "user" && (
+              <span className="mr-4 font-semibold text-red-500">
+                Barter Bakiyesi: {userData.bakiye}
+              </span>
+            )}
+
+            {userData?.role === "admin" && (
+              <button
+                onClick={openBalanceModal}
+                className="px-3 py-1.5 bg-red-800 text-white text-sm font-medium rounded-md hover:bg-red-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500"
+              >
+                Bakiye Takip
+              </button>
+            )}
+            {/* Yeni kısım burada bitti */}
+
             {userData?.role === "admin" && (
               <>
-                {/* 1. ve 2. butonlar aynı satırda */}
                 <button
                   onClick={() => router.push("/urun-ekle")}
-                  className="px-3 py-1.5 bg-red-800 text-white text-sm font-medium rounded-md hover:bg-red-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+                  className="px-3 py-1.5 bg-red-600 text-white text-sm font-medium rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
                 >
                   Ürün Ekle
                 </button>
@@ -230,7 +403,7 @@ export default function Dashboard() {
                     fetchPendingRequests();
                     setShowRequestsModal(true);
                   }}
-                  className="relative px-3 py-1.5 bg-red-500 text-white text-sm font-medium rounded-md hover:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-2"
+                  className="relative px-3 py-1.5 bg-red-400 text-white text-sm font-medium rounded-md hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-2"
                 >
                   İstekleri Görüntüle
                   {pendingRequests.length > 0 && (

@@ -121,9 +121,13 @@ export default function ProductDetail() {
         <div className="min-h-screen bg-gradient-to-br from-yellow-600 via-yellow-400 to-yellow-400 text-yellow-400">
             <Navbar />
 
-            <div className="container mx-auto px-6 py-24">
-                <div className="relative mb-16 border-b border-gray-300 pb-16 text-center">
+            <div className="container mx-auto px-6 py-24 relative">
+                {/* Sağ üstte ilan numarası kutusu */}
+                <div className="text-sm absolute top-20 right-0 bg-amber-600 text-white px-4 py-2 rounded-lg shadow-lg z-20">
+                    İlan Numarası: {product.id}
+                </div>
 
+                <div className="relative top-6 mb-12 border-b border-gray-300 pb-12 text-center">
                     {/* Başlık */}
                     <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-gray-900 mb-4">
                         {product.isim}
@@ -139,7 +143,6 @@ export default function ProductDetail() {
                             }
                         </div>
                     )}
-
                 </div>
 
                 {/* Grid yapısı */}
