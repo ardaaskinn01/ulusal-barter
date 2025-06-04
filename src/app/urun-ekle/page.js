@@ -28,6 +28,7 @@ function UrunEkleContent() {
     const [extraImageUrls, setExtraImageUrls] = useState([]);
     const [descriptions, setDescriptions] = useState([""]);
     const [createdAt, setCreatedAt] = useState(null);
+    const [productId, setProductId] = useState(null);
     const searchParams = useSearchParams();
     const editId = searchParams.get("edit");
     const router = useRouter();
@@ -55,6 +56,7 @@ function UrunEkleContent() {
                     setMainImageUrl(data.anaGorselUrl || "");
                     setExtraImageUrls(data.ekGorselUrl || []);
                     setCreatedAt(data.createdAt || null);  // burası önemli
+                    setProductId(data.id || null);
                 } else {
                     alert("Düzenlenecek ürün bulunamadı.");
                 }
@@ -102,6 +104,17 @@ function UrunEkleContent() {
         return data.publicUrl;
     };
 
+    function generateIdFromDate(timestamp) {
+        const date = timestamp.toDate(); // Firestore Timestamp nesnesini JS Date'e çevir
+        const day = String(date.getDate()).padStart(2, '0');
+        const month = String(date.getMonth() + 1).padStart(2, '0'); // Ay 0-indexed
+        const year = String(date.getFullYear()).slice(2); // Son iki hane
+        const hour = String(date.getHours()).padStart(2, '0');
+        const minute = String(date.getMinutes()).padStart(2, '0');
+
+        return `${day}${month}${year}${hour}${minute}`;
+    }
+
     const handleSubmit = async () => {
         if (!productName || !price || (!mainImage && !mainImageUrl)) {
             alert("Lütfen ürün ismi, fiyat ve ana görsel ekleyin.");
@@ -113,36 +126,42 @@ function UrunEkleContent() {
             return;
         }
 
-        const safeProductName = sanitizeFileName(productName);
+        const now = new Date();
+        const fakeTimestamp = { toDate: () => now };
+        const newProductId = generateIdFromDate(fakeTimestamp);
+
+        // Eğer productId varsa (düzenleme modundan veya başka yerden) kullan, yoksa yeni oluşturulanı kullan
+        const finalProductId = productId || newProductId;
+
+        // Burada productRef'i finalProductId ile oluşturuyoruz
         const productRef = doc(db, "products", productName);
 
         try {
             let uploadedMainImageUrl = mainImageUrl;
 
-            // Yeni ana görsel yüklendiyse, güncelle
             if (mainImage) {
                 const mainExt = getExtensionByType(mainImage.type);
-                uploadedMainImageUrl = await uploadToSupabase(mainImage, `${safeProductName}/main.${mainExt}`);
+                uploadedMainImageUrl = await uploadToSupabase(mainImage, `${sanitizeFileName(productName)}/main.${mainExt}`);
             }
 
             const uploadedExtraImageUrls = [...extraImageUrls];
 
-            // Yeni ek görseller varsa, onları da ekle
             for (let i = 0; i < extraImages.length; i++) {
                 const file = extraImages[i];
                 const ext = getExtensionByType(file.type);
-                const url = await uploadToSupabase(file, `${safeProductName}/extra_${uploadedExtraImageUrls.length + i}.${ext}`);
+                const url = await uploadToSupabase(file, `${sanitizeFileName(productName)}/extra_${uploadedExtraImageUrls.length + i}.${ext}`);
                 uploadedExtraImageUrls.push(url);
             }
 
             await setDoc(productRef, {
+                id: finalProductId,       // Bu alana productId ya da yeni id geliyor
                 isim: productName,
                 fiyat: price,
                 anaGorselUrl: uploadedMainImageUrl,
                 ekGorselUrl: uploadedExtraImageUrls,
                 aciklamalar: descriptions,
                 userId: user.uid,
-                createdAt: createdAt || serverTimestamp(),  // varsa eskiyi kullan yoksa yenisini ata
+                createdAt: createdAt || serverTimestamp(),
             });
 
             alert("Ürün başarıyla kaydedildi!");

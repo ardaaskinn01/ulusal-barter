@@ -601,7 +601,7 @@ export default function Home() {
                     0232 600 25 25
                   </a>
                   <a href="mailto:simsekoglugrup@gmail.com" className="block hover:text-white transition-colors">
-                    simsekoglugrup@gmail.com
+                    ulusalbarter@gmail.com
                   </a>
                 </div>
               </div>

@@ -22,7 +22,7 @@ export default function Dashboard() {
   const productTypes = [
     "Arsa", "Arazi", "Otel", "Hizmet", "Çiftlik", "Daire", "Villa", "Santral",
     "Restaurant", "Bahçe", "Tarla", "Parsel", "Tesis", "Zeytinlik", "Fabrika",
-    "Beyaz Eşya", "Ofis", "Ev", "Taksi", "Tekstil", "Peyzaj", "Sera", "Estetik"
+    "Beyaz Eşya", "Ofis", "Ev", "Malikane", "Tatil Köyü", "Taksi", "Tekstil", "Peyzaj", "Sera", "Estetik"
   ];
 
   function normalizeString(str) {
@@ -239,16 +239,16 @@ export default function Dashboard() {
                     </span>
                   )}
                 </button>
-                
+
               </>
             )}
 
             <button
-                  className="md:hidden px-3 py-1.5 bg-red-300 rounded-md text-white text-sm font-medium"
-                  onClick={() => setShowFilterMobile(true)}
-                >
-                  Filtre
-                </button>
+              className="md:hidden px-3 py-1.5 bg-red-300 rounded-md text-white text-sm font-medium"
+              onClick={() => setShowFilterMobile(true)}
+            >
+              Filtre
+            </button>
 
             <button
               onClick={() => {
@@ -299,12 +299,12 @@ export default function Dashboard() {
             ) : (
               filteredProducts.map(product => (
                 <div
-                  key={product.id}
+                  key={product.isim}
                   onClick={() => {
                     if (typeof window !== "undefined") {
                       sessionStorage.setItem("scrollPos", window.scrollY.toString());
                     }
-                    router.push(`/urun/${encodeURIComponent(product.id)}`);
+                    router.push(`/urun/${encodeURIComponent(product.isim)}`);
                   }}
                   className="group bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition duration-150 ease-in-out cursor-pointer flex flex-col h-full"
                 >

@@ -89,7 +89,7 @@ export default function Iletisim() {
                     <div>
                       <p className="text-sm text-gray-600">E-Mail</p>
                       <a href="mailto:nurettintutak@hotmail.com" className="text-lg font-medium text-gray-900 hover:text-yellow-600 transition">
-                        simsekoglugrup@gmail.com
+                        ulusalbarter@gmail.com
                       </a>
                     </div>
                   </li>
