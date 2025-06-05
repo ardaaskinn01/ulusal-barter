@@ -160,7 +160,6 @@ export default function Dashboard() {
       let val = balanceInputs[userId];
 
       // Binlik ayracı olan nokta ve virgülü tamamen kaldır
-      // Sadece rakamları ve isteğe bağlı + - karakterlerini tut
       val = val.replace(/[.,]/g, '');
 
       // Sonra parseInt ile tam sayı olarak al
@@ -173,19 +172,21 @@ export default function Dashboard() {
 
       const userRef = doc(db, "users", userId);
       const user = allUsers.find(u => u.id === userId);
-      const newBalance = (parseFloat(user.bakiye) || 0) + amount;
+      const currentBalance = parseInt(user.bakiye, 10) || 0;
+      const newBalance = currentBalance + amount;
 
-      await updateDoc(userRef, { bakiye: newBalance.toString() });
+      // Firestore'a number olarak gönderiyoruz
+      await updateDoc(userRef, { bakiye: newBalance });
 
       // local state güncelle
-      setAllUsers(prev => prev.map(u => u.id === userId ? { ...u, bakiye: newBalance.toString() } : u));
+      setAllUsers(prev => prev.map(u => u.id === userId ? { ...u, bakiye: newBalance } : u));
       setBalanceInputs(prev => ({ ...prev, [userId]: '' }));
       alert("Bakiye başarıyla eklendi.");
     } catch (err) {
       console.error("Bakiye eklenirken hata:", err);
       alert("Bakiye eklenirken hata oluştu.");
     }
-  }
+  };
 
   const subtractBalance = async (userId) => {
     try {
@@ -195,7 +196,6 @@ export default function Dashboard() {
         return;
       }
 
-      // Binlik ayraçları temizle
       val = val.replace(/[.,]/g, '');
       const amount = parseInt(val, 10);
 
@@ -215,17 +215,17 @@ export default function Dashboard() {
 
       const newBalance = currentBalance - amount;
 
-      await updateDoc(userRef, { bakiye: newBalance.toString() });
+      // Firestore'a number olarak gönderiyoruz
+      await updateDoc(userRef, { bakiye: newBalance });
 
-      // local state güncelle
-      setAllUsers(prev => prev.map(u => u.id === userId ? { ...u, bakiye: newBalance.toString() } : u));
+      setAllUsers(prev => prev.map(u => u.id === userId ? { ...u, bakiye: newBalance } : u));
       setBalanceInputs(prev => ({ ...prev, [userId]: '' }));
       alert("Bakiye başarıyla çıkarıldı.");
     } catch (err) {
       console.error("Bakiye çıkarılırken hata:", err);
       alert("Bakiye çıkarılırken hata oluştu.");
     }
-  }
+  };
 
   return (
     <div className="min-h-screen bg-yellow-500">
@@ -265,19 +265,21 @@ export default function Dashboard() {
                             className="border border-yellow-600 rounded-md px-2 py-1 w-24 text-right focus:outline-yellow-500"
                           />
                         </td>
-                        <td className="py-2 text-center space-x-2">
-                          <button
-                            onClick={() => addBalance(user.id)}
-                            className="bg-cyan-600 hover:bg-cyan-700 text-white px-3 py-1 rounded-md font-semibold"
-                          >
-                            Ekle
-                          </button>
-                          <button
-                            onClick={() => subtractBalance(user.id)}
-                            className="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded-md font-semibold"
-                          >
-                            Çıkar
-                          </button>
+                        <td className="py-2 text-center">
+                          <div className="flex flex-col md:flex-row justify-center items-center gap-2">
+                            <button
+                              onClick={() => addBalance(user.id)}
+                              className="bg-cyan-600 hover:bg-cyan-700 text-white px-3 py-1 rounded-md font-semibold"
+                            >
+                              Ekle
+                            </button>
+                            <button
+                              onClick={() => subtractBalance(user.id)}
+                              className="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded-md font-semibold"
+                            >
+                              Çıkar
+                            </button>
+                          </div>
                         </td>
                       </tr>
                     ))}
