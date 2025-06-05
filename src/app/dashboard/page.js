@@ -376,7 +376,7 @@ export default function Dashboard() {
             {/* Yeni kısım burada */}
             {userData?.role === "user" && (
               <span className="mr-4 font-semibold text-red-500">
-                Barter Bakiyesi: {userData.bakiye}
+                Barter Bakiyesi: {userData.bakiye} ₺
               </span>
             )}
 
