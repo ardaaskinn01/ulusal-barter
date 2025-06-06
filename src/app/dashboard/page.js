@@ -150,19 +150,67 @@ export default function Dashboard() {
   }
 
   // input değişim fonksiyonu
-  const handleBalanceInputChange = (id, value) => {
-    setBalanceInputs(prev => ({ ...prev, [id]: value }));
-  }
+  const handleBalanceInputChange = (userId, value) => {
+  const formattedValue = formatBalanceInput(value);
+  setBalanceInputs(prev => ({ ...prev, [userId]: formattedValue }));
+};
+
+  const formatBalanceInput = (value) => {
+    // Sayı olmayan karakterleri temizle
+    value = value.replace(/[^\d]/g, '');
+
+    const len = value.length;
+
+    if (len <= 3) return value;
+
+    if (len === 4) {
+      return value.replace(/(\d{1})(\d{3})/, '$1.$2');
+    }
+
+    if (len === 5) {
+      return value.replace(/(\d{2})(\d{3})/, '$1.$2');
+    }
+
+    if (len === 6) {
+      return value.replace(/(\d{3})(\d{3})/, '$1.$2');
+    }
+
+    if (len === 7) {
+      return value.replace(/(\d{1})(\d{3})(\d{3})/, '$1.$2.$3');
+    }
+
+    if (len === 8) {
+      return value.replace(/(\d{2})(\d{3})(\d{3})/, '$1.$2.$3');
+    }
+
+    if (len === 9) {
+      return value.replace(/(\d{3})(\d{3})(\d{3})/, '$1.$2.$3');
+    }
+
+    if (len === 10) {
+      return value.replace(/(\d{1})(\d{3})(\d{3})(\d{3})/, '$1.$2.$3.$4');
+    }
+
+    if (len === 11) {
+      return value.replace(/(\d{2})(\d{3})(\d{3})(\d{3})/, '$1.$2.$3.$4');
+    }
+
+    // Daha fazlası için genel binlik ayraç eklemesi
+    return value.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+  };
 
   // bakiye ekleme işlemi
   const addBalance = async (userId) => {
     try {
       let val = balanceInputs[userId];
+      if (!val) {
+        alert("Lütfen bakiye miktarı girin.");
+        return;
+      }
 
-      // Binlik ayracı olan nokta ve virgülü tamamen kaldır
+      // Nokta ve virgül kaldır
       val = val.replace(/[.,]/g, '');
 
-      // Sonra parseInt ile tam sayı olarak al
       const amount = parseInt(val, 10);
 
       if (isNaN(amount) || amount <= 0) {
@@ -175,11 +223,11 @@ export default function Dashboard() {
       const currentBalance = parseInt(user.bakiye, 10) || 0;
       const newBalance = currentBalance + amount;
 
-      // Firestore'a number olarak gönderiyoruz
       await updateDoc(userRef, { bakiye: newBalance });
 
-      // local state güncelle
-      setAllUsers(prev => prev.map(u => u.id === userId ? { ...u, bakiye: newBalance } : u));
+      setAllUsers(prev =>
+        prev.map(u => u.id === userId ? { ...u, bakiye: newBalance } : u)
+      );
       setBalanceInputs(prev => ({ ...prev, [userId]: '' }));
       alert("Bakiye başarıyla eklendi.");
     } catch (err) {
@@ -187,6 +235,8 @@ export default function Dashboard() {
       alert("Bakiye eklenirken hata oluştu.");
     }
   };
+
+
 
   const subtractBalance = async (userId) => {
     try {
@@ -215,10 +265,11 @@ export default function Dashboard() {
 
       const newBalance = currentBalance - amount;
 
-      // Firestore'a number olarak gönderiyoruz
       await updateDoc(userRef, { bakiye: newBalance });
 
-      setAllUsers(prev => prev.map(u => u.id === userId ? { ...u, bakiye: newBalance } : u));
+      setAllUsers(prev =>
+        prev.map(u => u.id === userId ? { ...u, bakiye: newBalance } : u)
+      );
       setBalanceInputs(prev => ({ ...prev, [userId]: '' }));
       alert("Bakiye başarıyla çıkarıldı.");
     } catch (err) {
@@ -255,7 +306,7 @@ export default function Dashboard() {
                     {allUsers.map(user => (
                       <tr key={user.id} className="border-b border-yellow-200">
                         <td className="py-2">{user.ad} {user.soyad}</td>
-                        <td className="py-2 text-right font-mono">{user.bakiye || "0"}</td>
+                        <td className="py-2 text-right font-mono">{userData.bakiye || "0"} ₺</td>
                         <td className="py-2 text-center">
                           <input
                             type="text"
