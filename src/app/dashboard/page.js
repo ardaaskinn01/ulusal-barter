@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { onAuthStateChanged, signOut } from "firebase/auth";
-import { doc, getDoc, query, orderBy, collection, getDocs, updateDoc, where, addDoc } from "firebase/firestore";
+import { doc, getDoc, query, orderBy, collection, getDocs, updateDoc, where, addDoc, onSnapshot } from "firebase/firestore";
 import { auth, db } from "../../../firebase";
 import Navbar from "../components/Navbar";
 
@@ -25,6 +25,8 @@ export default function Dashboard() {
   const [selectedTypes, setSelectedTypes] = useState([]);
   const [selectedUserId, setSelectedUserId] = useState(null);
   const [transactions, setTransactions] = useState([]);
+  const [showOffersModal, setShowOffersModal] = useState(false);
+  const [offers, setOffers] = useState([]);
   const [showTransactionModal, setShowTransactionModal] = useState(false);
   const productTypes = [
     "Arsa", "Arazi", "Otel", "Hizmet", "Çiftlik", "Daire", "Villa", "Santral",
@@ -122,6 +124,18 @@ export default function Dashboard() {
   }, []);
 
   useEffect(() => {
+    if (!showOffersModal) return;
+
+    const q = query(collection(db, "offers"), orderBy("createdAt", "desc"));
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      const data = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      setOffers(data);
+    });
+
+    return () => unsubscribe();
+  }, [showOffersModal]);
+
+  useEffect(() => {
     if (!loading) {
       const savedPosition = sessionStorage.getItem('scrollPos');
       if (savedPosition) {
@@ -139,6 +153,20 @@ export default function Dashboard() {
       </div>
     );
   }
+
+
+  const openOffersModal = () => {
+    setShowOffersModal(true);
+  };
+
+  const closeOffersModal = () => {
+    setShowOffersModal(false);
+  };
+
+  const goToProductPage = (productId) => {
+    closeOffersModal();
+    router.push(`/urun/${productId}`);
+  };
 
   const openBalanceModal = async () => {
     try {
@@ -483,6 +511,50 @@ export default function Dashboard() {
         )
       }
 
+      {showOffersModal && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50"
+          onClick={closeOffersModal}
+        >
+          <div
+            className="bg-white rounded-lg shadow-lg max-w-xl w-full max-h-[80vh] overflow-y-auto p-6"
+            onClick={(e) => e.stopPropagation()} // Modal içi tıklamayı engelle
+          >
+            <h2 className="text-xl font-bold mb-4 text-yellow-600">Teklifler</h2>
+            {offers.length === 0 ? (
+              <p className="text-gray-600">Henüz teklif yok.</p>
+            ) : (
+              <ul>
+                {offers.map((offer) => (
+                  <li
+                    key={offer.id}
+                    onClick={() => goToProductPage(offer.productId)}
+                    className="cursor-pointer p-3 rounded hover:bg-yellow-100 transition-colors mb-2 border border-yellow-300"
+                  >
+                    <p className="text-sm text-gray-500 italic">
+                      <strong>Miktar:</strong>{" "}
+                      {offer.amount?.toLocaleString("tr-TR")} {offer.currency || ""}
+                    </p>
+                    <p className="text-sm text-gray-500 italic">
+                      <strong>Teklif Veren:</strong> {offer.userName || "Bilinmeyen"}
+                    </p>
+                    <p className="text-sm text-gray-500 italic">
+                      {offer.productId}
+                    </p>
+                  </li>
+                ))}
+              </ul>
+            )}
+            <button
+              onClick={closeOffersModal}
+              className="mt-6 px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+            >
+              Kapat
+            </button>
+          </div>
+        </div>
+      )}
+
       {showFilterMobile && (
         <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex justify-start">
           <div className="w-64 bg-white p-4 overflow-y-auto">
@@ -506,17 +578,19 @@ export default function Dashboard() {
       <header className="bg-yellow-300 shadow-sm mt-16">
         <div className="max-w-7xl mx-auto px-4 py-6 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-start sm:items-center space-y-3 sm:space-y-0">
           <div>
-            <h1 className="text-2xl font-semibold text-gray-900">Hoşgeldiniz, {userData ? `${userData.ad} ${userData.soyad}` : "..."}</h1>
+            <h1 className="text-2xl font-semibold text-gray-900">
+              Hoşgeldiniz, {userData ? `${userData.ad} ${userData.soyad}` : "..."}
+            </h1>
             <p className="text-gray-500 mt-1">{products.length} ürün listeleniyor</p>
           </div>
 
           <div className="flex flex-wrap sm:flex-nowrap gap-2 sm:gap-3 items-center">
 
-            {/* Yeni kısım burada */}
+            {/* Kullanıcı rolleri */}
             {userData?.role === "user" && (
               <div className="flex items-center gap-2">
                 <span className="font-semibold text-red-500">
-                  Barter Bakiyesi: {userData.bakiye?.toLocaleString('tr-TR')} ₺
+                  Barter Bakiyesi: {userData.bakiye?.toLocaleString("tr-TR")} ₺
                 </span>
                 <button
                   onClick={handleShowOwnTransactions}
@@ -528,31 +602,27 @@ export default function Dashboard() {
             )}
 
             {userData?.role === "admin" && (
-              <button
-                onClick={openBalanceModal}
-                className="px-3 py-1.5 bg-red-800 text-white text-sm font-medium rounded-md hover:bg-red-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500"
-              >
-                Bakiye Takip
-              </button>
-            )}
-            {/* Yeni kısım burada bitti */}
-
-            {userData?.role === "admin" && (
               <>
                 <button
+                  onClick={openBalanceModal}
+                  className="px-3 py-1.5 bg-red-900 text-white text-sm font-medium rounded-md hover:bg-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500"
+                >
+                  Bakiye Takip
+                </button>
+
+                <button
                   onClick={() => router.push("/urun-ekle")}
-                  className="px-3 py-1.5 bg-red-600 text-white text-sm font-medium rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+                  className="px-3 py-1.5 bg-red-700 text-white text-sm font-medium rounded-md hover:bg-red-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
                 >
                   Ürün Ekle
                 </button>
 
-                {/* 3. buton mobilde alt satıra düşsün */}
                 <button
                   onClick={() => {
                     fetchPendingRequests();
                     setShowRequestsModal(true);
                   }}
-                  className="relative px-3 py-1.5 bg-red-400 text-white text-sm font-medium rounded-md hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-2"
+                  className="relative px-3 py-1.5 bg-red-500 text-white text-sm font-medium rounded-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-2"
                 >
                   İstekleri Görüntüle
                   {pendingRequests.length > 0 && (
@@ -562,6 +632,13 @@ export default function Dashboard() {
                   )}
                 </button>
 
+                {/* Yeni teklifler butonu */}
+                <button
+                  onClick={openOffersModal}
+                  className="px-3 py-1.5 bg-red-300 text-white text-sm font-medium rounded-md hover:bg-red-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500"
+                >
+                  Teklifler
+                </button>
               </>
             )}
 

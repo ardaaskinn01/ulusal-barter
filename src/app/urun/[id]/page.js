@@ -2,10 +2,11 @@
 
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
-import { doc, getDoc, deleteDoc } from "firebase/firestore";
+import { doc, getDoc, deleteDoc, setDoc, collection, query, where, getDocs } from "firebase/firestore";
 import { db } from "../../../../firebase";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import Navbar from "../../components/Navbar";
+import { v4 as uuidv4 } from 'uuid';
 import Zoom from 'react-medium-image-zoom';
 import 'react-medium-image-zoom/dist/styles.css';
 
@@ -13,13 +14,17 @@ export default function ProductDetail() {
     const { id: rawId } = useParams();
     const id = decodeURIComponent(rawId);
     const router = useRouter();
-
+    const [hasOffered, setHasOffered] = useState(false);
+    const [showOfferModal, setShowOfferModal] = useState(false);
+    const [offerAmount, setOfferAmount] = useState("");
+    const [currency, setCurrency] = useState("₺");
     const [product, setProduct] = useState(null);
     const [modalUrl, setModalUrl] = useState(null);
     const [currentUser, setCurrentUser] = useState(null);
     const [isAdmin, setIsAdmin] = useState(false);
     const [canEdit, setCanEdit] = useState(false);
     const [currentIndex, setCurrentIndex] = useState(null);
+    const [offerDocId, setOfferDocId] = useState(null);
 
     const openModal = (index) => {
         setCurrentIndex(index);
@@ -88,6 +93,93 @@ export default function ProductDetail() {
         fetchProduct();
     }, [id, currentUser]);
 
+    useEffect(() => {
+        const checkOffer = async () => {
+            if (!currentUser || !id) return;
+
+            try {
+                const q = query(
+                    collection(db, "offers"),
+                    where("userId", "==", currentUser.uid),
+                    where("productId", "==", id)
+                );
+
+                const querySnapshot = await getDocs(q);
+
+                if (!querySnapshot.empty) {
+                    // Teklif bulunursa, hasOffered true yapılır ve ilk teklifin ID'si saklanır
+                    const docId = querySnapshot.docs[0].id;
+                    setHasOffered(true);
+                    setOfferDocId(docId); // Bu ID, silme işleminde kullanılacak
+                } else {
+                    setHasOffered(false);
+                    setOfferDocId(null);
+                }
+            } catch (err) {
+                console.error("Teklif kontrolü sırasında hata:", err);
+            }
+        };
+
+        checkOffer();
+    }, [currentUser, id]);
+
+    const handleOfferSubmit = async () => {
+        // Noktaları sil, virgülü noktaya çevir → sayıya dönüştür
+        const numericAmount = parseFloat(offerAmount.replace(/\./g, '').replace(',', '.'));
+
+        if (!numericAmount || isNaN(numericAmount)) {
+            alert("Geçerli bir miktar giriniz.");
+            return;
+        }
+
+        try {
+            // 1. Kullanıcının Firestore'daki bilgilerini al
+            const userDocRef = doc(db, "users", currentUser.uid);
+            const userDocSnap = await getDoc(userDocRef);
+
+            let fullName = "Bilinmeyen Kullanıcı";
+            if (userDocSnap.exists()) {
+                const userData = userDocSnap.data();
+                fullName = `${userData.ad || ""} ${userData.soyad || ""}`.trim();
+            }
+
+            // 2. Rastgele ID oluştur
+            const randomId = uuidv4();
+
+            // 3. Teklif verisini yaz
+            const offerRef = doc(db, "offers", randomId);
+            await setDoc(offerRef, {
+                userId: currentUser.uid,
+                productId: id,
+                amount: numericAmount, // <-- Temizlenmiş sayı
+                currency: currency,
+                createdAt: new Date(),
+                userName: fullName
+            });
+
+            setHasOffered(true);
+            setShowOfferModal(false);
+            alert("Teklif başarıyla verildi.");
+        } catch (error) {
+            console.error("Teklif verirken hata oluştu:", error);
+            alert("Bir hata oluştu.");
+        }
+    };
+
+    const handleWithdrawOffer = async () => {
+        try {
+            if (!offerDocId) return alert("Silinecek teklif bulunamadı.");
+
+            await deleteDoc(doc(db, "offers", offerDocId));
+            setHasOffered(false);
+            setOfferDocId(null);
+            alert("Teklif geri çekildi.");
+        } catch (err) {
+            console.error("Geri çekme hatası:", err);
+            alert("Teklif geri çekilirken hata oluştu.");
+        }
+    };
+
     const handleDelete = async () => {
         const confirmDelete = window.confirm("Bu ürünü silmek istediğinize emin misiniz?");
         if (!confirmDelete) return;
@@ -120,6 +212,65 @@ export default function ProductDetail() {
     return (
         <div className="min-h-screen bg-gradient-to-br from-yellow-600 via-yellow-400 to-yellow-400 text-yellow-400">
             <Navbar />
+
+            {showOfferModal && (
+                <div className="fixed inset-0 bg-black bg-opacity-60 z-50 flex items-center justify-center">
+                    <div className="bg-white rounded-lg p-6 w-[90%] max-w-md shadow-lg">
+                        <h2 className="text-xl font-semibold mb-4 text-gray-800">Teklif Ver</h2>
+
+                        <input
+                            type="text"
+                            placeholder="Miktar girin"
+                            className="w-full border px-4 py-2 mb-4 rounded"
+                            value={offerAmount}
+                            onChange={(e) => {
+                                let rawValue = e.target.value;
+
+                                // Sadece rakamları al (virgül varsa al, nokta yok!)
+                                rawValue = rawValue.replace(/[^\d,]/g, '');
+
+                                // Virgülden sonra sadece 2 hane olacak şekilde sınırla
+                                const [intPart, decimalPart] = rawValue.split(',');
+                                let formattedInt = intPart.replace(/^0+/, ''); // baştaki sıfırları sil
+                                formattedInt = formattedInt.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+
+                                let result = formattedInt;
+                                if (decimalPart !== undefined) {
+                                    result += ',' + decimalPart.slice(0, 2);
+                                }
+
+                                setOfferAmount(result);
+                            }}
+                        />
+
+
+                        <select
+                            className="w-full border px-4 py-2 mb-4 rounded"
+                            value={currency}
+                            onChange={(e) => setCurrency(e.target.value)}
+                        >
+                            <option value="₺">TL</option>
+                            <option value="$">USD</option>
+                            <option value="€">EUR</option>
+                        </select>
+
+                        <div className="flex justify-end gap-4">
+                            <button
+                                onClick={() => setShowOfferModal(false)}
+                                className="px-4 py-2 rounded bg-gray-800 hover:bg-gray-900"
+                            >
+                                İptal
+                            </button>
+                            <button
+                                onClick={handleOfferSubmit}
+                                className="px-4 py-2 rounded bg-green-600 text-white hover:bg-green-700"
+                            >
+                                Gönder
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
 
             <div className="container mx-auto px-6 py-24 relative">
                 {/* Sağ üstte ilan numarası kutusu */}
@@ -206,22 +357,41 @@ export default function ProductDetail() {
                             )}
                         </div>
 
-                        {/* Admin Butonları */}
-                        {(isAdmin || canEdit) && (
-                            <div className="flex gap-4">
+                        {(isAdmin || canEdit) ? (
+                            <div className="flex gap-4 mt-6">
                                 <button
-                                    className="flex items-center gap-2 bg-red-800 hover:bg-red-900 text-white px-6 py-3 rounded-lg shadow-lg transition"
                                     onClick={handleEdit}
+                                    className="flex items-center gap-2 bg-red-800 hover:bg-red-900 text-white px-6 py-3 rounded-lg shadow-lg transition"
                                 >
                                     Düzenle
                                 </button>
                                 <button
-                                    className="flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg shadow-lg transition"
                                     onClick={handleDelete}
+                                    className="flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg shadow-lg transition"
                                 >
                                     Sil
                                 </button>
                             </div>
+                        ) : (
+                            currentUser && (
+                                <div className="mt-6">
+                                    {!hasOffered ? (
+                                        <button
+                                            onClick={() => setShowOfferModal(true)}
+                                            className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg shadow-lg transition"
+                                        >
+                                            Teklif Ver
+                                        </button>
+                                    ) : (
+                                        <button
+                                            onClick={handleWithdrawOffer}
+                                            className="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg shadow-lg transition"
+                                        >
+                                            Teklifi Geri Çek
+                                        </button>
+                                    )}
+                                </div>
+                            )
                         )}
                     </div>
                 </div>
