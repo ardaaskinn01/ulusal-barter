@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { onAuthStateChanged, signOut } from "firebase/auth";
-import { doc, getDoc, query, orderBy, collection, getDocs, updateDoc, where } from "firebase/firestore";
+import { doc, getDoc, query, orderBy, collection, getDocs, updateDoc, where, addDoc } from "firebase/firestore";
 import { auth, db } from "../../../firebase";
 import Navbar from "../components/Navbar";
 
@@ -16,12 +16,16 @@ export default function Dashboard() {
   const [showBalanceModal, setShowBalanceModal] = useState(false);
   const [allUsers, setAllUsers] = useState([]); // user rolündeki kullanıcılar
   const [balanceInputs, setBalanceInputs] = useState({});
+  const [descriptionInputs, setDescriptionInputs] = useState({});
   const [showRequestsModal, setShowRequestsModal] = useState(false);
   const [showFilterMobile, setShowFilterMobile] = useState(false);
   const [pendingRequests, setPendingRequests] = useState([]);
   const [searchLocation, setSearchLocation] = useState("");
   const normalizedSearch = normalizeString(searchLocation.trim());
   const [selectedTypes, setSelectedTypes] = useState([]);
+  const [selectedUserId, setSelectedUserId] = useState(null);
+  const [transactions, setTransactions] = useState([]);
+  const [showTransactionModal, setShowTransactionModal] = useState(false);
   const productTypes = [
     "Arsa", "Arazi", "Otel", "Hizmet", "Çiftlik", "Daire", "Villa", "Santral",
     "Restaurant", "Bahçe", "Tarla", "Parsel", "Tesis", "Zeytinlik", "Fabrika",
@@ -151,9 +155,13 @@ export default function Dashboard() {
 
   // input değişim fonksiyonu
   const handleBalanceInputChange = (userId, value) => {
-  const formattedValue = formatBalanceInput(value);
-  setBalanceInputs(prev => ({ ...prev, [userId]: formattedValue }));
-};
+    const formattedValue = formatBalanceInput(value);
+    setBalanceInputs(prev => ({ ...prev, [userId]: formattedValue }));
+  };
+
+  const handleDescriptionInputChange = (userId, value) => {
+    setDescriptionInputs(prev => ({ ...prev, [userId]: value }));
+  };
 
   const formatBalanceInput = (value) => {
     // Sayı olmayan karakterleri temizle
@@ -203,20 +211,14 @@ export default function Dashboard() {
   const addBalance = async (userId) => {
     try {
       let val = balanceInputs[userId];
-      if (!val) {
-        alert("Lütfen bakiye miktarı girin.");
-        return;
-      }
+      const desc = descriptionInputs[userId];
 
-      // Nokta ve virgül kaldır
+      if (!val) return alert("Lütfen bakiye miktarı girin.");
       val = val.replace(/[.,]/g, '');
-
       const amount = parseInt(val, 10);
 
-      if (isNaN(amount) || amount <= 0) {
-        alert("Geçerli bir bakiye miktarı girin.");
-        return;
-      }
+      if (isNaN(amount) || amount <= 0) return alert("Geçerli bir bakiye miktarı girin.");
+      if (!desc) return alert("Lütfen açıklama girin.");
 
       const userRef = doc(db, "users", userId);
       const user = allUsers.find(u => u.id === userId);
@@ -225,14 +227,21 @@ export default function Dashboard() {
 
       await updateDoc(userRef, { bakiye: newBalance });
 
-      setAllUsers(prev =>
-        prev.map(u => u.id === userId ? { ...u, bakiye: newBalance } : u)
-      );
+      const transactionRef = collection(db, `users/${userId}/bakiye_gecmisi`);
+      await addDoc(transactionRef, {
+        miktar: amount,
+        aciklama: desc,
+        islemTuru: "ekle",
+        tarih: new Date()
+      });
+
+      setAllUsers(prev => prev.map(u => u.id === userId ? { ...u, bakiye: newBalance } : u));
       setBalanceInputs(prev => ({ ...prev, [userId]: '' }));
+      setDescriptionInputs(prev => ({ ...prev, [userId]: '' }));
       alert("Bakiye başarıyla eklendi.");
     } catch (err) {
       console.error("Bakiye eklenirken hata:", err);
-      alert("Bakiye eklenirken hata oluştu.");
+      alert("Hata oluştu.");
     }
   };
 
@@ -241,41 +250,60 @@ export default function Dashboard() {
   const subtractBalance = async (userId) => {
     try {
       let val = balanceInputs[userId];
-      if (!val) {
-        alert("Lütfen bakiye miktarı girin.");
-        return;
-      }
+      const desc = descriptionInputs[userId];
 
+      if (!val) return alert("Lütfen bakiye miktarı girin.");
       val = val.replace(/[.,]/g, '');
       const amount = parseInt(val, 10);
 
-      if (isNaN(amount) || amount <= 0) {
-        alert("Geçerli bir bakiye miktarı girin.");
-        return;
-      }
+      if (isNaN(amount) || amount <= 0) return alert("Geçerli bir bakiye miktarı girin.");
+      if (!desc) return alert("Lütfen açıklama girin.");
 
       const userRef = doc(db, "users", userId);
       const user = allUsers.find(u => u.id === userId);
       const currentBalance = parseInt(user.bakiye, 10) || 0;
 
-      if (currentBalance < amount) {
-        alert("Çıkarılacak bakiye, mevcut bakiyeden büyük olamaz.");
-        return;
-      }
+      if (currentBalance < amount) return alert("Yetersiz bakiye.");
 
       const newBalance = currentBalance - amount;
-
       await updateDoc(userRef, { bakiye: newBalance });
 
-      setAllUsers(prev =>
-        prev.map(u => u.id === userId ? { ...u, bakiye: newBalance } : u)
-      );
+      const transactionRef = collection(db, `users/${userId}/bakiye_gecmisi`);
+      await addDoc(transactionRef, {
+        miktar: amount,
+        aciklama: desc,
+        islemTuru: "çıkar",
+        tarih: new Date()
+      });
+
+      setAllUsers(prev => prev.map(u => u.id === userId ? { ...u, bakiye: newBalance } : u));
       setBalanceInputs(prev => ({ ...prev, [userId]: '' }));
+      setDescriptionInputs(prev => ({ ...prev, [userId]: '' }));
       alert("Bakiye başarıyla çıkarıldı.");
     } catch (err) {
       console.error("Bakiye çıkarılırken hata:", err);
-      alert("Bakiye çıkarılırken hata oluştu.");
+      alert("Hata oluştu.");
     }
+  };
+
+
+  const openTransactionHistory = async (userId) => {
+    const transactionRef = collection(db, `users/${userId}/bakiye_gecmisi`);
+    const q = query(transactionRef, orderBy("tarih", "desc"));
+    const snapshot = await getDocs(q);
+    const data = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    setTransactions(data);
+    setSelectedUserId(userId);
+    setShowTransactionModal(true);
+  };
+
+  const handleShowOwnTransactions = async () => {
+    if (!userData?.uid) return;
+
+    const snapshot = await getDocs(collection(db, "users", userData.uid, "bakiye_gecmisi"));
+    const data = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    setTransactions(data);
+    setShowTransactionModal(true);
   };
 
   return (
@@ -296,8 +324,7 @@ export default function Dashboard() {
                 <table className="w-full text-black">
                   <thead>
                     <tr className="border-b border-yellow-600">
-                      <th className="py-2 text-left">Ad Soyad</th>
-                      <th className="py-2 text-right">Bakiye</th>
+                      <th className="py-2 text-left">Ad Soyad / Bakiye</th>
                       <th className="py-2 text-center">Miktar</th>
                       <th className="py-2 text-center">İşlem</th>
                     </tr>
@@ -305,8 +332,12 @@ export default function Dashboard() {
                   <tbody>
                     {allUsers.map(user => (
                       <tr key={user.id} className="border-b border-yellow-200">
-                        <td className="py-2">{user.ad} {user.soyad}</td>
-                        <td className="py-2 text-right font-mono">{userData.bakiye || "0"} ₺</td>
+                        <td className="py-2">
+                          <div className="font-semibold">{user.ad} {user.soyad}</div>
+                          <div className="text-sm text-gray-700 font-mono">
+                            {user.bakiye ?? 0} ₺
+                          </div>
+                        </td>
                         <td className="py-2 text-center">
                           <input
                             type="text"
@@ -314,6 +345,13 @@ export default function Dashboard() {
                             value={balanceInputs[user.id] || ""}
                             onChange={e => handleBalanceInputChange(user.id, e.target.value)}
                             className="border border-yellow-600 rounded-md px-2 py-1 w-24 text-right focus:outline-yellow-500"
+                          />
+                          <input
+                            type="text"
+                            placeholder="Açıklama"
+                            value={descriptionInputs[user.id] || ""}
+                            onChange={e => handleDescriptionInputChange(user.id, e.target.value)}
+                            className="border border-yellow-600 rounded-md px-2 py-1 w-full mt-1 text-left"
                           />
                         </td>
                         <td className="py-2 text-center">
@@ -330,12 +368,19 @@ export default function Dashboard() {
                             >
                               Çıkar
                             </button>
+                            <button
+                              onClick={() => openTransactionHistory(user.id)}
+                              className="bg-yellow-600 hover:bg-yellow-700 text-white px-3 py-1 rounded-md font-semibold"
+                            >
+                              Geçmiş
+                            </button>
                           </div>
                         </td>
                       </tr>
                     ))}
                   </tbody>
                 </table>
+
               )}
             </div>
 
@@ -343,6 +388,49 @@ export default function Dashboard() {
               onClick={() => setShowBalanceModal(false)}
               className="absolute top-2 right-2 text-black hover:text-yellow-700 font-bold text-xl"
               title="Kapat"
+            >
+              ×
+            </button>
+          </div>
+        </div>
+      )}
+
+      {showTransactionModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
+          <div className="bg-white p-6 rounded-lg max-w-md w-full shadow-lg relative">
+            <h2 className="text-xl font-bold text-gray-900 mb-4">İşlem Geçmişi</h2>
+            <ul className="space-y-2 max-h-80 overflow-y-auto">
+              {transactions.length === 0 ? (
+                <li className="text-black">Geçmiş bulunamadı.</li>
+              ) : (
+                [...transactions] // Orijinal listeyi bozmamak için kopyala
+                  .sort((a, b) => b.tarih.toDate() - a.tarih.toDate()) // Tarihe göre azalan sırala
+                  .map(t => {
+                    const islemTuruText =
+                      t.islemTuru === 'ekle' ? 'Ekleme' :
+                        t.islemTuru === 'çıkar' ? 'Çıkarma' :
+                          t.islemTuru;
+
+                    const colorClass =
+                      t.islemTuru === 'ekle' ? 'text-green-600' :
+                        t.islemTuru === 'çıkar' ? 'text-red-600' :
+                          'text-yellow-600';
+
+                    return (
+                      <li key={t.id} className="border p-2 rounded-md">
+                        <p className="text-sm text-black">📅 {new Date(t.tarih.toDate()).toLocaleString()}</p>
+                        <p className={`font-semibold ${colorClass}`}>
+                          {islemTuruText}: {t.miktar} ₺
+                        </p>
+                        <p className="text-black">{t.aciklama}</p>
+                      </li>
+                    );
+                  })
+              )}
+            </ul>
+            <button
+              onClick={() => setShowTransactionModal(false)}
+              className="absolute top-2 right-2 text-gray-700 hover:text-red-500 text-xl font-bold"
             >
               ×
             </button>
@@ -426,9 +514,17 @@ export default function Dashboard() {
 
             {/* Yeni kısım burada */}
             {userData?.role === "user" && (
-              <span className="mr-4 font-semibold text-red-500">
-                Barter Bakiyesi: {userData.bakiye} ₺
-              </span>
+              <div className="flex items-center gap-2">
+                <span className="font-semibold text-red-500">
+                  Barter Bakiyesi: {userData.bakiye?.toLocaleString('tr-TR')} ₺
+                </span>
+                <button
+                  onClick={handleShowOwnTransactions}
+                  className="px-2 py-1.5 bg-red-500 text-white text-sm font-medium rounded hover:bg-red-600 focus:outline-none"
+                >
+                  Hesap Geçmişi
+                </button>
+              </div>
             )}
 
             {userData?.role === "admin" && (
