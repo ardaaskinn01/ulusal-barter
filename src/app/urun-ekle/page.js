@@ -3,7 +3,7 @@ import { useState, useEffect, Suspense } from "react";
 import { useRouter } from "next/navigation";
 import { doc, setDoc, getDoc, serverTimestamp } from "firebase/firestore";
 import { db } from "../../../firebase";
-import { getAuth } from "firebase/auth";
+import { onAuthStateChanged, getAuth } from "firebase/auth";
 import { useSearchParams } from "next/navigation";
 import { supabase } from "../../../supabase";
 
@@ -34,6 +34,22 @@ function UrunEkleContent() {
     const router = useRouter();
 
     const [user, setUser] = useState(null);
+
+    useEffect(() => {
+        const auth = getAuth();
+
+        const unsubscribe = onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                // Kullanıcı giriş yapmış, devam et
+                setUser(user);
+            } else {
+                // Giriş yapılmamış, yönlendir
+                router.push("/uyelik");
+            }
+        });
+
+        return () => unsubscribe();
+    }, []);
 
     useEffect(() => {
         const auth = getAuth();
