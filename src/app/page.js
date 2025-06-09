@@ -52,7 +52,6 @@ const useSectionAnimation = (setStartCountUp) => { // setStartCountUp parametre 
 export default function Home() {
   const [startCountUp, setStartCountUp] = useState(false);
   const sectionRef = useRef(null);
-  const sliderRef = useRef(null);
   const instanceRef = useRef(null);
   const sectionRefs = useSectionAnimation(setStartCountUp);
   const [currentBg, setCurrentBg] = useState(0);
@@ -63,7 +62,7 @@ export default function Home() {
     '/bg20.jpg',
     '/bg03.jpg'
   ];
-  const [sliderInstanceRef, slider] = useKeenSlider({
+  const [sliderRef, slider] = useKeenSlider({
     loop: true,
     slides: {
       perView: 1,
@@ -130,14 +129,12 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    instanceRef.current = sliderInstanceRef.current;
-
     const interval = setInterval(() => {
-      instanceRef.current?.next();
-    }, 4000); // 4 saniyede bir kaydır
+      slider.current?.next();
+    }, 4000);
 
     return () => clearInterval(interval);
-  }, [sliderInstanceRef]);
+  }, [slider]);
 
 
 
@@ -412,8 +409,8 @@ export default function Home() {
           {/* Slider */}
           <div className="w-full max-w-4xl mb-8">
             <div
-              ref={sliderInstanceRef}
-              className="keen-slider h-[300px] md:h-[400px] rounded-xl overflow-hidden"
+              ref={sliderRef}
+              className="keen-slider h-[300px] md:h-[500px] rounded-xl overflow-hidden"
             >
               {images.map((img, index) => (
                 <div
@@ -433,14 +430,14 @@ export default function Home() {
           {/* Oklar */}
           <div className="flex justify-between w-full max-w-4xl absolute top-1/2 left-0 right-0 mx-auto px-4 -translate-y-1/2">
             <button
-              onClick={() => instanceRef.current?.prev()}
+              onClick={() => slider.current?.prev()}
               className="bg-white/80 hover:bg-white text-gray-800 p-2 rounded-full shadow-md transition"
               style={{ width: "2rem", height: "2rem" }}
             >
               <ArrowLeft size={16} />
             </button>
             <button
-              onClick={() => instanceRef.current?.next()}
+              onClick={() => slider.current?.next()}
               className="bg-white/80 hover:bg-white text-gray-800 p-2 rounded-full shadow-md transition"
               style={{ width: "2rem", height: "2rem" }}
             >
@@ -494,11 +491,10 @@ export default function Home() {
 
         <section
           ref={el => sectionRefs.current[3] = el}
-          className="w-full py-20 min-h-[400px] relative bg-gray-100"
+          className="w-full py-16 min-h-[300px] relative bg-gray-100"
         >
-          {/* Content container with side margins */}
           <div className="max-w-6xl mx-auto px-4 relative z-10">
-            {/* Background image with overlay - NOW ONLY BEHIND CONTENT */}
+            {/* Background image */}
             <div
               className="absolute inset-0 bg-cover bg-center z-0 rounded-xl"
               style={{ backgroundImage: "url('/bg07.jpg')" }}
@@ -506,66 +502,73 @@ export default function Home() {
               <div className="absolute inset-0 bg-black opacity-30 rounded-xl"></div>
             </div>
 
-            <div className="relative z-10 bg-white bg-opacity-40 rounded-xl shadow-lg p-8 md:p-12">
-              {/* Title section */}
-              <div className="text-center mb-12">
-                <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-800">
+            {/* İçerik alanı */}
+            <div className="relative z-10 bg-white bg-opacity-40 rounded-xl shadow-lg p-6 md:p-10 space-y-10">
+              {/* Başlık */}
+              <div className="text-center">
+                <h2 className="text-3xl md:text-4xl font-bold text-gray-800">
                   Neden Bizi Seçmelisiniz?
                 </h2>
-                <div className="w-24 h-1 bg-amber-400 mx-auto mb-6"></div>
+                <div className="w-24 h-1 bg-amber-400 mx-auto mt-4"></div>
               </div>
 
-              {/* Two-column grid */}
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                {/* Left card list */}
-                <div className="space-y-4">
-                  {[
-                    "Nakit harcamadan büyüme fırsatı",
-                    "Stokları değere dönüştüren sistem",
-                    "Türkiye genelinde güçlü ticaret ağı",
-                    "Şeffaf, kayıtlı ve güvenli işlemler",
-                    "Her sektöre uygun, kişiye özel çözümler",
-                    "Krizlere karşı dayanıklı ticaret modeli"
-                  ].map((text, index) => (
-                    <div
-                      key={index}
-                      className="bg-white p-5 rounded-lg shadow-sm border border-gray-200 flex items-start hover:shadow-md transition-shadow"
-                    >
-                      <div className="bg-amber-100 p-1 rounded-full mr-4">
-                        <svg
-                          className="h-5 w-5 text-amber-600"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                        >
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                        </svg>
-                      </div>
-                      <span className="text-gray-700 font-medium">{text}</span>
-                    </div>
-                  ))}
-                </div>
-
-                {/* Right card */}
-                <div className="bg-white p-6 rounded-lg shadow-md border border-gray-200">
-                  <div className="flex flex-col justify-between h-full space-y-6">
-                    <p className="text-xl text-gray-800 font-semibold">
-                      Ulusal Barter A.Ş. ile ticaretinizin geleceğini bugünden kurun.
-                    </p>
-
-                    <div className="bg-amber-50 border-l-4 border-amber-300 p-4 rounded">
-                      <p className="text-gray-700 italic">
-                        "Nakitsiz ticaretin gücünü keşfedin, işletmenizin potansiyelini ortaya çıkarın.
-                        ULUSAL BARTER A.Ş. — Paradan bağımsız, değerden yana bir ekonomi modeli."
-                      </p>
-                    </div>
-
-                    <Link href="/iletisim" passHref>
-                      <button className="w-full px-6 py-3 bg-amber-500 text-white font-medium rounded-lg hover:bg-amber-600 transition duration-300 shadow-md hover:shadow-lg">
-                        Bize Hemen Ulaşın
-                      </button>
-                    </Link>
+              {/* Grid kart listesi */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                {[
+                  {
+                    icon: "💸",
+                    text: "Nakit harcamadan büyüme fırsatı"
+                  },
+                  {
+                    icon: "📦",
+                    text: "Stokları değere dönüştüren sistem"
+                  },
+                  {
+                    icon: "🗺️",
+                    text: "Türkiye genelinde güçlü ticaret ağı"
+                  },
+                  {
+                    icon: "🔒",
+                    text: "Şeffaf, kayıtlı ve güvenli işlemler"
+                  },
+                  {
+                    icon: "🛠️",
+                    text: "Her sektöre uygun, kişiye özel çözümler"
+                  },
+                  {
+                    icon: "🛡️",
+                    text: "Krizlere karşı dayanıklı ticaret modeli"
+                  }
+                ].map((item, index) => (
+                  <div
+                    key={index}
+                    className="flex items-start bg-white p-4 rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-shadow"
+                  >
+                    <div className="text-2xl mr-3">{item.icon}</div>
+                    <span className="text-gray-700 text-sm font-medium">{item.text}</span>
                   </div>
+                ))}
+              </div>
+
+              {/* Alt açıklama kutusu */}
+              <div className="bg-white p-6 rounded-lg shadow-md border border-gray-200 md:flex md:items-center md:justify-between md:space-x-6">
+                <div className="flex-1 space-y-4">
+                  <p className="text-lg text-gray-800 font-semibold">
+                    Ulusal Barter A.Ş. ile ticaretinizin geleceğini bugünden kurun.
+                  </p>
+                  <div className="bg-amber-50 border-l-4 border-amber-300 p-4 rounded">
+                    <p className="text-gray-700 italic">
+                      "Nakitsiz ticaretin gücünü keşfedin, işletmenizin potansiyelini ortaya çıkarın.
+                      ULUSAL BARTER A.Ş. — Paradan bağımsız, değerden yana bir ekonomi modeli."
+                    </p>
+                  </div>
+                </div>
+                <div className="mt-6 md:mt-0 md:w-48 shrink-0">
+                  <Link href="/iletisim" passHref>
+                    <button className="w-full px-6 py-3 bg-amber-500 text-white font-medium rounded-lg hover:bg-amber-600 transition duration-300 shadow-md hover:shadow-lg">
+                      Bize Hemen Ulaşın
+                    </button>
+                  </Link>
                 </div>
               </div>
             </div>
