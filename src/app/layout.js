@@ -1,5 +1,4 @@
 import "./globals.css";
-import ClientLayout from "./ClientLayout";
 
 export const metadata = {
   title: "Ulusal Barter A.Ş.",
@@ -34,7 +33,7 @@ export default function RootLayout({ children }) {
         <meta name="msapplication-TileImage" content="/st-144x144.png" />
       </head>
       <body>
-        <ClientLayout>{children}</ClientLayout>
+        {children}
       </body>
     </html>
   );

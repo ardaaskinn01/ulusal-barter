@@ -1,4 +1,4 @@
-"use client";c
+"use client";
 import Head from "next/head";
 import Link from "next/link";
 import Navbar from "./components/Navbar";
@@ -52,6 +52,8 @@ const useSectionAnimation = (setStartCountUp) => { // setStartCountUp parametre 
 export default function Home() {
   const [startCountUp, setStartCountUp] = useState(false);
   const sectionRef = useRef(null);
+  const sliderRef = useRef(null);
+  const instanceRef = useRef(null);
   const sectionRefs = useSectionAnimation(setStartCountUp);
   const [currentBg, setCurrentBg] = useState(0);
   const [animatedText1, setAnimatedText1] = useState("");
@@ -61,15 +63,17 @@ export default function Home() {
     '/bg20.jpg',
     '/bg03.jpg'
   ];
-  const [sliderRef, instanceRef] = useKeenSlider({
+  const [sliderInstanceRef, slider] = useKeenSlider({
     loop: true,
     slides: {
       perView: 1,
       spacing: 16,
     },
     breakpoints: {
-      '(max-width: 768px)': {
-        slides: { perView: 1, spacing: 12 },
+      "(min-width: 640px)": {
+        slides: {
+          perView: 1,
+        },
       },
     },
   });
@@ -124,6 +128,18 @@ export default function Home() {
       }
     };
   }, []);
+
+  useEffect(() => {
+    instanceRef.current = sliderInstanceRef.current;
+
+    const interval = setInterval(() => {
+      instanceRef.current?.next();
+    }, 4000); // 4 saniyede bir kaydır
+
+    return () => clearInterval(interval);
+  }, [sliderInstanceRef]);
+
+
 
   // Metin animasyonları için
   useEffect(() => {
@@ -223,7 +239,7 @@ export default function Home() {
         <Navbar />
 
         <section
-          className="pt-32 md:pt-40 h-screen flex items-center justify-center text-center px-6 bg-cover bg-center relative overflow-hidden"
+          className="pt-32 md:pt-40 h-screen flex items-center justify-center text-center px-6 bg-gray-100 relative overflow-hidden"
           ref={containerRef}
           onMouseDown={handleMouseDown}
           onMouseMove={handleMouseMove}
@@ -233,72 +249,62 @@ export default function Home() {
           onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
         >
-          {backgrounds.map((bg, index) => (
-            <div
-              key={index}
-              className={`absolute inset-0 transition-opacity duration-1000 ${index === currentBg ? 'opacity-100' : 'opacity-0'}`}
-              style={{
-                backgroundImage: `url('${bg}')`,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center'
-              }}
-            >
-              <div className="absolute inset-0 bg-black opacity-50"></div>
-            </div>
-          ))}
+          {/* Slayt alanı */}
+          <div className="relative w-full max-w-5xl h-[400px] mx-auto">
+            {/* Arka plan görseli */}
+            {backgrounds.map((bg, index) => (
+              <div
+                key={index}
+                className={`absolute inset-0 rounded-xl transition-opacity duration-700 ${index === currentBg ? 'opacity-100 z-0' : 'opacity-0 z-0'}`}
+                style={{
+                  backgroundImage: `url(${bg})`,
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                }}
+              />
+            ))}
 
-          <div className="relative max-w-4xl mx-auto z-10">
-            <h1 className="text-center mb-12 relative">
-              <span className="block text-4xl md:text-6xl font-medium text-white leading-tight mb-4">
-                <span className="bg-clip-text text-transparent bg-gradient-to-r from-yellow-600 to-yellow-400">
+            {/* Yazılar arkaplanın üstünde */}
+            <div className="absolute inset-0 z-10 flex flex-col items-center justify-center text-white px-4 bg-black/40 rounded-xl">
+              <h1 className="text-center mb-6">
+                <span className="block text-4xl md:text-6xl font-medium leading-tight mb-4 bg-clip-text text-transparent bg-gradient-to-r from-yellow-400 to-yellow-200">
                   {animatedText1}
                   {animatedText1.length < "Barter Yatırımın Güvencesi:".length && (
                     <span className="animate-pulse">|</span>
                   )}
                 </span>
-              </span>
-              <span className="block text-5xl md:text-7xl font-bold text-white leading-tight">
-                {animatedText2}
-                {animatedText1 === "Barter Yatırımın Güvencesi:" && animatedText2.length < "Ulusal Güç, Yerel Çözüm!".length && (
-                  <span className="animate-pulse">|</span>
-                )}
-              </span>
-              <div
-                className="mt-6 mx-auto w-24 h-1 bg-gradient-to-r from-yellow-600 to-yellow-400 transition-all duration-1000 delay-1000 scale-x-0 origin-left"
-                style={{
-                  animation: animatedText2 === "Ulusal Güç, Yerel Çözüm!" ? 'scaleIn 1s forwards' : ''
-                }}
-              />
-            </h1>
-            <p
-              className="text-white text-lg max-w-2xl mx-auto mb-10 font-light opacity-0"
-              style={{
-                animation: animatedText2 === "Ulusal Güç, Yerel Çözüm!" ? 'fadeIn 1s forwards 0.5s' : ''
-              }}
-            >
-              ULUSAL BARTER
-            </p>
+                <span className="block text-5xl md:text-7xl font-bold">
+                  {animatedText2}
+                  {animatedText1 === "Barter Yatırımın Güvencesi:" && animatedText2.length < "Ulusal Güç, Yerel Çözüm!".length && (
+                    <span className="animate-pulse">|</span>
+                  )}
+                </span>
+                <div
+                  className="mt-4 mx-auto w-24 h-1 bg-gradient-to-r from-yellow-600 to-yellow-400 transition-all duration-1000 delay-1000 scale-x-0 origin-left"
+                  style={{
+                    animation: animatedText2 === "Ulusal Güç, Yerel Çözüm!" ? 'scaleIn 1s forwards' : ''
+                  }}
+                />
+              </h1>
 
-            <div
-              className="mt-16 cursor-pointer opacity-0"
-              onClick={scrollToSection}
-              style={{
-                animation: animatedText2 === "Ulusal Güç, Yerel Çözüm!" ? 'fadeInUp 1s forwards 1s' : ''
-              }}
-            >
-              <svg className="w-8 h-8 text-yellow-600 mx-auto animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-              </svg>
+              <p
+                className="text-lg font-light opacity-0"
+                style={{
+                  animation: animatedText2 === "Ulusal Güç, Yerel Çözüm!" ? 'fadeIn 1s forwards 0.5s' : ''
+                }}
+              >
+                ULUSAL BARTER
+              </p>
             </div>
           </div>
 
-          {/* Slider kontrolleri */}
-          <div className="absolute bottom-8 left-0 right-0 flex justify-center space-x-2 z-10">
+          {/* Slider kontrol noktaları */}
+          <div className="absolute bottom-8 left-0 right-0 flex justify-center space-x-2 z-20">
             {backgrounds.map((_, index) => (
               <button
                 key={index}
                 onClick={() => setCurrentBg(index)}
-                className={`w-3 h-3 rounded-full transition-all ${index === currentBg ? 'bg-white w-6' : 'bg-white/50'}`}
+                className={`w-3 h-3 rounded-full transition-all ${index === currentBg ? 'bg-yellow-600 w-6' : 'bg-gray-500'}`}
                 aria-label={`Slide ${index + 1}`}
               />
             ))}
@@ -307,136 +313,145 @@ export default function Home() {
 
         <section
           ref={el => sectionRefs.current[0] = el}
-          className="w-full py-20 min-h-[400px] relative overflow-hidden opacity-0 translate-y-10 transition-all duration-500"
+          className="w-full py-20 min-h-[500px] relative overflow-hidden opacity-0 translate-y-10 transition-all duration-500 bg-gray-100"
         >
-          {/* Blur uygulanmış arkaplan resmi */}
-          <div className="absolute inset-0 z-[-2]">
-            <img
-              src="/bg08.jpg"
-              alt="Background"
-              className="w-full h-full object-cover filter blur-[4px]"
-            />
+          {/* Arkaplan efektleri */}
+          <div className="absolute inset-0 overflow-hidden -z-10">
+            <div className="absolute inset-0 bg-gradient-to-tr from-yellow-600/10 via-transparent to-indigo-500/5"></div>
+            <div className="absolute top-1/4 right-20 w-80 h-80 bg-yellow-600 rounded-full filter blur-[100px] opacity-5 animate-float"></div>
+            <div className="absolute bottom-1/3 left-20 w-96 h-96 bg-indigo-600 rounded-full filter blur-[120px] opacity-5 animate-float-delay"></div>
           </div>
 
-          {/* Siyah yarı saydam overlay */}
-          <div className="absolute inset-0 bg-black opacity-70 z-[-1]"></div>
+          {/* İçerik container - Yatay düzen için flex */}
+          <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-8 h-full flex items-center">
+            <div className="relative z-10 w-full flex flex-col lg:flex-row items-center gap-12 lg:gap-16 py-12">
 
-          {/* Renkli blur katmanlar */}
-          <div className="absolute top-0 left-0 w-full h-full opacity-5 z-0">
-            <div className="absolute top-20 right-20 w-40 h-40 bg-yellow-500 rounded-full filter blur-[60px]"></div>
-            <div className="absolute bottom-10 left-10 w-60 h-60 bg-indigo-900 rounded-full filter blur-[80px]"></div>
-          </div>
+              {/* Sol taraf - Başlık ve ana mesaj */}
+              <div className="lg:w-1/2 text-center lg:text-left space-y-6">
+                <div className="space-y-4">
+                  <h1 className="text-4xl md:text-5xl font-bold text-gray-600 tracking-tight leading-tight">
+                    <span className="block">Ulusal Barter A.Ş.</span>
+                    <span className="text-yellow-500">Nakitin Ötesinde</span>
+                  </h1>
+                  <div className="w-24 h-1 bg-gradient-to-r from-yellow-500 to-yellow-600 rounded-full lg:mx-0 mx-auto"></div>
+                </div>
 
-          {/* İçerik */}
-          <div className="max-w-5xl mx-auto px-6 text-center relative z-10">
-            <div className="mb-8">
-              <h2 className="text-3xl md:text-5xl font-bold mb-6 text-white drop-shadow-md">Hoş Geldiniz!</h2>
-              <h2 className="text-3xl md:text-3xl font-bold mb-6 text-yellow-500 drop-shadow-sm">
-                Ulusal Barter A.Ş.
-              </h2>
-              <div className="w-24 h-1 bg-yellow-500 mx-auto mb-6 rounded"></div>
-              <p className="text-lg md:text-xl mb-4 text-white font-medium drop-shadow-sm">Nakitin Ötesinde Bir Ekonomi.</p>
+                <p className="text-xl md:text-2xl text-gray-600 font-medium">
+                  Yenilikçi barter yatırım sistemiyle işletmeler için nakitsiz ticaretin güçlü altyapısı
+                </p>
+
+                <p className="text-lg text-yellow-500 italic font-medium">
+                  "Yalnızca bugününüzü değil, yarınınızı da birlikte inşa ediyoruz"
+                </p>
+              </div>
+
+              {/* Sağ taraf - Açıklama metni */}
+              <div className="lg:w-1/2 lg:pl-8 lg:border-l lg:border-gray-700">
+                <div className="space-y-6">
+                  <p className="text-base md:text-lg leading-relaxed text-gray-600 text-justify">
+                    Türkiye'nin önde gelen barter platformu olarak, işletmelerin değer üreten yönlerini öne çıkarıyor ve nakit sıkışıklığı yaşamadan büyümelerini sağlıyoruz. Ulusal Barter A.Ş. olarak, geleneksel finans sistemlerinin ötesinde çözümler sunuyoruz.
+                  </p>
+
+                  <ul className="grid grid-cols-1 md:grid-cols-2 gap-4 text-gray-600">
+                    <li className="flex items-start space-x-2">
+                      <svg className="w-5 h-5 text-yellow-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                      </svg>
+                      <span>Nakit dışı ticaret imkanı</span>
+                    </li>
+                    <li className="flex items-start space-x-2">
+                      <svg className="w-5 h-5 text-yellow-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                      </svg>
+                      <span>Geniş iş ağı</span>
+                    </li>
+                    <li className="flex items-start space-x-2">
+                      <svg className="w-5 h-5 text-yellow-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                      </svg>
+                      <span>Esnek ödeme çözümleri</span>
+                    </li>
+                    <li className="flex items-start space-x-2">
+                      <svg className="w-5 h-5 text-yellow-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                      </svg>
+                      <span>Güvenli altyapı</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
             </div>
-
-            <p className="text-base md:text-lg leading-relaxed text-gray-200 mb-4">
-              Ulusal Barter A.Ş., Türkiye çapında faaliyet gösteren yenilikçi barter yatırım sistemiyle işletmelere nakitsiz ticaretin güçlü altyapısını sunar.
-              İşletmelerin değer üreten yönlerini öne çıkararak, yatırımal sıkışıklık yaşamadan büyümelerini sağlarız.
-            </p>
-            <p className="text-base md:text-lg leading-relaxed text-yellow-500">
-              Biz, işletmelerin yalnızca bugününü değil, yarınını da planlayan güçlü bir barter yatırım çözüm ortağıyız.
-            </p>
           </div>
+
+          {/* Animasyon stilleri */}
+          <style jsx>{`
+    @keyframes float {
+      0%, 100% { transform: translateY(0) translateX(0); }
+      50% { transform: translateY(-20px) translateX(10px); }
+    }
+    .animate-float {
+      animation: float 8s ease-in-out infinite;
+    }
+    .animate-float-delay {
+      animation: float 10s ease-in-out 2s infinite;
+    }
+  `}</style>
         </section>
 
+
+
         <section
-          ref={el => sectionRefs.current[1] = el}
-          className="relative z-10 py-12 px-6 md:px-16 flex flex-col justify-center items-center text-white text-center opacity-0 translate-y-10 transition-all duration-500"
+          ref={(el) => (sectionRefs.current[1] = el)}
+          className="relative z-10 py-16 bg-gray-100 px-4 md:px-8 flex flex-col items-center"
         >
           {/* Başlık */}
-          <h2 className="text-3xl md:text-5xl font-bold mb-8">
+          <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center text-gray-800">
             Barter Sistemiyle Tanışın!
           </h2>
-          {/* Arka plan */}
-          <div className="absolute inset-0 z-[-2]">
-            <img
-              src="/bg35.jpg"
-              alt="Background"
-              className="w-full h-full object-cover filter blur-[4px]"
-            />
-          </div>
 
-          {/* Slider container */}
-          <div className="relative w-full px-4 md:px-12 mb-8">
+          {/* Slider */}
+          <div className="w-full max-w-4xl mb-8">
             <div
-              ref={sliderRef}
-              className="keen-slider h-auto md:h-[700px]"
+              ref={sliderInstanceRef}
+              className="keen-slider h-[300px] md:h-[400px] rounded-xl overflow-hidden"
             >
               {images.map((img, index) => (
                 <div
                   key={index}
-                  className="keen-slider__slide bg-white/10 rounded-xl overflow-hidden shadow-lg flex items-center justify-center"
+                  className="keen-slider__slide flex items-center justify-center"
                 >
                   <img
                     src={`/${img}`}
                     alt={`Slide ${index + 1}`}
-                    className="w-full h-auto md:h-full object-cover"
+                    className="w-full h-full object-cover rounded-xl"
                   />
                 </div>
               ))}
             </div>
           </div>
 
-          {/* Oklar slider container dışında, sayfa genelinde sağ ve solda */}
-          <div
-            className="
-    absolute 
-    left-4 
-    -translate-y-1/2 
-    z-10 
-    top-1/2 
-    md:top-1/2 
-    top-[90%]  /* Mobilde slider altına yakın */
-  "
-          >
+          {/* Oklar */}
+          <div className="flex justify-between w-full max-w-4xl absolute top-1/2 left-0 right-0 mx-auto px-4 -translate-y-1/2">
             <button
               onClick={() => instanceRef.current?.prev()}
-              className="bg-white/20 hover:bg-white/30 text-white p-2 rounded-full backdrop-blur-sm transition
-      md:p-2 
-      p-1.5  /* Mobilde küçük buton */
-    "
-              style={{ width: '2.5rem', height: '2.5rem' }} // Küçük boyut
+              className="bg-white/80 hover:bg-white text-gray-800 p-2 rounded-full shadow-md transition"
+              style={{ width: "2rem", height: "2rem" }}
             >
-              <ArrowLeft />
+              <ArrowLeft size={16} />
             </button>
-          </div>
-
-          <div
-            className="
-    absolute 
-    right-4 
-    -translate-y-1/2 
-    z-10 
-    top-1/2 
-    md:top-1/2 
-    top-[90%] /* Mobilde slider altına yakın */
-  "
-          >
             <button
               onClick={() => instanceRef.current?.next()}
-              className="bg-white/20 hover:bg-white/30 text-white p-2 rounded-full backdrop-blur-sm transition
-      md:p-2 
-      p-1.5
-    "
-              style={{ width: '2.5rem', height: '2.5rem' }}
+              className="bg-white/80 hover:bg-white text-gray-800 p-2 rounded-full shadow-md transition"
+              style={{ width: "2rem", height: "2rem" }}
             >
-              <ArrowRight />
+              <ArrowRight size={16} />
             </button>
           </div>
 
-          {/* Daha Fazlasını Gör Butonu */}
+          {/* Buton */}
           <a
             href="/barter"
-            className="bg-white text-black font-semibold py-2 px-6 rounded-xl hover:bg-gray-200 transition inline-block"
+            className="mt-8 bg-gray-800 text-white font-medium py-2 px-6 rounded-lg hover:bg-gray-700 transition inline-block"
           >
             Daha Fazlasını Gör
           </a>
@@ -444,7 +459,7 @@ export default function Home() {
 
         <section
           ref={el => sectionRefs.current[2] = el}
-          className="w-full py-20 min-h-[400px] relative overflow-hidden bg-gradient-to-b from-neutral-900 to-neutral-800 opacity-0 translate-y-10 transition-all duration-500"
+          className="w-full py-20 min-h-[400px] relative overflow-hidden bg-gradient-to-b from-neutral-300 to-neutral-200 opacity-0 translate-y-10 transition-all duration-500"
         >
           <div className="max-w-7xl mx-auto px-4 sm:px-12 lg:px-24 text-white">
             <h2 className="text-3xl font-bold mb-10 text-center text-yellow-500">Son Eklenen İlanlar</h2>
@@ -479,80 +494,81 @@ export default function Home() {
 
         <section
           ref={el => sectionRefs.current[3] = el}
-          className="w-full py-20 min-h-[400px] relative overflow-hidden bg-cover bg-center opacity-100 translate-y-10 transition-all duration-500"
-          style={{ backgroundImage: "url('/bg07.jpg')" }}
+          className="w-full py-20 min-h-[400px] relative bg-gray-100"
         >
-          <div className="absolute inset-0 bg-black opacity-40 z-0"></div>
-          <div className="absolute top-0 left-0 w-full h-full opacity-10">
-            <div className="absolute bottom-20 right-20 w-40 h-40 bg-indigo-900 rounded-full filter blur-[60px]"></div>
-            <div className="absolute top-10 left-1/4 w-60 h-60 bg-indigo-900 rounded-full filter blur-[80px]"></div>
-          </div>
-
-          <div className="max-w-5xl mx-auto px-6 relative z-10">
-            <div className="text-center mb-12">
-              <h2
-                className="text-3xl md:text-4xl font-bold mb-4
-      bg-gradient-to-r from-gray-300 to-gray-100
-      text-transparent bg-clip-text
-      transition-all duration-300 
-      hover:scale-105"
-              >
-                Neden Bizi Seçmelisiniz?
-              </h2>
-              <div className="w-24 h-1 bg-yellow-500 mx-auto mb-6"></div>
+          {/* Content container with side margins */}
+          <div className="max-w-6xl mx-auto px-4 relative z-10">
+            {/* Background image with overlay - NOW ONLY BEHIND CONTENT */}
+            <div
+              className="absolute inset-0 bg-cover bg-center z-0 rounded-xl"
+              style={{ backgroundImage: "url('/bg07.jpg')" }}
+            >
+              <div className="absolute inset-0 bg-black opacity-30 rounded-xl"></div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {/* Sol Card Listesi */}
-              <div className="space-y-4 opacity-80 transition duration-500">
-                {[
-                  "Nakit harcamadan büyüme fırsatı",
-                  "Stokları değere dönüştüren sistem",
-                  "Türkiye genelinde güçlü ticaret ağı",
-                  "Şeffaf, kayıtlı ve güvenli işlemler",
-                  "Her sektöre uygun, kişiye özel çözümler",
-                  "Krizlere karşı dayanıklı ticaret modeli"
-                ].map((text, index) => (
-                  <div
-                    key={index}
-                    className="bg-gradient-to-r from-gray-800 to-gray-700 p-6 rounded-lg shadow-lg border border-gray-200 flex items-start bg-opacity-80"
-                  >
-                    <svg
-                      className="h-6 w-6 text-yellow-500 mt-1 mr-3 flex-shrink-0"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                    <span className="text-white font-medium">{text}</span>
-                  </div>
-                ))}
+            <div className="relative z-10 bg-white bg-opacity-40 rounded-xl shadow-lg p-8 md:p-12">
+              {/* Title section */}
+              <div className="text-center mb-12">
+                <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-800">
+                  Neden Bizi Seçmelisiniz?
+                </h2>
+                <div className="w-24 h-1 bg-amber-400 mx-auto mb-6"></div>
               </div>
 
-              {/* Sağ Card */}
-              <div className="bg-gradient-to-br from-gray-800 to-gray-700 bg-opacity-30 p-6 md:p-6 rounded-lg shadow-xl border border-gray-200 w-full md:max-w-sm mx-auto self-start opacity-80 transition duration-500">
-                <div className="flex flex-col justify-between space-y-6">
-                  <p className="text-lg text-gray-100 font-semibold">
-                    Ulusal Barter A.Ş. ile ticaretinizin geleceğini bugünden kurun.
-                  </p>
+              {/* Two-column grid */}
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                {/* Left card list */}
+                <div className="space-y-4">
+                  {[
+                    "Nakit harcamadan büyüme fırsatı",
+                    "Stokları değere dönüştüren sistem",
+                    "Türkiye genelinde güçlü ticaret ağı",
+                    "Şeffaf, kayıtlı ve güvenli işlemler",
+                    "Her sektöre uygun, kişiye özel çözümler",
+                    "Krizlere karşı dayanıklı ticaret modeli"
+                  ].map((text, index) => (
+                    <div
+                      key={index}
+                      className="bg-white p-5 rounded-lg shadow-sm border border-gray-200 flex items-start hover:shadow-md transition-shadow"
+                    >
+                      <div className="bg-amber-100 p-1 rounded-full mr-4">
+                        <svg
+                          className="h-5 w-5 text-amber-600"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                        </svg>
+                      </div>
+                      <span className="text-gray-700 font-medium">{text}</span>
+                    </div>
+                  ))}
+                </div>
 
-                  <div className="bg-white bg-opacity-80 border-l-4 border-cyan-200 p-4 rounded shadow-sm">
-                    <p className="text-gray-700 italic">
-                      &quot;Nakitsiz ticaretin gücünü keşfedin, işletmenizin potansiyelini ortaya çıkarın.<br />
-                      ULUSAL BARTER A.Ş. — Paradan bağımsız, değerden yana bir ekonomi modeli.&quot;
+                {/* Right card */}
+                <div className="bg-white p-6 rounded-lg shadow-md border border-gray-200">
+                  <div className="flex flex-col justify-between h-full space-y-6">
+                    <p className="text-xl text-gray-800 font-semibold">
+                      Ulusal Barter A.Ş. ile ticaretinizin geleceğini bugünden kurun.
                     </p>
-                  </div>
 
-                  <Link href="/iletisim" passHref>
-                    <button className="w-full px-6 py-3 bg-yellow-500 text-white font-medium rounded-lg hover:bg-yellow-800 transition duration-300 shadow-md hover:shadow-lg">
-                      Bize Hemen Ulaşın
-                    </button>
-                  </Link>
+                    <div className="bg-amber-50 border-l-4 border-amber-300 p-4 rounded">
+                      <p className="text-gray-700 italic">
+                        "Nakitsiz ticaretin gücünü keşfedin, işletmenizin potansiyelini ortaya çıkarın.
+                        ULUSAL BARTER A.Ş. — Paradan bağımsız, değerden yana bir ekonomi modeli."
+                      </p>
+                    </div>
+
+                    <Link href="/iletisim" passHref>
+                      <button className="w-full px-6 py-3 bg-amber-500 text-white font-medium rounded-lg hover:bg-amber-600 transition duration-300 shadow-md hover:shadow-lg">
+                        Bize Hemen Ulaşın
+                      </button>
+                    </Link>
+                  </div>
                 </div>
               </div>
             </div>
-
           </div>
         </section>
 

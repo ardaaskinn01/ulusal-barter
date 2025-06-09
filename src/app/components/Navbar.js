@@ -14,7 +14,7 @@ export default function Navbar() {
       : "relative text-gray-100 hover:text-gray-100 transition-colors duration-300 after:content-[''] after:absolute after:w-0 hover:after:w-full after:h-[2px] after:bg-gray-100 after:bottom-0 after:left-0 after:transition-all after:duration-300";
 
   return (
-    <nav className="fixed w-full z-50 bg-gradient-to-r from-yellow-900 via-yellow-600 to-yellow-400 backdrop-blur-md top-0 left-0 right-0 shadow-lg">
+    <nav className="fixed w-full z-50 bg-gradient-to-r from-yellow-600 via-yellow-500 to-yellow-600 backdrop-blur-md top-0 left-0 right-0 shadow-lg">
       <div className="max-w-7xl mx-auto px-6 py-2">
         {/* Üst Satır: Logo ve Üye Ol */}
         <div className="flex items-center justify-between">
@@ -31,7 +31,7 @@ export default function Navbar() {
           {/* Üye Ol Butonu */}
           <Link
             href="/uyelik"
-            className="hidden md:inline-block px-5 py-2 rounded-lg text-sm font-semibold bg-white text-yellow-900 hover:bg-yellow-200 transition"
+            className="hidden md:inline-block px-5 py-2 rounded-lg text-sm font-semibold bg-white text-yellow-600 hover:bg-yellow-200 transition"
           >
             Hemen Üye Ol
           </Link>
@@ -55,12 +55,12 @@ export default function Navbar() {
         </div>
 
         {/* Alt Satır: Navigation Linkleri */}
-        <div className="hidden md:flex justify-center mt-2 space-x-8">
-          <Link href="/" className={`px-2 py-2 text-md ${getLinkClass("/")}`}>ANA SAYFA</Link>
-          <Link href="/hakkinda" className={`px-2 py-2 text-md ${getLinkClass("/hakkinda")}`}>HAKKIMIZDA</Link>
-          <Link href="/barter" className={`px-2 py-2 text-md ${getLinkClass("/barter")}`}>BARTER SİSTEMİ</Link>
-          <Link href="/uyelik" className={`px-2 py-2 text-md ${getLinkClass("/uyelik")}`}>ÜRÜN VE HİZMETLER</Link>
-          <Link href="/iletisim" className={`px-2 py-2 text-md ${getLinkClass("/iletisim")}`}>İLETİŞİM</Link>
+        <div className="hidden md:flex justify-center mt-s space-x-16">
+          <Link href="/" className={`px-2 py-2 text-sm ${getLinkClass("/")}`}>ANA SAYFA</Link>
+          <Link href="/hakkinda" className={`px-2 py-2 text-sm ${getLinkClass("/hakkinda")}`}>HAKKIMIZDA</Link>
+          <Link href="/barter" className={`px-2 py-2 text-sm ${getLinkClass("/barter")}`}>BARTER SİSTEMİ</Link>
+          <Link href="/uyelik" className={`px-2 py-2 text-sm ${getLinkClass("/uyelik")}`}>ÜRÜN VE HİZMETLER</Link>
+          <Link href="/iletisim" className={`px-2 py-2 text-sm ${getLinkClass("/iletisim")}`}>İLETİŞİM</Link>
         </div>
 
         {/* Mobil Menü İçeriği */}
