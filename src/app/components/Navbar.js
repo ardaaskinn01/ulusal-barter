@@ -9,31 +9,32 @@ export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const getLinkClass = (href) =>
-  pathname === href || (href === "/projelerimiz" && pathname.startsWith("/projelerimiz"))
-    ? "relative font-semibold text-gray-100 after:content-[''] after:absolute after:w-full after:h-[3px] after:bg-gray-100 after:bottom-0 after:left-0"
-    : "relative text-gray-100 hover:text-gray-100 transition-colors duration-300 after:content-[''] after:absolute after:w-0 hover:after:w-full after:h-[2px] after:bg-gray-100 after:bottom-0 after:left-0 after:transition-all after:duration-300";
+    pathname === href || (href === "/projelerimiz" && pathname.startsWith("/projelerimiz"))
+      ? "relative font-semibold text-gray-100 after:content-[''] after:absolute after:w-full after:h-[3px] after:bg-gray-100 after:bottom-0 after:left-0"
+      : "relative text-gray-100 hover:text-gray-100 transition-colors duration-300 after:content-[''] after:absolute after:w-0 hover:after:w-full after:h-[2px] after:bg-gray-100 after:bottom-0 after:left-0 after:transition-all after:duration-300";
 
   return (
     <nav className="fixed w-full z-50 bg-gradient-to-r from-yellow-900 via-yellow-600 to-yellow-400 backdrop-blur-md top-0 left-0 right-0 shadow-lg">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="flex items-center justify-between h-20">
-          {/* Logo */}
-          <Link href="/" className="text-2xl font-bold">
+      <div className="max-w-7xl mx-auto px-6 py-2">
+        {/* Üst Satır: Logo ve Üye Ol */}
+        <div className="flex items-center justify-between">
+          <Link href="/" className="flex items-center space-x-2">
             <Image
               src="/newbg02.png"
               alt="Ulusal Barter A.Ş. Logo"
-              width={88}
-              height={22}
+              width={140} // daha büyük logo
+              height={40}
+              priority
             />
           </Link>
 
-          <div className="hidden md:flex items-center space-x-8">
-            <Link href="/" className={`px-2 py-2 text-md ${getLinkClass("/")}`}>ANA SAYFA</Link>
-            <Link href="/hakkinda" className={`px-2 py-2 text-md ${getLinkClass("/hakkinda")}`}>HAKKIMIZDA</Link>
-            <Link href="/barter" className={`px-2 py-2 text-md ${getLinkClass("/barter")}`}>BARTER SİSTEMİ</Link>
-            <Link href="/uyelik" className={`px-2 py-2 text-md ${getLinkClass("/uyelik")}`}>ÜRÜN VE HİZMETLER</Link>
-            <Link href="/iletisim" className={`px-2 py-2 text-md ${getLinkClass("/iletisim")}`}>İLETİŞİM</Link>
-          </div>
+          {/* Üye Ol Butonu */}
+          <Link
+            href="/uyelik"
+            className="hidden md:inline-block px-5 py-2 rounded-lg text-sm font-semibold bg-white text-yellow-900 hover:bg-yellow-200 transition"
+          >
+            Hemen Üye Ol
+          </Link>
 
           {/* Mobil Menü Butonu */}
           <button
@@ -53,11 +54,20 @@ export default function Navbar() {
           </button>
         </div>
 
+        {/* Alt Satır: Navigation Linkleri */}
+        <div className="hidden md:flex justify-center mt-2 space-x-8">
+          <Link href="/" className={`px-2 py-2 text-md ${getLinkClass("/")}`}>ANA SAYFA</Link>
+          <Link href="/hakkinda" className={`px-2 py-2 text-md ${getLinkClass("/hakkinda")}`}>HAKKIMIZDA</Link>
+          <Link href="/barter" className={`px-2 py-2 text-md ${getLinkClass("/barter")}`}>BARTER SİSTEMİ</Link>
+          <Link href="/uyelik" className={`px-2 py-2 text-md ${getLinkClass("/uyelik")}`}>ÜRÜN VE HİZMETLER</Link>
+          <Link href="/iletisim" className={`px-2 py-2 text-md ${getLinkClass("/iletisim")}`}>İLETİŞİM</Link>
+        </div>
+
         {/* Mobil Menü İçeriği */}
         {isMenuOpen && (
-          <div className="md:hidden bg-yellow-400/90 backdrop-blur-lg border-t border-yellow-500">
+          <div className="md:hidden bg-yellow-400/90 backdrop-blur-lg border-t border-yellow-500 mt-2">
             <div className="px-4 py-3 space-y-4">
-              {[
+              {[ 
                 { href: "/", label: "Ana Sayfa" },
                 { href: "/hakkinda", label: "Hakkımızda" },
                 { href: "/barter", label: "Barter Sistemi" },
@@ -73,6 +83,14 @@ export default function Navbar() {
                   {item.label}
                 </Link>
               ))}
+              {/* Mobilde de "Hemen Üye Ol" */}
+              <Link
+                href="/uyelik"
+                className="block text-center px-4 py-3 rounded-lg bg-white text-yellow-900 font-semibold hover:bg-yellow-200 transition"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Hemen Üye Ol
+              </Link>
             </div>
           </div>
         )}
@@ -80,3 +98,4 @@ export default function Navbar() {
     </nav>
   );
 }
+
