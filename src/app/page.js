@@ -8,7 +8,7 @@ import { useRef } from 'react';
 import { useState, useEffect } from 'react';
 import { collection, getDocs, getDoc, query, orderBy, limit } from "firebase/firestore";
 import { db } from "../../firebase";
-import { ArrowLeft, ArrowRight } from 'lucide-react';
+import { CheckCircle, Handshake, CreditCard, ShieldCheck, ArrowLeft, ArrowRight } from 'lucide-react';
 import { useKeenSlider } from 'keen-slider/react';
 import 'keen-slider/keen-slider.min.css';
 
@@ -154,7 +154,7 @@ export default function Home() {
 
         <section
           className="pt-32 md:pt-40 h-screen flex items-center justify-center text-center px-6 bg-gray-100 relative overflow-hidden"
-          // containerRef, onMouseDown, onMouseMove vb. artık gerekli değil, kaldırıldı
+        // containerRef, onMouseDown, onMouseMove vb. artık gerekli değil, kaldırıldı
         >
           {/* Video Oynatıcı Alanı */}
           <div className="relative w-full max-w-5xl h-[540px] mx-auto rounded-xl overflow-hidden">
@@ -250,27 +250,19 @@ export default function Home() {
 
                   <ul className="grid grid-cols-1 md:grid-cols-2 gap-4 text-gray-600">
                     <li className="flex items-start space-x-2">
-                      <svg className="w-5 h-5 text-yellow-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-                      </svg>
+                      <Handshake className="w-5 h-5 text-yellow-500 mt-0.5 flex-shrink-0" />
                       <span>Nakit dışı ticaret imkanı</span>
                     </li>
                     <li className="flex items-start space-x-2">
-                      <svg className="w-5 h-5 text-yellow-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-                      </svg>
+                      <CheckCircle className="w-5 h-5 text-yellow-500 mt-0.5 flex-shrink-0" />
                       <span>Geniş iş ağı</span>
                     </li>
                     <li className="flex items-start space-x-2">
-                      <svg className="w-5 h-5 text-yellow-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-                      </svg>
+                      <CreditCard className="w-5 h-5 text-yellow-500 mt-0.5 flex-shrink-0" />
                       <span>Esnek ödeme çözümleri</span>
                     </li>
                     <li className="flex items-start space-x-2">
-                      <svg className="w-5 h-5 text-yellow-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-                      </svg>
+                      <ShieldCheck className="w-5 h-5 text-yellow-500 mt-0.5 flex-shrink-0" />
                       <span>Güvenli altyapı</span>
                     </li>
                   </ul>
