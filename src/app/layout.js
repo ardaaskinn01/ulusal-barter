@@ -2,7 +2,7 @@ import "./globals.css";
 
 export const metadata = {
   title: "Ulusal Barter A.Ş.",
-  description: "Ulusal Barter A.Ş.",
+  description: "Ulusal Barter A.Ş. Resmi Web Sayfası",
   icons: {
     icon: [
       { url: "/favicon.ico", type: "image/x-icon" },
