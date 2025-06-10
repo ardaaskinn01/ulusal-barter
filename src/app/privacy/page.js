@@ -1,7 +1,7 @@
 import Head from 'next/head';
 
 export const metadata = {
-    title: "Gizlilik Politikası | ulusalbarteryatırım.com",
+    title: "Gizlilik Politikası | ulusalbarter.com",
     description: "Sitemizde kullanılan Gizlilik politikası hakkında bilgi"
 };
 
@@ -9,13 +9,13 @@ export default function PrivacyPolicy() {
     return (
         <div className="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
             <Head>
-                <link rel="canonical" href="https://ulusalbarteryatırım.com/privacy" />
+                <link rel="canonical" href="https://ulusalbarter.com/privacy" />
             </Head>
 
             <div className="max-w-3xl mx-auto bg-white rounded-xl shadow-md overflow-hidden p-6">
                 <div className="text-center mb-8">
                     <h1 className="text-3xl font-bold text-gray-900 mb-2">Gizlilik Politikası</h1>
-                    <p className="text-sm text-gray-500">Son güncelleme: 21 Mayıs 2025</p>
+                    <p className="text-sm text-gray-500">Son güncelleme: 11 Haziran 2025</p>
                 </div>
 
                 <div className="prose prose-lg max-w-none text-gray-700">
@@ -25,7 +25,7 @@ export default function PrivacyPolicy() {
 
                     <h2>Veri Sorumlusu</h2>
                     <p>
-                        Biz, Ulusal Barter Yatırım A.Ş., veri sorumlusu olarak, bu gizlilik ve kişisel verilerin korunması politikası ile ziyaret etmekte olduğunuz İnternet sitesi kapsamında hangi kişisel verilerinizin hangi amaçlarla işleneceği, işlenen verilerin kimlerle ve hangi sebeplerle paylaşılabileceği, veri işleme yöntemimiz ve hukuki sebepleri ile; işlenen verilerinize ilişkin haklarınızın neler olduğu hususunda siz kullanıcılarımızı aydınlatmayı amaçlıyoruz.
+                        Biz, Ulusal Barter A.Ş., veri sorumlusu olarak, bu gizlilik ve kişisel verilerin korunması politikası ile ziyaret etmekte olduğunuz İnternet sitesi kapsamında hangi kişisel verilerinizin hangi amaçlarla işleneceği, işlenen verilerin kimlerle ve hangi sebeplerle paylaşılabileceği, veri işleme yöntemimiz ve hukuki sebepleri ile; işlenen verilerinize ilişkin haklarınızın neler olduğu hususunda siz kullanıcılarımızı aydınlatmayı amaçlıyoruz.
                     </p>
 
                     <h2>Toplanan Kişisel Veriler</h2>

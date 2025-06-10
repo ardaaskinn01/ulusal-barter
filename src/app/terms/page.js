@@ -1,7 +1,7 @@
 import Head from 'next/head';
 
 export const metadata = {
-    title: "Kullanım Koşulları | ulusalbarteryatırım.com",
+    title: "Kullanım Koşulları | ulusalbarter.com",
     description: "Sitemizin Kullanım Koşulları hakkında bilgi",
 };
 
@@ -9,14 +9,14 @@ export default function TermsPage() {
     return (
         <>
             <Head>
-                <title>Kullanım Koşulları | ulusalbarteryatırım.com</title>
+                <title>Kullanım Koşulları | ulusalbarter.com</title>
                 <meta
                     name="description"
                     content="Sitemizin Kullanım Koşulları hakkında bilgi"
                 />
                 <link
                     rel="canonical"
-                    href="https://www.ulusalbarteryatırım.com/terms"
+                    href="https://www.ulusalbarter.com/terms"
                 />
             </Head>
 
@@ -27,15 +27,15 @@ export default function TermsPage() {
                             Kullanım Koşulları
                         </h1>
                         <p className="text-sm text-gray-500">
-                            Son güncelleme: 21 Mayıs 2025
+                            Son güncelleme: 11 Haziran 2025
                         </p>
                     </div>
 
                     <div className="prose prose-lg max-w-none text-gray-700">
                         <p>
                             Bu Kullanım Koşulları,{' '}
-                            <a href="https://www.ulusalbarteryatırım.com/">
-                                https://www.ulusalbarteryatırım.com/
+                            <a href="https://www.ulusalbarter.com/">
+                                https://www.ulusalbarter.com/
                             </a>{' '}
                             adresindeki İnternet sitesini kullanırken uymanız gereken kuralları içermektedir. Lütfen
                             İnternet sitesini kullanmaya devam etmeden önce bu koşulları dikkatli bir şekilde okuyunuz.
@@ -43,7 +43,7 @@ export default function TermsPage() {
 
                         <h2>Kapsam ve Değişiklikler</h2>
                         <p>
-                            Bu İnternet sitesi, Ulusal Barter Yatırım A.Ş. tarafından işletilmektedir. Bu Kullanım
+                            Bu İnternet sitesi, Ulusal Barter A.Ş. tarafından işletilmektedir. Bu Kullanım
                             Koşulları, İnternet sitesi kullanımı sırasında uygulanacak kuralları ve tarafların hak ve
                             yükümlülüklerini belirlemektedir. İnternet sitesini kullanmaya devam ettiğiniz takdirde bu
                             koşulları kabul ettiğiniz varsayılacaktır.
@@ -54,7 +54,7 @@ export default function TermsPage() {
                             Bu İnternet sitesi tarafından sunulan hizmetler, yasal mevzuatlara uygun bir şekilde
                             kullanılmak üzere tasarlanmıştır. Kullanıcılar, İnternet sitesini kullanırken tüm yasa,
                             tüzük ve yönetmelikler ile uluslararası sözleşmelere ve teamüllere uymakla yükümlüdür.
-                            Ulusal Barter Yatırım A.Ş., herhangi bir zamanda, herhangi bir nedenle, önceden bildirimde
+                            Ulusal Barter A.Ş., herhangi bir zamanda, herhangi bir nedenle, önceden bildirimde
                             bulunmaksızın hizmetlerini değiştirme, askıya alma veya sonlandırma hakkını saklı tutar.
                         </p>
 
@@ -80,7 +80,7 @@ export default function TermsPage() {
                         <h2>Fikri Mülkiyet Hakları</h2>
                         <p>
                             İnternet sitesinde yer alan tüm içerik, tasarım, logo, yazılım ve sair materyaller, Ulusal
-                            Barter Yatırım A.Ş. fikri mülkiyet ve telif haklarına haiz olup, fikir ve sanat eserleri
+                            Barter A.Ş. fikri mülkiyet ve telif haklarına haiz olup, fikir ve sanat eserleri
                             kanunu ve sair yasal mevzuatlarca korunmaktadır. Bu içeriklerin izinsiz kullanımı,
                             kopyalanması, çoğaltılması, değiştirilmesi veya dağıtılması yasaktır.
                         </p>
@@ -93,14 +93,14 @@ export default function TermsPage() {
                             <li>İşlem ve eylemlerindeki hukuki ve cezai sorumluluğun kendilerine ait olduğunu,</li>
                             <li>İçeriklerin güncelliği konusunda tüm çabalara rağmen farklılıklar olabileceğini,</li>
                             <li>
-                                Üçüncü taraf bağlantıların içeriklerinden Ulusal Barter Yatırım A.Ş.&apos;nin sorumlu olmadığını,
+                                Üçüncü taraf bağlantıların içeriklerinden Ulusal Barter A.Ş.&apos;nin sorumlu olmadığını,
                             </li>
                             <li>Virüslere karşı gerekli güvenlik önlemlerini kendilerinin alması gerektiğini</li>
                         </ul>
 
                         <h2>Sorumluluk Sınırları</h2>
                         <p>
-                            Ulusal Barter Yatırım A.Ş., İnternet sitesinin kullanımından doğabilecek doğrudan, dolaylı,
+                            Ulusal Barter A.Ş., İnternet sitesinin kullanımından doğabilecek doğrudan, dolaylı,
                             özel veya cezai hiçbir zarardan sorumlu tutulamaz. İnternet sitemiz, olduğu gibi
                             sunulmaktadır ve kesintisiz veya hatasız çalışacağına dair herhangi bir garanti
                             verilmemektedir.
