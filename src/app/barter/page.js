@@ -62,36 +62,6 @@ export default function Barter() {
           {/* Bu div'in kendi genişliğini max-w-5xl gibi bir sınıfla da kısıtlayabilirsiniz */}
           <div className="space-y-10 w-full max-w-5xl"> {/* w-full ve max-w-5xl ekledim */}
             <Section
-              title="Barter Nedir?"
-              content={`Barter, modern ticaret dünyasında nakit kullanımına alternatif olarak geliştirilen, firmaların ürün ve hizmetlerini organize bir sistem içerisinde karşılıklı değer değişimi yoluyla değerlendirmesini sağlayan bir finansal modeldir.
-
-Ulusal Barter Finans A.Ş. olarak biz, barter sistemini sadece bir takas yöntemi olarak değil; firmaların nakit akışlarını rahatlatan, stoklarını eriten, satış hacmini artıran ve yeni iş bağlantıları yaratan güçlü bir ticaret ağı olarak sunuyoruz.
-
-Barter, aynı anda hem alım hem de satım yapmayı mümkün kılan kapalı bir döngü değil, açık ve esnek bir finansal ekosistemdir. Şirketler sistemimize dahil olarak ihtiyaç duydukları ürün veya hizmeti nakit kullanmadan temin ederken, aynı zamanda kendi sundukları değerle sisteme katkı sağlarlar.`}
-            />
-
-            <Section
-              title="Barter Avantajları"
-              content={`1. Nakit Sıkışıklığına Alternatif
-Nakit çıkışı olmadan alım yapılabilir. Bu sayede likidite sorunu yaşamadan iş süreçlerinizi sürdürebilirsiniz.
-
-2. Stoklarınız Değer Kazanır
-Depoda bekleyen ürünler, sistem içinde işlem görerek sizi yeni müşterilerle buluşturur ve kazanca dönüşür.
-
-3. Yeni Pazarlara Açılırsınız
-Barter ağına katılan firmalar, sistem içerisindeki farklı sektörlerden firmalarla doğal işbirlikleri geliştirir.
-
-4. Satış Hacmi Genişler
-Ürün ya da hizmetiniz, normal pazarın dışında daha fazla kullanıcıya ulaşarak görünürlüğünüzü artırır.
-
-5. Çift Taraflı Kazanç
-Barter, hem alıcı hem satıcı pozisyonunda olabileceğiniz bir sistemdir. Bu çift yönlü yapı, ticari esneklik sağlar.
-
-6. Ekonomik Dalgalanmalara Karşı Dayanıklılık
-Piyasalardaki belirsizlik ve kriz ortamlarında barter sistemi, firmaların operasyonel gücünü korumasına yardımcı olur.`}
-            />
-
-            <Section
               title="Neden Ulusal Barter Finans A.Ş.?"
               content={`Çünkü biz sadece bir ticaret platformu değiliz; değerin döndüğü, işletmelerin kazandığı sürdürülebilir bir sistem inşa ediyoruz.
 
