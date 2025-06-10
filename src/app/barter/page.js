@@ -58,8 +58,8 @@ export default function Barter() {
         <div className="relative z-10 mt-48 px-4 sm:px-16 flex justify-center">
           {/* Video Oynatıcı */}
           <div
-            className="relative w-full max-w-5xl h-[400px] sm:h-[550px] rounded-xl overflow-hidden shadow-xl"
-            // containerRef artık gerekli değilse kaldırılabilir
+            className="relative w-full max-w-5xl h-[320px] sm:h-[550px] rounded-xl overflow-hidden shadow-xl"
+          // containerRef artık gerekli değilse kaldırılabilir
           >
             <video
               className="absolute inset-0 w-full h-full object-cover"
@@ -67,8 +67,8 @@ export default function Barter() {
               autoPlay
               loop
               muted
-              playsInline // iOS gibi cihazlarda tam ekran olmadan oynatılması için
-              preload="auto" // Videonun mümkün olduğunca erken yüklenmesini sağlar
+              playsInline
+              preload="auto"
             >
               Tarayıcınız video etiketini desteklemiyor.
             </video>

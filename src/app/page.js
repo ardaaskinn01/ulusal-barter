@@ -157,15 +157,15 @@ export default function Home() {
         // containerRef, onMouseDown, onMouseMove vb. artık gerekli değil, kaldırıldı
         >
           {/* Video Oynatıcı Alanı */}
-          <div className="relative w-full max-w-5xl h-[540px] mx-auto rounded-xl overflow-hidden">
+          <div className="relative w-full max-w-5xl h-[320px] sm:h-[550px] mx-auto rounded-xl overflow-hidden">
             <video
               className="absolute inset-0 w-full h-full object-cover"
               src={videoSrc}
               autoPlay
               loop
               muted
-              playsInline // iOS gibi cihazlarda otomatik oynatma için
-              preload="auto" // Videonun mümkün olduğunca erken yüklenmesini sağlar
+              playsInline
+              preload="auto"
             >
               Tarayıcınız video etiketini desteklemiyor.
             </video>
@@ -293,7 +293,7 @@ export default function Home() {
           className="relative z-10 py-16 bg-gray-100 px-4 md:px-8 flex flex-col items-center"
         >
           {/* Başlık */}
-          <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center text-gray-800">
+          <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center text-yellow-500">
             Barter Sistemiyle Tanışın!
           </h2>
 
@@ -339,7 +339,7 @@ export default function Home() {
           {/* Buton */}
           <a
             href="/barter"
-            className="mt-8 bg-gray-800 text-white font-medium py-2 px-6 rounded-lg hover:bg-gray-700 transition inline-block"
+            className="mt-8 bg-yellow-500 text-white font-medium py-2 px-6 rounded-lg hover:bg-gray-700 transition inline-block"
           >
             Daha Fazlasını Gör
           </a>
@@ -355,7 +355,7 @@ export default function Home() {
               {products.map(product => (
                 <div
                   key={product.id}
-                  className="bg-neutral-700 bg-opacity-90 rounded-xl shadow-lg overflow-hidden hover:scale-105 transition-transform duration-300"
+                  className="bg-gray-500 bg-opacity-90 rounded-xl shadow-lg overflow-hidden hover:scale-105 transition-transform duration-300"
                 >
                   <img
                     src={product.anaGorselUrl || "/placeholder.jpg"}
@@ -372,7 +372,7 @@ export default function Home() {
             <div className="mt-12 text-center">
               <a
                 href="/uyelik"
-                className="inline-block bg-yellow-500 hover:bg-yellow-600 text-black font-semibold py-3 px-6 rounded-full shadow-lg transition"
+                className="inline-block bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-3 px-6 rounded-full shadow-lg transition"
               >
                 Üye Ol ve Hepsini Gör
               </a>
@@ -468,7 +468,7 @@ export default function Home() {
 
         <footer
           ref={el => sectionRefs.current[3] = el}
-          className="w-full py-12 relative overflow-hidden bg-gray-400 text-white opacity-0 translate-y-10 transition-all duration-500"
+          className="w-full py-12 relative overflow-hidden bg-yellow-600 text-white opacity-0 translate-y-10 transition-all duration-500"
         >
           {/* Arka Plan Efektleri */}
           <div className="absolute inset-0 z-0">
@@ -487,14 +487,14 @@ export default function Home() {
 
             <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
               {/* 1. Kart - Logo ve Slogan */}
-              <div className="bg-yellow-600/40 p-6 rounded-xl border border-yellow-400/20 hover:border-white/50 transition-all duration-300 backdrop-blur-sm flex flex-col items-center justify-center text-center space-y-4 min-h-[300px]">
+              <div className="bg-yellow-400/40 p-6 rounded-xl border border-yellow-400/20 hover:border-white/50 transition-all duration-300 backdrop-blur-sm flex flex-col items-center justify-center text-center space-y-4 min-h-[300px]">
                 <h2 className="text-2xl font-bold text-white">Ulusal Barter</h2>
                 <Image src="/newbg02.png" alt="Ulusal Barter Yatırım Logo" width={130} height={150} className="mb-2" />
                 <p className="text-yellow-200 text-sm">Barter Yatırımın Güvencesi: Ulusal Güç, Yerel Çözüm!</p>
               </div>
 
               {/* 2. Kart - Bağlantılar */}
-              <div className="bg-yellow-600/40 p-6 rounded-xl border border-yellow-400/20 hover:border-white/50 transition-all duration-300 backdrop-blur-sm flex flex-col items-center justify-center text-center space-y-4 min-h-[300px]">
+              <div className="bg-yellow-400/40 p-6 rounded-xl border border-yellow-400/20 hover:border-white/50 transition-all duration-300 backdrop-blur-sm flex flex-col items-center justify-center text-center space-y-4 min-h-[300px]">
                 <h3 className="text-2xl font-semibold text-white">Bağlantılar</h3>
                 <ul className="space-y-2">
                   <li><a href="/hakkinda" className="text-yellow-200 hover:text-white transition">Hakkımızda</a></li>
@@ -504,7 +504,7 @@ export default function Home() {
               </div>
 
               {/* 3. Kart - İletişim */}
-              <div className="bg-yellow-600/40 p-6 rounded-xl border border-yellow-400/20 hover:border-white/50 transition-all duration-300 backdrop-blur-sm flex flex-col items-center justify-center text-center space-y-4 min-h-[300px]">
+              <div className="bg-yellow-400/40 p-6 rounded-xl border border-yellow-400/20 hover:border-white/50 transition-all duration-300 backdrop-blur-sm flex flex-col items-center justify-center text-center space-y-4 min-h-[300px]">
                 <h3 className="text-2xl font-bold text-white mb-4">İletişim</h3>
                 <div className="space-y-2 text-sm text-yellow-200 font-light">
                   <a href="tel:0232 600 25 25" className="block hover:text-white transition-colors">
@@ -517,7 +517,7 @@ export default function Home() {
               </div>
 
               {/* 4. Kart - Adres */}
-              <div className="bg-yellow-600/40 p-6 rounded-xl border border-yellow-400/20 hover:border-white/50 transition-all duration-300 backdrop-blur-sm flex flex-col items-center justify-center text-center text-yellow-200 text-sm leading-6 min-h-[300px]">
+              <div className="bg-yellow-400/40 p-6 rounded-xl border border-yellow-400/20 hover:border-white/50 transition-all duration-300 backdrop-blur-sm flex flex-col items-center justify-center text-center text-yellow-200 text-sm leading-6 min-h-[300px]">
                 <h2 className="text-2xl font-bold text-white mb-4">Adres</h2>
                 <p>Mansuroğlu Mah. 283/1 Sk. No:2 GSK Plaza K:1 D:201 Bayraklı/İzmir</p>
               </div>
