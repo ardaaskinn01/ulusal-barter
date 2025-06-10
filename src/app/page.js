@@ -8,7 +8,7 @@ import { useRef } from 'react';
 import { useState, useEffect } from 'react';
 import { collection, getDocs, getDoc, query, orderBy, limit } from "firebase/firestore";
 import { db } from "../../firebase";
-import { CheckCircle, Handshake, ShieldCheck, TrendingUp, Package, Globe, CreditCard } from 'lucide-react';
+import { DollarSign, Box, Lock, Settings, Shield, Handshake, ShieldCheck, TrendingUp, Package, Globe, CreditCard } from 'lucide-react';
 import { useKeenSlider } from 'keen-slider/react';
 import 'keen-slider/keen-slider.min.css';
 
@@ -403,82 +403,99 @@ export default function Home() {
 
         <section
           ref={el => sectionRefs.current[3] = el}
-          className="w-full py-16 min-h-[300px] relative bg-gray-100"
+          className="w-full py-16 bg-white"
         >
-          <div className="max-w-6xl mx-auto px-4 relative z-10">
-            {/* Background image */}
-            <div
-              className="absolute inset-0 bg-cover bg-center z-0 rounded-xl"
-              style={{ backgroundImage: "url('/bg07.jpg')" }}
-            >
-              <div className="absolute inset-0 bg-black opacity-30 rounded-xl"></div>
+          <div className="max-w-6xl mx-auto px-4">
+            {/* Başlık */}
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-800">
+                Neden Bizi Seçmelisiniz?
+              </h2>
+              <div className="w-24 h-1 bg-amber-500 mx-auto mt-4"></div>
             </div>
 
-            {/* İçerik alanı */}
-            <div className="relative z-10 bg-white bg-opacity-40 rounded-xl shadow-lg p-6 md:p-10 space-y-10">
-              {/* Başlık */}
-              <div className="text-center">
-                <h2 className="text-3xl md:text-4xl font-bold text-white">
-                  Neden Bizi Seçmelisiniz?
-                </h2>
-                <div className="w-24 h-1 bg-amber-400 mx-auto mt-4"></div>
-              </div>
-
-              {/* Grid kart listesi */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-                {[
-                  {
-                    icon: "💸",
-                    text: "Nakit harcamadan büyüme fırsatı"
-                  },
-                  {
-                    icon: "📦",
-                    text: "Stokları değere dönüştüren sistem"
-                  },
-                  {
-                    icon: "🗺️",
-                    text: "Türkiye genelinde güçlü ticaret ağı"
-                  },
-                  {
-                    icon: "🔒",
-                    text: "Şeffaf, kayıtlı ve güvenli işlemler"
-                  },
-                  {
-                    icon: "🛠️",
-                    text: "Her sektöre uygun, kişiye özel çözümler"
-                  },
-                  {
-                    icon: "🛡️",
-                    text: "Krizlere karşı dayanıklı ticaret modeli"
-                  }
-                ].map((item, index) => (
-                  <div
-                    key={index}
-                    className="flex items-start bg-white p-4 rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-shadow"
-                  >
-                    <div className="text-2xl mr-3">{item.icon}</div>
-                    <span className="text-gray-700 text-sm font-medium">{item.text}</span>
+            {/* Grid kart listesi */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+              {[
+                {
+                  icon: (
+                    <svg className="w-6 h-6 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                  ),
+                  text: "Nakit harcamadan büyüme fırsatı"
+                },
+                {
+                  icon: (
+                    <svg className="w-6 h-6 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+                    </svg>
+                  ),
+                  text: "Stokları değere dönüştüren sistem"
+                },
+                {
+                  icon: (
+                    <svg className="w-6 h-6 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                    </svg>
+                  ),
+                  text: "Türkiye genelinde güçlü ticaret ağı"
+                },
+                {
+                  icon: (
+                    <svg className="w-6 h-6 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                    </svg>
+                  ),
+                  text: "Şeffaf, kayıtlı ve güvenli işlemler"
+                },
+                {
+                  icon: (
+                    <svg className="w-6 h-6 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                    </svg>
+                  ),
+                  text: "Her sektöre uygun, kişiye özel çözümler"
+                },
+                {
+                  icon: (
+                    <svg className="w-6 h-6 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                  ),
+                  text: "Krizlere karşı dayanıklı ticaret modeli"
+                }
+              ].map((item, index) => (
+                <div
+                  key={index}
+                  className="flex items-start p-5 rounded-lg border border-gray-200 hover:border-amber-300 transition-colors"
+                >
+                  <div className="bg-amber-50 p-2 rounded-full mr-4">
+                    {item.icon}
                   </div>
-                ))}
-              </div>
+                  <span className="text-gray-700 font-medium">{item.text}</span>
+                </div>
+              ))}
+            </div>
 
-              {/* Alt açıklama kutusu */}
-              <div className="bg-white p-6 rounded-lg shadow-md border border-gray-200 md:flex md:items-center md:justify-between md:space-x-6">
+            {/* Alt açıklama kutusu */}
+            <div className="bg-gray-50 p-6 rounded-lg border border-gray-200">
+              <div className="md:flex md:items-center md:justify-between md:space-x-8">
                 <div className="flex-1 space-y-4">
                   <p className="text-lg text-gray-800 font-semibold">
                     Ulusal Barter A.Ş. ile ticaretinizin geleceğini bugünden kurun.
                   </p>
-                  <div className="bg-amber-50 border-l-4 border-amber-300 p-4 rounded">
-                    <p className="text-gray-700 italic">
-                      &quot;Nakitsiz ticaretin gücünü keşfedin, işletmenizin potansiyelini ortaya çıkarın.
-                      ULUSAL BARTER A.Ş. — Paradan bağımsız, değerden yana bir ekonomi modeli.&quot;
+                  <div className="border-l-4 border-amber-400 pl-4">
+                    <p className="text-gray-600 italic">
+                      "Nakitsiz ticaretin gücünü keşfedin, işletmenizin potansiyelini ortaya çıkarın.
+                      ULUSAL BARTER A.Ş. — Paradan bağımsız, değerden yana bir ekonomi modeli."
                     </p>
                   </div>
                 </div>
                 <div className="mt-6 md:mt-0 md:w-48 shrink-0">
                   <Link href="/iletisim" passHref>
-                    <button className="w-full px-6 py-3 bg-yellow-500 text-white font-medium rounded-lg hover:bg-amber-600 transition duration-300 shadow-md hover:shadow-lg">
-                      Bize Hemen Ulaşın
+                    <button className="w-full px-4 py-2.5 bg-yellow-500 hover:bg-amber-700 text-white font-medium rounded-md transition">
+                      Bize Ulaşın
                     </button>
                   </Link>
                 </div>
