@@ -1,18 +1,21 @@
-"use client";
 import Navbar from "../components/Navbar";
 import Image from "next/image";
 import Head from "next/head";
 
+export const metadata = {
+  title: "Hakkımızda | ULUSAL BARTER A.Ş. - Türkiye&apos;nin Lider Barter Platformu",
+  description: "Ulusal Barter A.Ş. hakkında detaylı bilgi. Türkiye&apos;nin en güvenilir barter platformuyuz. Misyonumuz ve vizyonumuz hakkında bilgi alın",
+  openGraph: {
+    title: "Hakkımızda | ULUSAL BARTER A.Ş.",
+    description: "Türkiye&apos;nin lider barter platformu",
+    url: "https://www.ulusalbarter.com.tr/hakkinda", // Kendi URL'nizi girin
+    type: "website",
+  },
+};
+
 export default function Hakkinda() {
   return (
     <>
-      <Head>
-        <title>Hakkımızda | ULUSAL BARTER A.Ş. - Türkiye&apos;nin Lider Barter Platformu</title>
-        <meta name="description" content="Ulusal Barter A.Ş. hakkında detaylı bilgi. 17 yıllık deneyimimizle Türkiye&apos;nin en güvenilir barter platformuyuz. Misyonumuz ve vizyonumuz hakkında bilgi alın." />
-        <meta property="og:title" content="Hakkımızda | ULUSAL BARTER A.Ş." />
-        <meta property="og:description" content="17 yıllık deneyimle Türkiye&apos;nin lider barter platformu" />
-        <meta property="og:image" content="https://ulusalbarter.com/bg29.jpg" />
-      </Head>
       <div className="relative min-h-screen bg-white text-gray-800 flex flex-col font-sans overflow-hidden">
         {/* Arka Plan Görseli (Yönetim Kurulu kısmına kadar) */}
         <div className="absolute inset-0 z-0">

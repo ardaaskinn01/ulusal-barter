@@ -240,6 +240,16 @@ export default function Home() {
               {/* Sağ taraf - Açıklama metni */}
               <div className="lg:w-1/2 lg:pl-8 lg:border-l lg:border-gray-700">
                 <div className="space-y-6">
+                  {/* Görseli ekliyoruz */}
+                  <div className="w-full flex justify-center">
+                    <img
+                      src="/bg03.jpg"
+                      alt="Barter Görseli"
+                      className="w-108 h-auto object-contain mb-4 drop-shadow-md"
+                    />
+                  </div>
+
+                  {/* Açıklama Metni */}
                   <p className="text-base md:text-lg leading-relaxed text-gray-600 text-justify">
                     Türkiye&apos;nin önde gelen barter platformu olarak, işletmelerin değer üreten yönlerini öne çıkarıyor ve nakit sıkışıklığı yaşamadan büyümelerini sağlıyoruz. Ulusal Barter A.Ş. olarak, geleneksel finans sistemlerinin ötesinde çözümler sunuyoruz.
                   </p>
@@ -487,8 +497,8 @@ export default function Home() {
                   </p>
                   <div className="border-l-4 border-amber-400 pl-4">
                     <p className="text-gray-600 italic">
-                      "Nakitsiz ticaretin gücünü keşfedin, işletmenizin potansiyelini ortaya çıkarın.
-                      ULUSAL BARTER A.Ş. — Paradan bağımsız, değerden yana bir ekonomi modeli."
+                      &quot;Nakitsiz ticaretin gücünü keşfedin, işletmenizin potansiyelini ortaya çıkarın.
+                      ULUSAL BARTER A.Ş. — Paradan bağımsız, değerden yana bir ekonomi modeli.&quot;
                     </p>
                   </div>
                 </div>

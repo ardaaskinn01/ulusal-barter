@@ -4,6 +4,7 @@ import Navbar from "../components/Navbar";
 import Image from "next/image";
 import Head from "next/head";
 
+
 export default function Iletisim() {
   const [formData, setFormData] = useState({
     name: "",

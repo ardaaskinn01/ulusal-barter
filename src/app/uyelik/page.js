@@ -95,7 +95,8 @@ export default function Uyelik() {
         <meta name="description" content="Ulusal Barter A.Ş. üyelik giriş sayfası. Barter sistemine giriş yaparak takas ekonomisine katılın." />
         <meta property="og:title" content="Üyelik Girişi | ULUSAL BARTER A.Ş." />
         <meta property="og:description" content="Barter sistemine giriş yapın" />
-        <meta name="robots" content="noindex, nofollow" />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://ulusalbarter.com/uyelik" />
       </Head>
       <div className="min-h-screen flex flex-col bg-white relative">
         <Navbar />
