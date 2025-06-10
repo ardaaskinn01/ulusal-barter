@@ -264,7 +264,7 @@ export default function Home() {
             {/* Yazılar arkaplanın üstünde */}
             <div className="absolute inset-0 z-10 flex flex-col items-center justify-center text-white px-4 bg-black/40 rounded-xl">
               <h1 className="text-center mb-6">
-                <span className="block text-4xl md:text-6xl font-medium leading-tight mb-4 bg-clip-text text-transparent bg-gradient-to-r from-yellow-400 to-yellow-200">
+                <span className="block text-4xl md:text-6xl font-medium leading-tight mb-4 bg-clip-text text-transparent bg-yellow-500">
                   {animatedText1}
                   {animatedText1.length < "Barter Yatırımın Güvencesi:".length && (
                     <span className="animate-pulse">|</span>
@@ -310,11 +310,11 @@ export default function Home() {
 
         <section
           ref={el => sectionRefs.current[0] = el}
-          className="w-full py-20 min-h-[500px] relative overflow-hidden opacity-0 translate-y-10 transition-all duration-500 bg-gray-100"
+          className="w-full py-20 min-h-[500px] relative overflow-hidden opacity-0 translate-y-10 transition-all duration-500 bg-gray-200"
         >
           {/* Arkaplan efektleri */}
           <div className="absolute inset-0 overflow-hidden -z-10">
-            <div className="absolute inset-0 bg-gradient-to-tr from-yellow-600/10 via-transparent to-indigo-500/5"></div>
+            <div className="absolute inset-0 bg-gray-200"></div>
             <div className="absolute top-1/4 right-20 w-80 h-80 bg-yellow-600 rounded-full filter blur-[100px] opacity-5 animate-float"></div>
             <div className="absolute bottom-1/3 left-20 w-96 h-96 bg-indigo-600 rounded-full filter blur-[120px] opacity-5 animate-float-delay"></div>
           </div>
@@ -330,7 +330,7 @@ export default function Home() {
                     <span className="block">Ulusal Barter A.Ş.</span>
                     <span className="text-yellow-500">Nakitin Ötesinde</span>
                   </h1>
-                  <div className="w-24 h-1 bg-gradient-to-r from-yellow-500 to-yellow-600 rounded-full lg:mx-0 mx-auto"></div>
+                  <div className="w-24 h-1 bg-yellow-500 rounded-full lg:mx-0 mx-auto"></div>
                 </div>
 
                 <p className="text-xl md:text-2xl text-gray-600 font-medium">
@@ -456,7 +456,7 @@ export default function Home() {
 
         <section
           ref={el => sectionRefs.current[2] = el}
-          className="w-full py-20 min-h-[400px] relative overflow-hidden bg-gradient-to-b from-neutral-300 to-neutral-200 opacity-0 translate-y-10 transition-all duration-500"
+          className="w-full py-20 min-h-[400px] relative overflow-hidden bg-neutral-200 opacity-0 translate-y-10 transition-all duration-500"
         >
           <div className="max-w-7xl mx-auto px-4 sm:px-12 lg:px-24 text-white">
             <h2 className="text-3xl font-bold mb-10 text-center text-yellow-500">Son Eklenen İlanlar</h2>
@@ -506,7 +506,7 @@ export default function Home() {
             <div className="relative z-10 bg-white bg-opacity-40 rounded-xl shadow-lg p-6 md:p-10 space-y-10">
               {/* Başlık */}
               <div className="text-center">
-                <h2 className="text-3xl md:text-4xl font-bold text-gray-800">
+                <h2 className="text-3xl md:text-4xl font-bold text-white">
                   Neden Bizi Seçmelisiniz?
                 </h2>
                 <div className="w-24 h-1 bg-amber-400 mx-auto mt-4"></div>
@@ -565,7 +565,7 @@ export default function Home() {
                 </div>
                 <div className="mt-6 md:mt-0 md:w-48 shrink-0">
                   <Link href="/iletisim" passHref>
-                    <button className="w-full px-6 py-3 bg-amber-500 text-white font-medium rounded-lg hover:bg-amber-600 transition duration-300 shadow-md hover:shadow-lg">
+                    <button className="w-full px-6 py-3 bg-yellow-500 text-white font-medium rounded-lg hover:bg-amber-600 transition duration-300 shadow-md hover:shadow-lg">
                       Bize Hemen Ulaşın
                     </button>
                   </Link>
@@ -577,33 +577,33 @@ export default function Home() {
 
         <footer
           ref={el => sectionRefs.current[3] = el}
-          className="w-full py-20 relative overflow-hidden bg-gradient-to-br from-yellow-700 via-yellow-500 to-yellow-400 text-white opacity-0 translate-y-10 transition-all duration-500"
+          className="w-full py-12 relative overflow-hidden bg-gray-400 text-white opacity-0 translate-y-10 transition-all duration-500"
         >
           {/* Arka Plan Efektleri */}
           <div className="absolute inset-0 z-0">
-            <div className="absolute inset-0 bg-[url('/texture.png')] opacity-10 mix-blend-overlay"></div>
+            <div className="absolute inset-0 bg-[url('/texture.png')] opacity-50 mix-blend-overlay"></div>
           </div>
 
           <div className="max-w-6xl mx-auto px-6 relative z-10">
             <div className="text-center mb-12">
               <h2 className="text-4xl font-bold text-white mb-4">
-                <span className="bg-clip-text text-transparent bg-gradient-to-r from-gray-100 to-white">
+                <span className="bg-clip-text text-transparent bg-white">
                   Bizimle İletişime Geçin
                 </span>
               </h2>
-              <div className="mt-4 h-px w-24 bg-gradient-to-r from-yellow-200 to-white mx-auto"></div>
+              <div className="mt-4 h-px w-24 bg-yellow-500 mx-auto"></div>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
               {/* 1. Kart - Logo ve Slogan */}
-              <div className="bg-yellow-800/40 p-6 rounded-xl border border-yellow-400/20 hover:border-white/50 transition-all duration-300 backdrop-blur-sm flex flex-col items-center justify-center text-center space-y-4 min-h-[300px]">
+              <div className="bg-yellow-600/40 p-6 rounded-xl border border-yellow-400/20 hover:border-white/50 transition-all duration-300 backdrop-blur-sm flex flex-col items-center justify-center text-center space-y-4 min-h-[300px]">
                 <h2 className="text-2xl font-bold text-white">Ulusal Barter</h2>
                 <Image src="/newbg02.png" alt="Ulusal Barter Yatırım Logo" width={130} height={150} className="mb-2" />
-                <p className="text-yellow-100 text-sm">Barter Yatırımın Güvencesi: Ulusal Güç, Yerel Çözüm!</p>
+                <p className="text-yellow-200 text-sm">Barter Yatırımın Güvencesi: Ulusal Güç, Yerel Çözüm!</p>
               </div>
 
               {/* 2. Kart - Bağlantılar */}
-              <div className="bg-yellow-800/40 p-6 rounded-xl border border-yellow-400/20 hover:border-white/50 transition-all duration-300 backdrop-blur-sm flex flex-col items-center justify-center text-center space-y-4 min-h-[300px]">
+              <div className="bg-yellow-600/40 p-6 rounded-xl border border-yellow-400/20 hover:border-white/50 transition-all duration-300 backdrop-blur-sm flex flex-col items-center justify-center text-center space-y-4 min-h-[300px]">
                 <h3 className="text-2xl font-semibold text-white">Bağlantılar</h3>
                 <ul className="space-y-2">
                   <li><a href="/hakkinda" className="text-yellow-200 hover:text-white transition">Hakkımızda</a></li>
@@ -613,34 +613,34 @@ export default function Home() {
               </div>
 
               {/* 3. Kart - İletişim */}
-              <div className="bg-yellow-800/40 p-6 rounded-xl border border-yellow-400/20 hover:border-white/50 transition-all duration-300 backdrop-blur-sm flex flex-col items-center justify-center text-center space-y-4 min-h-[300px]">
+              <div className="bg-yellow-600/40 p-6 rounded-xl border border-yellow-400/20 hover:border-white/50 transition-all duration-300 backdrop-blur-sm flex flex-col items-center justify-center text-center space-y-4 min-h-[300px]">
                 <h3 className="text-2xl font-bold text-white mb-4">İletişim</h3>
                 <div className="space-y-2 text-sm text-yellow-200 font-light">
-                  <a href="tel:+905321655220" className="block hover:text-white transition-colors">
+                  <a href="tel:0232 600 25 25" className="block hover:text-white transition-colors">
                     0232 600 25 25
                   </a>
-                  <a href="mailto:simsekoglugrup@gmail.com" className="block hover:text-white transition-colors">
+                  <a href="mailto:ulusalbarter@gmail.com" className="block hover:text-white transition-colors">
                     ulusalbarter@gmail.com
                   </a>
                 </div>
               </div>
 
               {/* 4. Kart - Adres */}
-              <div className="bg-yellow-800/40 p-6 rounded-xl border border-yellow-400/20 hover:border-white/50 transition-all duration-300 backdrop-blur-sm flex flex-col items-center justify-center text-center text-yellow-200 text-sm leading-6 min-h-[300px]">
+              <div className="bg-yellow-600/40 p-6 rounded-xl border border-yellow-400/20 hover:border-white/50 transition-all duration-300 backdrop-blur-sm flex flex-col items-center justify-center text-center text-yellow-200 text-sm leading-6 min-h-[300px]">
                 <h2 className="text-2xl font-bold text-white mb-4">Adres</h2>
                 <p>Mansuroğlu Mah. 283/1 Sk. No:2 GSK Plaza K:1 D:201 Bayraklı/İzmir</p>
               </div>
             </div>
 
             {/* Alt Kısım - Telif ve Politikalar */}
-            <div className="mt-16 pt-8 border-t border-yellow-100/30 w-full text-center">
-              <p className="text-yellow-200 text-sm">
+            <div className="mt-4 pt-4 border-t border-yellow-100/30 w-full text-center">
+              <p className="text-yellow-100 text-sm">
                 © {new Date().getFullYear()} Ulusal Barter A.Ş. Tüm hakları saklıdır.
               </p>
-              <div className="mt-2 flex justify-center space-x-4">
-                <a href="/privacy" className="text-yellow-300 hover:text-white text-xs transition-colors">Gizlilik Politikası</a>
-                <a href="/cookies" className="text-yellow-300 hover:text-white text-xs transition-colors">Çerezler</a>
-                <a href="/terms" className="text-yellow-300 hover:text-white text-xs transition-colors">Şartlar</a>
+              <div className="mt-2 flex justify-center space-x-2">
+                <a href="/privacy" className="text-yellow-100 hover:text-white text-xs transition-colors">Gizlilik Politikası</a>
+                <a href="/cookies" className="text-yellow-100 hover:text-white text-xs transition-colors">Çerezler</a>
+                <a href="/terms" className="text-yellow-100 hover:text-white text-xs transition-colors">Şartlar</a>
               </div>
             </div>
           </div>

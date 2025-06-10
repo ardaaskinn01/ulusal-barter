@@ -32,7 +32,7 @@ export default function Hakkinda() {
         <Navbar />
 
         {/* İçerik */}
-        <div className="relative z-20 flex-grow pt-32 px-6 md:px-20 lg:px-36 text-white">
+        <div className="relative z-20 flex-grow pt-48 px-6 md:px-20 lg:px-36 text-white">
           <div className="max-w-7xl mx-auto">
             {/* Başlık */}
             <h1 className="text-4xl font-bold text-white mb-4 md:mb-8 lg:mb-12 border-b-4 border-yellow-600 inline-block pb-2">
@@ -40,7 +40,7 @@ export default function Hakkinda() {
             </h1>
 
             {/* Metin İçeriği */}
-            <div className="space-y-6 text-base leading-8 text-white mt-4 md:mt-6 lg:mt-8">
+            <div className="space-y-4 text-base leading-8 text-white mt-4 md:mt-6 lg:mt-8">
               <p>
                 ULUSAL Barter A.Ş. dünyada yaygın olarak kullanılan barter sisteminin, ülkemizin ticari faaliyetlerine yeni bir soluk getirmesi amacıyla kurulmuştur.
               </p>
