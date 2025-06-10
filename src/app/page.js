@@ -338,7 +338,7 @@ export default function Home() {
                 </p>
 
                 <p className="text-lg text-yellow-500 italic font-medium">
-                  "Yalnızca bugününüzü değil, yarınınızı da birlikte inşa ediyoruz"
+                  &quot;Yalnızca bugününüzü değil, yarınınızı da birlikte inşa ediyoruz&quot;
                 </p>
               </div>
 
@@ -346,7 +346,7 @@ export default function Home() {
               <div className="lg:w-1/2 lg:pl-8 lg:border-l lg:border-gray-700">
                 <div className="space-y-6">
                   <p className="text-base md:text-lg leading-relaxed text-gray-600 text-justify">
-                    Türkiye'nin önde gelen barter platformu olarak, işletmelerin değer üreten yönlerini öne çıkarıyor ve nakit sıkışıklığı yaşamadan büyümelerini sağlıyoruz. Ulusal Barter A.Ş. olarak, geleneksel finans sistemlerinin ötesinde çözümler sunuyoruz.
+                    Türkiye&apos;nin önde gelen barter platformu olarak, işletmelerin değer üreten yönlerini öne çıkarıyor ve nakit sıkışıklığı yaşamadan büyümelerini sağlıyoruz. Ulusal Barter A.Ş. olarak, geleneksel finans sistemlerinin ötesinde çözümler sunuyoruz.
                   </p>
 
                   <ul className="grid grid-cols-1 md:grid-cols-2 gap-4 text-gray-600">
@@ -558,8 +558,8 @@ export default function Home() {
                   </p>
                   <div className="bg-amber-50 border-l-4 border-amber-300 p-4 rounded">
                     <p className="text-gray-700 italic">
-                      "Nakitsiz ticaretin gücünü keşfedin, işletmenizin potansiyelini ortaya çıkarın.
-                      ULUSAL BARTER A.Ş. — Paradan bağımsız, değerden yana bir ekonomi modeli."
+                      &quot;Nakitsiz ticaretin gücünü keşfedin, işletmenizin potansiyelini ortaya çıkarın.
+                      ULUSAL BARTER A.Ş. — Paradan bağımsız, değerden yana bir ekonomi modeli.&quot;
                     </p>
                   </div>
                 </div>
