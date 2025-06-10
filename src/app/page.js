@@ -8,7 +8,7 @@ import { useRef } from 'react';
 import { useState, useEffect } from 'react';
 import { collection, getDocs, getDoc, query, orderBy, limit } from "firebase/firestore";
 import { db } from "../../firebase";
-import { CheckCircle, Handshake, CreditCard, ShieldCheck, ArrowLeft, ArrowRight } from 'lucide-react';
+import { CheckCircle, Handshake, ShieldCheck, TrendingUp, Package, Globe, CreditCard } from 'lucide-react';
 import { useKeenSlider } from 'keen-slider/react';
 import 'keen-slider/keen-slider.min.css';
 
@@ -153,8 +153,7 @@ export default function Home() {
         <Navbar />
 
         <section
-          className="pt-32 md:pt-40 h-screen flex items-center justify-center text-center px-6 bg-gray-100 relative overflow-hidden"
-        // containerRef, onMouseDown, onMouseMove vb. artık gerekli değil, kaldırıldı
+          className="py-12 mt-24 sm:py-20 md:py-24 flex items-center justify-center text-center px-6 bg-gray-100 relative overflow-hidden"
         >
           {/* Video Oynatıcı Alanı */}
           <div className="relative w-full max-w-5xl h-[220px] sm:h-[550px] mx-auto rounded-xl overflow-hidden">
@@ -167,7 +166,7 @@ export default function Home() {
               playsInline
               preload="auto"
             >
-              Tarayıcınız video etiketini desteklemiyor.
+              Tarayıcınız video etiketini desteklamiyor.
             </video>
 
             {/* Yazılar ve arka plan karartması videonun üstünde */}
@@ -203,10 +202,9 @@ export default function Home() {
               </p>
             </div>
           </div>
-
-          {/* Slider kontrol noktaları kaldırıldı */}
         </section>
 
+        {/* İkinci section aynı kalabilir veya kendi ihtiyaçlarınıza göre ayarlayabilirsiniz */}
         <section
           ref={el => sectionRefs.current[0] = el}
           className="w-full py-20 min-h-[500px] relative overflow-hidden opacity-0 translate-y-10 transition-all duration-500 bg-gray-200"
@@ -239,6 +237,11 @@ export default function Home() {
                 <p className="text-lg text-yellow-500 italic font-medium">
                   &quot;Yalnızca bugününüzü değil, yarınınızı da birlikte inşa ediyoruz&quot;
                 </p>
+                <div className="mt-8">
+                  <a href="/uyelik" className="inline-block bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-3 px-8 rounded-full shadow-lg transition duration-300 transform hover:scale-105">
+                    Barter Sistemini Keşfedin
+                  </a>
+                </div>
               </div>
 
               {/* Sağ taraf - Açıklama metni */}
@@ -247,25 +250,6 @@ export default function Home() {
                   <p className="text-base md:text-lg leading-relaxed text-gray-600 text-justify">
                     Türkiye&apos;nin önde gelen barter platformu olarak, işletmelerin değer üreten yönlerini öne çıkarıyor ve nakit sıkışıklığı yaşamadan büyümelerini sağlıyoruz. Ulusal Barter A.Ş. olarak, geleneksel finans sistemlerinin ötesinde çözümler sunuyoruz.
                   </p>
-
-                  <ul className="grid grid-cols-1 md:grid-cols-2 gap-4 text-gray-600">
-                    <li className="flex items-start space-x-2">
-                      <Handshake className="w-5 h-5 text-yellow-500 mt-0.5 flex-shrink-0" />
-                      <span>Nakit dışı ticaret imkanı</span>
-                    </li>
-                    <li className="flex items-start space-x-2">
-                      <CheckCircle className="w-5 h-5 text-yellow-500 mt-0.5 flex-shrink-0" />
-                      <span>Geniş iş ağı</span>
-                    </li>
-                    <li className="flex items-start space-x-2">
-                      <CreditCard className="w-5 h-5 text-yellow-500 mt-0.5 flex-shrink-0" />
-                      <span>Esnek ödeme çözümleri</span>
-                    </li>
-                    <li className="flex items-start space-x-2">
-                      <ShieldCheck className="w-5 h-5 text-yellow-500 mt-0.5 flex-shrink-0" />
-                      <span>Güvenli altyapı</span>
-                    </li>
-                  </ul>
                 </div>
               </div>
             </div>
@@ -286,64 +270,108 @@ export default function Home() {
   `}</style>
         </section>
 
-
-
         <section
-          ref={(el) => (sectionRefs.current[1] = el)}
-          className="relative z-10 py-16 bg-gray-100 px-4 md:px-8 flex flex-col items-center"
+          ref={el => sectionRefs.current[1] = el}
+          className="w-full py-16 sm:py-20 md:py-24 bg-gray-100 text-gray-800 relative overflow-hidden opacity-0 translate-y-10 transition-all duration-500"
         >
-          {/* Başlık */}
-          <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center text-yellow-500">
-            Barter Sistemiyle Tanışın!
-          </h2>
+          {/* Arka Plan Efektleri - Daha Hafif */}
+          <div className="absolute inset-0 z-0">
+            <div className="absolute inset-0 bg-gradient-to-br from-yellow-100/10 to-transparent opacity-20"></div>
+            <div className="absolute bottom-0 left-1/4 -translate-x-1/2 w-48 h-48 bg-yellow-200 rounded-full mix-blend-multiply filter blur-xl opacity-5"></div>
+            <div className="absolute top-1/4 right-1/4 translate-x-1/2 w-64 h-64 bg-blue-200 rounded-full mix-blend-multiply filter blur-xl opacity-5"></div>
+          </div>
 
-          {/* Slider */}
-          <div className="w-full max-w-4xl mb-8">
-            <div
-              ref={sliderRef}
-              className="keen-slider h-[300px] md:h-[500px] rounded-xl overflow-hidden"
-            >
-              {images.map((img, index) => (
-                <div
-                  key={index}
-                  className="keen-slider__slide flex items-center justify-center"
-                >
-                  <img
-                    src={`/${img}`}
-                    alt={`Slide ${index + 1}`}
-                    className="w-full h-full object-cover rounded-xl"
-                  />
+          <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
+            <div className="text-center mb-12 md:mb-16">
+              <h2 className="text-3xl sm:text-4xl font-bold text-yellow-600 leading-tight">
+                Barter ile Elde Edeceğiniz Avantajlar
+              </h2>
+              <p className="mt-4 text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto">
+                Nakitsiz ticaretin sunduğu fırsatları keşfedin.
+              </p>
+              <div className="w-16 h-0.5 bg-yellow-500 mx-auto mt-4 rounded-full"></div>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+              {/* Avantaj Kart 1 - Daha Minimal */}
+              <div className="bg-white rounded-xl p-6 sm:p-8 flex flex-col items-center text-center border border-gray-200 shadow-sm hover:shadow-md transition-all duration-300">
+                <div className="text-yellow-500 mb-3">
+                  <TrendingUp className="w-10 h-10" />
                 </div>
-              ))}
+                <h3 className="text-xl font-semibold mb-2 text-gray-800">Nakit Akışı</h3>
+                <p className="text-gray-600 leading-relaxed text-sm">
+                  Nakit çıkışını azaltın, likiditenizi koruyun.
+                </p>
+              </div>
+
+              {/* Avantaj Kart 2 - Daha Minimal */}
+              <div className="bg-white rounded-xl p-6 sm:p-8 flex flex-col items-center text-center border border-gray-200 shadow-sm hover:shadow-md transition-all duration-300">
+                <div className="text-yellow-500 mb-3">
+                  <Package className="w-10 h-10" />
+                </div>
+                <h3 className="text-xl font-semibold mb-2 text-gray-800">Stok Yönetimi</h3>
+                <p className="text-gray-600 leading-relaxed text-sm">
+                  Stoklarınızı değer karşılığında kullanın.
+                </p>
+              </div>
+
+              {/* Avantaj Kart 3 - Daha Minimal */}
+              <div className="bg-white rounded-xl p-6 sm:p-8 flex flex-col items-center text-center border border-gray-200 shadow-sm hover:shadow-md transition-all duration-300">
+                <div className="text-yellow-500 mb-3">
+                  <Globe className="w-10 h-10" />
+                </div>
+                <h3 className="text-xl font-semibold mb-2 text-gray-800">Pazar Erişimi</h3>
+                <p className="text-gray-600 leading-relaxed text-sm">
+                  Yeni iş bağlantıları ve müşteriler edinin.
+                </p>
+              </div>
+
+              {/* Avantaj Kart 4 - Daha Minimal */}
+              <div className="bg-white rounded-xl p-6 sm:p-8 flex flex-col items-center text-center border border-gray-200 shadow-sm hover:shadow-md transition-all duration-300">
+                <div className="text-yellow-500 mb-3">
+                  <Handshake className="w-10 h-10" />
+                </div>
+                <h3 className="text-xl font-semibold mb-2 text-gray-800">Güvenilir Ticaret</h3>
+                <p className="text-gray-600 leading-relaxed text-sm">
+                  Şeffaf ve güvenli barter işlemleri.
+                </p>
+              </div>
+
+              {/* Avantaj Kart 5 - Daha Minimal */}
+              <div className="bg-white rounded-xl p-6 sm:p-8 flex flex-col items-center text-center border border-gray-200 shadow-sm hover:shadow-md transition-all duration-300">
+                <div className="text-yellow-500 mb-3">
+                  <CreditCard className="w-10 h-10" />
+                </div>
+                <h3 className="text-xl font-semibold mb-2 text-gray-800">Esnek Çözümler</h3>
+                <p className="text-gray-600 leading-relaxed text-sm">
+                  Çeşitli ödeme ve takas imkanları.
+                </p>
+              </div>
+
+              {/* Avantaj Kart 6 - Daha Minimal */}
+              <div className="bg-white rounded-xl p-6 sm:p-8 flex flex-col items-center text-center border border-gray-200 shadow-sm hover:shadow-md transition-all duration-300">
+                <div className="text-yellow-500 mb-3">
+                  <ShieldCheck className="w-10 h-10" />
+                </div>
+                <h3 className="text-xl font-semibold mb-2 text-gray-800">Ekonomik Güç</h3>
+                <p className="text-gray-600 leading-relaxed text-sm">
+                  Dalgalanmalara karşı dirençli ticaret.
+                </p>
+              </div>
+            </div>
+
+            <div className="mt-12 text-center">
+              <a
+                href="/barter"
+                className="inline-flex items-center bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-3 px-6 rounded-full shadow-md transition duration-300 transform hover:scale-105"
+              >
+                Daha Fazlasını Öğrenin
+                <svg className="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path></svg>
+              </a>
             </div>
           </div>
-
-          {/* Oklar */}
-          <div className="flex justify-between w-full max-w-4xl absolute top-1/2 left-0 right-0 mx-auto px-4 -translate-y-1/2">
-            <button
-              onClick={() => slider.current?.prev()}
-              className="bg-white/80 hover:bg-white text-gray-800 p-2 rounded-full shadow-md transition"
-              style={{ width: "2rem", height: "2rem" }}
-            >
-              <ArrowLeft size={16} />
-            </button>
-            <button
-              onClick={() => slider.current?.next()}
-              className="bg-white/80 hover:bg-white text-gray-800 p-2 rounded-full shadow-md transition"
-              style={{ width: "2rem", height: "2rem" }}
-            >
-              <ArrowRight size={16} />
-            </button>
-          </div>
-
-          {/* Buton */}
-          <a
-            href="/barter"
-            className="mt-8 bg-yellow-500 text-white font-medium py-2 px-6 rounded-lg hover:bg-gray-700 transition inline-block"
-          >
-            Daha Fazlasını Gör
-          </a>
         </section>
+
 
         <section
           ref={el => sectionRefs.current[2] = el}
