@@ -58,7 +58,7 @@ export default function Barter() {
         <div className="relative z-10 mt-48 px-4 sm:px-16 flex justify-center">
           {/* Video Oynatıcı */}
           <div
-            className="relative w-full max-w-5xl h-[320px] sm:h-[550px] rounded-xl overflow-hidden shadow-xl"
+            className="relative w-full max-w-5xl h-[280px] sm:h-[550px] rounded-xl overflow-hidden shadow-xl"
           // containerRef artık gerekli değilse kaldırılabilir
           >
             <video
