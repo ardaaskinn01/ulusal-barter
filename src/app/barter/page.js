@@ -1,70 +1,53 @@
 "use client";
 import Navbar from "../components/Navbar";
-import Image from "next/image";
+// Image artık kullanılmayacak, kaldırıldı.
 import Head from "next/head";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+// ArrowLeft, ArrowRight artık kullanılmayacak, kaldırıldı.
 import { useRef, useEffect } from "react";
 
 export default function Barter() {
-  const containerRef = useRef(null);
+  // containerRef artık videonun referansı olarak kullanılmayacak, kaldırabiliriz
+  // ama videonun kapsayıcısını referans almak isterseniz bırakabilirsiniz.
+  // const containerRef = useRef(null);
 
-  const slides = [
-    "/1.png", "/2.png", "/3.png", "/4.png", "/5.png", "/6.png",
-    "/7.png", "/8.png", "/9.png", "/10.png", "/11.png", "/12.png",
-  ];
+  // slides array'i artık gerekli değil, kaldırıldı.
+  // const slides = [ ... ];
 
-  const scrollTo = (direction) => {
-    if (containerRef.current) {
-      const container = containerRef.current;
-      const scrollAmount = container.clientWidth;
+  // scrollTo fonksiyonu artık gerekli değil, kaldırıldı.
+  // const scrollTo = (direction) => { ... };
 
-      container.scrollBy({
-        left: direction === "left" ? -scrollAmount : scrollAmount,
-        behavior: "smooth",
-      });
-    }
-  };
+  // Otomatik slayt geçişi useEffect'i artık gerekli değil, kaldırıldı.
+  // useEffect(() => { ... }, []);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (containerRef.current) {
-        const container = containerRef.current;
-
-        const isAtEnd =
-          container.scrollLeft + container.clientWidth >= container.scrollWidth - 5;
-
-        if (isAtEnd) {
-          container.scrollTo({ left: 0, behavior: "smooth" });
-        } else {
-          container.scrollBy({
-            left: container.clientWidth,
-            behavior: "smooth",
-          });
-        }
-      }
-    }, 4000);
-
-    return () => clearInterval(interval);
-  }, []);
+  const videoSrc = "/10.mp4"; // Video dosyanızın yolu
 
   return (
     <>
       <Head>
         <title>Barter Sistemi | ULUSAL BARTER A.Ş.</title>
-        <meta name="description" content="Ulusal Barter Finans A.Ş. — Paradan bağımsız, değerden yana bir ekonomi modeli." />
+        <meta
+          name="description"
+          content="Ulusal Barter Finans A.Ş. — Paradan bağımsız, değerden yana bir ekonomi modeli."
+        />
         <meta property="og:title" content="Barter Sistemi | ULUSAL BARTER A.Ş." />
-        <meta property="og:description" content="Ürün ve hizmetlerinizi takas yöntemiyle değerlendirin" />
+        <meta
+          property="og:description"
+          content="Ürün ve hizmetlerinizi takas yöntemiyle değerlendirin"
+        />
+        {/* Favicon linkini buraya da ekleyebilirsiniz, genel layout'ta varsa gerek yok */}
+        <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <div className="min-h-screen relative text-white">
         {/* Arka Plan */}
         <div className="absolute inset-0 z-0">
-          <Image
-            src="/bg35.jpg"
+          {/* bg35.jpg imajını koruyalım, bu arka plan görüntüsü */}
+          <img
+            src="/bg35.jpg" // Next/image yerine standart img kullanıyoruz ya da Next/image'ı import edip kullanmaya devam edebilirsiniz.
             alt="background"
-            fill
-            className="object-cover"
-            priority
+            layout="fill" // Eğer next/image kullanıyorsanız fill kullanın
+            objectfit="cover" // Eğer next/image kullanıyorsanız objectFit kullanın
+            className="w-full h-full object-cover" // Standart img için w-full h-full ve object-cover
           />
           <div className="absolute inset-0 bg-black opacity-80 backdrop-blur-sm"></div>
         </div>
@@ -73,44 +56,25 @@ export default function Barter() {
 
         {/* Ana İçerik */}
         <div className="relative z-10 mt-48 px-4 sm:px-16 flex justify-center">
-          {/* Slaytlar */}
-          <div className="relative w-full max-w-6xl">
-            <div
-              ref={containerRef}
-              className="w-full overflow-x-scroll scroll-smooth snap-x snap-mandatory flex no-scrollbar"
+          {/* Video Oynatıcı */}
+          <div
+            className="relative w-full max-w-5xl h-[400px] sm:h-[550px] rounded-xl overflow-hidden shadow-xl"
+            // containerRef artık gerekli değilse kaldırılabilir
+          >
+            <video
+              className="absolute inset-0 w-full h-full object-cover"
+              src={videoSrc}
+              autoPlay
+              loop
+              muted
+              playsInline // iOS gibi cihazlarda tam ekran olmadan oynatılması için
+              preload="auto" // Videonun mümkün olduğunca erken yüklenmesini sağlar
             >
-              {slides.map((src, index) => (
-                <div
-                  key={index}
-                  className="flex-shrink-0 w-full snap-center flex justify-center items-center transition-transform duration-500"
-                >
-                  <Image
-                    src={src}
-                    alt={`Slide ${index + 1}`}
-                    width={976}
-                    height={540}
-                    className="rounded-xl shadow-xl"
-                  />
-                </div>
-              ))}
-            </div>
-
-            {/* Ok Butonları */}
-            <div className="absolute top-1/2 -translate-y-1/2 w-full flex justify-between px-4 sm:px-8">
-              <button
-                onClick={() => scrollTo("left")}
-                className="bg-white/20 hover:bg-white/30 text-white p-2 rounded-full backdrop-blur-md transition"
-              >
-                <ArrowLeft />
-              </button>
-              <button
-                onClick={() => scrollTo("right")}
-                className="bg-white/20 hover:bg-white/30 text-white p-2 rounded-full backdrop-blur-md transition"
-              >
-                <ArrowRight />
-              </button>
-            </div>
+              Tarayıcınız video etiketini desteklemiyor.
+            </video>
           </div>
+
+          {/* Ok Butonları kaldırıldı */}
         </div>
       </div>
     </>

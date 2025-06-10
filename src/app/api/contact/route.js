@@ -4,6 +4,13 @@ export async function POST(req) {
   try {
     const { name, email, phone, message } = await req.json();
 
+    // **BURAYI EKLEYİN:** Ortam değişkenlerini konsola yazdırın
+    console.log("SMTP_HOST:", process.env.SMTP_HOST);
+    console.log("SMTP_PORT:", process.env.SMTP_PORT);
+    console.log("SMTP_USER:", process.env.SMTP_USER);
+    // Güvenlik nedeniyle SMTP_PASS'i doğrudan yazdırmayın, sadece varlığını kontrol edin
+    console.log("SMTP_PASS var mı:", !!process.env.SMTP_PASS);
+    
     if (!name || !email || !message) {
       return new Response("Lütfen tüm alanları doldurun", { status: 400 });
     }

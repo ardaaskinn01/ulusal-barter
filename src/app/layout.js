@@ -22,16 +22,6 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="tr" className="geist-sans geist-mono">
-      <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="theme-color" content="#ffffff" />
-        {/* PWA için gerekli meta tag'ler */}
-        <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-        <meta name="application-name" content="Ulusal Barter" />
-        <meta name="msapplication-TileColor" content="#ffffff" />
-        <meta name="msapplication-TileImage" content="/st-144x144.png" />
-      </head>
       <body>
         {children}
       </body>

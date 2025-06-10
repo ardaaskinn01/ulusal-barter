@@ -13,7 +13,7 @@ import { useKeenSlider } from 'keen-slider/react';
 import 'keen-slider/keen-slider.min.css';
 
 
-const useSectionAnimation = (setStartCountUp) => { // setStartCountUp parametre olarak eklendi
+const useSectionAnimation = (setStartCountUp) => {
   const sectionRefs = useRef([]);
 
   useEffect(() => {
@@ -23,9 +23,8 @@ const useSectionAnimation = (setStartCountUp) => { // setStartCountUp parametre 
           entry.target.classList.remove('opacity-0', 'translate-y-10');
           entry.target.classList.add('opacity-100', 'translate-y-0');
 
-          // Stats section için CountUp animasyonlarını tetikle
           if (entry.target.classList.contains('stats-section')) {
-            setStartCountUp(true); // Artık burada erişilebilir
+            setStartCountUp(true);
             const counters = entry.target.querySelectorAll('.count-up-trigger');
             counters.forEach(counter => {
               counter.classList.add('animate-fadeInUp');
@@ -44,10 +43,11 @@ const useSectionAnimation = (setStartCountUp) => { // setStartCountUp parametre 
         if (section) observer.unobserve(section);
       });
     };
-  }, [setStartCountUp]); // setStartCountUp dependency olarak eklendi
+  }, [setStartCountUp]);
 
   return sectionRefs;
 };
+
 
 export default function Home() {
   const [startCountUp, setStartCountUp] = useState(false);
@@ -57,6 +57,8 @@ export default function Home() {
   const [currentBg, setCurrentBg] = useState(0);
   const [animatedText1, setAnimatedText1] = useState("");
   const [animatedText2, setAnimatedText2] = useState("");
+
+  const videoSrc = '/11.mp4';
   const backgrounds = [
     '/bg21.jpg',
     '/bg20.jpg',
@@ -136,133 +138,40 @@ export default function Home() {
     return () => clearInterval(interval);
   }, [slider]);
 
-
-
-  // Metin animasyonları için
-  useEffect(() => {
-    const text1 = "Barter Yatırımın Güvencesi:";
-    const text2 = "Ulusal Güç, Yerel Çözüm!";
-
-    // İlk metin animasyonu
-    let i = 0;
-    const typing1 = setInterval(() => {
-      if (i < text1.length) {
-        setAnimatedText1(text1.substring(0, i + 1));
-        i++;
-      } else {
-        clearInterval(typing1);
-
-        // İkinci metin animasyonu
-        let j = 0;
-        const typing2 = setInterval(() => {
-          if (j < text2.length) {
-            setAnimatedText2(text2.substring(0, j + 1));
-            j++;
-          } else {
-            clearInterval(typing2);
-          }
-        }, 85); // İkinci metin yazma hızı (daha hızlı)
-      }
-    }, 75); // İlk metin yazma hızı (daha hızlı)
-
-    // Arka plan slider animasyonu
-    const interval = setInterval(() => {
-      setCurrentBg((prev) => (prev + 1) % backgrounds.length);
-    }, 5000);
-
-    return () => {
-      clearInterval(typing1);
-      clearInterval(interval);
-    };
-  }, []);
-
-  const scrollToSection = () => {
-    window.scrollTo({
-      top: window.innerHeight,
-      behavior: 'smooth',
-    });
-  };
-
-  const handlePrevious = () => {
-    setCurrentBg((prev) => (prev - 1 + backgrounds.length) % backgrounds.length);
-  };
-
-  const handleNext = () => {
-    setCurrentBg((prev) => (prev + 1) % backgrounds.length);
-  };
-
-  const handleMouseDown = (e) => {
-    isDragging = true;
-    startX = e.clientX;
-  };
-
-  const handleMouseMove = (e) => {
-    if (!isDragging) return;
-    currentX = e.clientX;
-  };
-
-  const handleMouseUp = () => {
-    if (!isDragging) return;
-    const diff = startX - currentX;
-    if (diff > 50) handleNext();
-    if (diff < -50) handlePrevious();
-    isDragging = false;
-  };
-
-  const handleTouchStart = (e) => {
-    startX = e.touches[0].clientX;
-  };
-
-  const handleTouchMove = (e) => {
-    currentX = e.touches[0].clientX;
-  };
-
-  const handleTouchEnd = () => {
-    const diff = startX - currentX;
-    if (diff > 50) handleNext();
-    if (diff < -50) handlePrevious();
-  };
-
   return (
     <>
-      <Head>
+      {/* Head import'unu eklemeyi unutmayın */}
+      <head>
         <title>ULUSAL BARTER A.Ş.</title>
         <meta name="description" content="Ulusal Barter A.Ş. - Türkiye'nin en güvenilir barter platformu. Ürün ve hizmetlerinizi takas yoluyla değerlendirin." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
-      </Head>
+      </head>
 
       <div className="min-h-screen flex flex-col relative bg-gray-950">
+        {/* Navbar import'unu eklemeyi unutmayın */}
         <Navbar />
 
         <section
           className="pt-32 md:pt-40 h-screen flex items-center justify-center text-center px-6 bg-gray-100 relative overflow-hidden"
-          ref={containerRef}
-          onMouseDown={handleMouseDown}
-          onMouseMove={handleMouseMove}
-          onMouseUp={handleMouseUp}
-          onMouseLeave={handleMouseUp}
-          onTouchStart={handleTouchStart}
-          onTouchMove={handleTouchMove}
-          onTouchEnd={handleTouchEnd}
+          // containerRef, onMouseDown, onMouseMove vb. artık gerekli değil, kaldırıldı
         >
-          {/* Slayt alanı */}
-          <div className="relative w-full max-w-5xl h-[400px] mx-auto">
-            {/* Arka plan görseli */}
-            {backgrounds.map((bg, index) => (
-              <div
-                key={index}
-                className={`absolute inset-0 rounded-xl transition-opacity duration-700 ${index === currentBg ? 'opacity-100 z-0' : 'opacity-0 z-0'}`}
-                style={{
-                  backgroundImage: `url(${bg})`,
-                  backgroundSize: 'cover',
-                  backgroundPosition: 'center',
-                }}
-              />
-            ))}
+          {/* Video Oynatıcı Alanı */}
+          <div className="relative w-full max-w-5xl h-[540px] mx-auto rounded-xl overflow-hidden">
+            <video
+              className="absolute inset-0 w-full h-full object-cover"
+              src={videoSrc}
+              autoPlay
+              loop
+              muted
+              playsInline // iOS gibi cihazlarda otomatik oynatma için
+              preload="auto" // Videonun mümkün olduğunca erken yüklenmesini sağlar
+            >
+              Tarayıcınız video etiketini desteklemiyor.
+            </video>
 
-            {/* Yazılar arkaplanın üstünde */}
-            <div className="absolute inset-0 z-10 flex flex-col items-center justify-center text-white px-4 bg-black/40 rounded-xl">
+            {/* Yazılar ve arka plan karartması videonun üstünde */}
+            <div className="absolute inset-0 z-10 flex flex-col items-center justify-center text-white px-4 rounded-xl">
               <h1 className="text-center mb-6">
                 <span className="block text-4xl md:text-6xl font-medium leading-tight mb-4 bg-clip-text text-transparent bg-yellow-500">
                   {animatedText1}
@@ -295,17 +204,7 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Slider kontrol noktaları */}
-          <div className="absolute bottom-8 left-0 right-0 flex justify-center space-x-2 z-20">
-            {backgrounds.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => setCurrentBg(index)}
-                className={`w-3 h-3 rounded-full transition-all ${index === currentBg ? 'bg-yellow-600 w-6' : 'bg-gray-500'}`}
-                aria-label={`Slide ${index + 1}`}
-              />
-            ))}
-          </div>
+          {/* Slider kontrol noktaları kaldırıldı */}
         </section>
 
         <section
