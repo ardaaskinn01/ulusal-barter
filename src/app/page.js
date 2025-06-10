@@ -157,7 +157,7 @@ export default function Home() {
         // containerRef, onMouseDown, onMouseMove vb. artık gerekli değil, kaldırıldı
         >
           {/* Video Oynatıcı Alanı */}
-          <div className="relative w-full max-w-5xl h-[280px] sm:h-[550px] mx-auto rounded-xl overflow-hidden">
+          <div className="relative w-full max-w-5xl h-[250px] sm:h-[550px] mx-auto rounded-xl overflow-hidden">
             <video
               className="absolute inset-0 w-full h-full object-cover"
               src={videoSrc}
