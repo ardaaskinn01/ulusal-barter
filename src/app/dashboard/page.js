@@ -575,7 +575,7 @@ export default function Dashboard() {
         </div>
       )}
 
-      <header className="bg-yellow-300 shadow-sm mt-28">
+      <header className="bg-yellow-300 shadow-sm mt-40">
         <div className="max-w-7xl mx-auto px-4 py-6 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-start sm:items-center space-y-3 sm:space-y-0">
           <div>
             <h1 className="text-2xl font-semibold text-gray-900">
