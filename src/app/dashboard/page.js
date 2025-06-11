@@ -622,7 +622,7 @@ export default function Dashboard() {
                     fetchPendingRequests();
                     setShowRequestsModal(true);
                   }}
-                  className="relative px-3 py-1.5 bg-red-500 text-white text-sm font-medium rounded-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-2"
+                  className="relative px-3 py-1.5 bg-red-500 text-white text-sm font-medium rounded-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                 >
                   İstekleri Görüntüle
                   {pendingRequests.length > 0 && (
