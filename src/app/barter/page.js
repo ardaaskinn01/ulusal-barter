@@ -26,7 +26,7 @@ export default function Barter() {
       <Navbar />
 
       {/* Hero Section - Büyük Başlık ve Video */}
-      <section className="relative w-full pt-32 pb-16 sm:pt-48 sm:pb-24 overflow-hidden">
+      <section className="relative w-full pt-32 pb-16 sm:pt-48 sm:pb-24 overflow-hidden mt-8">
         {/* Daha hafif, soyut arka plan şekilleri - Animasyon sınıfları kaldırıldı */}
         <div className="absolute top-0 left-0 w-64 h-64 bg-yellow-200 rounded-full mix-blend-multiply filter blur-3xl opacity-10"></div>
         <div className="absolute top-0 right-0 w-80 h-80 bg-blue-200 rounded-full mix-blend-multiply filter blur-3xl opacity-10"></div>

@@ -5,7 +5,7 @@ import Navbar from "../components/Navbar";
 import Image from "next/image";
 
 const sections = [
-  { id: "genel", title: "Kuruluş & Genel Bilgi" },
+  { id: "genel", title: "Genel Bilgi" },
   { id: "misyon", title: "Misyonumuz" },
   { id: "vizyon", title: "Vizyonumuz" },
   { id: "yonetim", title: "Yönetim Kurulu" },
@@ -135,7 +135,7 @@ export default function Hakkinda() {
               </h2>
 
               {/* Başkan */}
-              <div className="flex justify-center mb-8">
+              <div className="flex justify-center mb-12">
                 <div className="bg-white/80 text-gray-900 p-6 rounded-2xl shadow-lg w-72">
                   <h3 className="text-lg text-yellow-800 font-semibold mb-1">Özkan ŞİMŞEK</h3>
                   <p className="text-sm">Yönetim Kurulu Başkanı</p>
