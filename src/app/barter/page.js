@@ -51,7 +51,7 @@ export default function Barter() {
 
           {/* motion.div yerine normal div */}
           <div
-            className="relative w-full max-w-5xl h-[250px] sm:h-[400px] md:h-[550px] mx-auto rounded-2xl overflow-hidden shadow-2xl border border-gray-200"
+            className="relative w-full max-w-5xl h-[220px] sm:h-[400px] md:h-[550px] mx-auto rounded-2xl overflow-hidden shadow-2xl border border-gray-200"
           >
             <video
               className="absolute inset-0 w-full h-full object-cover"
