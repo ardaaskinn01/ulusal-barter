@@ -363,7 +363,7 @@ export default function Dashboard() {
                         <td className="py-2">
                           <div className="font-semibold">{user.ad} {user.soyad}</div>
                           <div className="text-sm text-gray-700 font-mono">
-                            {user.bakiye ?? 0} ₺
+                            {formatBalanceInput((user.bakiye ?? 0).toString())} ₺
                           </div>
                         </td>
                         <td className="py-2 text-center">

@@ -10,7 +10,7 @@ export const metadata = {
   openGraph: {
     title: "Barter Sistemi | ULUSAL BARTER A.Ş.",
     description: "Ürün ve hizmetlerinizi takas yöntemiyle değerlendirin",
-    url: "https://www.ulusalbarter.com.tr/barter", // Kendi URL'nizi girin
+    url: "https://www.ulusalbarter.com/barter", // Kendi URL'nizi girin
     type: "website",
   },
 };
