@@ -578,6 +578,8 @@ export default function Dashboard() {
               selectedTypes={selectedTypes}
               setSelectedTypes={setSelectedTypes}
               productTypes={productTypes}
+              setSoldFilter={setSoldFilter}
+              soldFilter={soldFilter}
             />
           </div>
         </div>
@@ -651,7 +653,7 @@ export default function Dashboard() {
             )}
 
             <button
-              className="md:hidden px-3 py-1.5 bg-red-100 rounded-md text-white text-sm font-medium"
+              className="md:hidden px-3 py-1.5 bg-red-100 rounded-md text-black text-sm font-medium"
               onClick={() => setShowFilterMobile(true)}
             >
               Filtre
