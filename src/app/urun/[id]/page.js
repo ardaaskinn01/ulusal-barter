@@ -405,7 +405,7 @@ export default function ProductDetail() {
                                 </button>
                             </div>
                         ) : (
-                            currentUser && (
+                            currentUser && !satildi && ( // 🔴 Satıldıysa gösterme!
                                 <div className="mt-6">
                                     {!hasOffered ? (
                                         <button
