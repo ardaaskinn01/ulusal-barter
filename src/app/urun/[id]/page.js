@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
-import { doc, getDoc, deleteDoc, setDoc, collection, query, where, getDocs } from "firebase/firestore";
+import { doc, getDoc, deleteDoc, setDoc, collection, query, where, getDocs, updateDoc } from "firebase/firestore";
 import { db } from "../../../../firebase";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import Navbar from "../../components/Navbar";
@@ -11,6 +11,7 @@ import Zoom from 'react-medium-image-zoom';
 import 'react-medium-image-zoom/dist/styles.css';
 
 export default function ProductDetail() {
+    const [satildi, setSatildi] = useState(false);
     const { id: rawId } = useParams();
     const id = decodeURIComponent(rawId);
     const router = useRouter();
@@ -82,6 +83,10 @@ export default function ProductDetail() {
                     if (currentUser && productData.userId === currentUser.uid) {
                         setCanEdit(true);
                     }
+
+                    if ("satildi" in productData && productData.satildi === true) {
+                        setSatildi(true);
+                    }
                 } else {
                     console.log("Ürün bulunamadı");
                 }
@@ -122,6 +127,26 @@ export default function ProductDetail() {
 
         checkOffer();
     }, [currentUser, id]);
+
+    const toggleSatildi = async () => {
+        const confirmation = window.confirm(
+            satildi
+                ? "Bu ilanı tekrar 'satılmadı' olarak işaretlemek istiyor musunuz?"
+                : "Bu ilanı 'satıldı' olarak işaretlemek istiyor musunuz?"
+        );
+
+        if (!confirmation) return;
+
+        try {
+            const docRef = doc(db, "products", id);
+            await updateDoc(docRef, {
+                satildi: !satildi,
+            });
+            setSatildi(!satildi);
+        } catch (error) {
+            console.error("Satıldı güncellenirken hata oluştu:", error);
+        }
+    };
 
     const handleOfferSubmit = async () => {
         // Noktaları sil, virgülü noktaya çevir → sayıya dönüştür
@@ -370,6 +395,13 @@ export default function ProductDetail() {
                                     className="flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg shadow-lg transition"
                                 >
                                     Sil
+                                </button>
+                                <button
+                                    onClick={toggleSatildi}
+                                    className={`flex items-center gap-2 ${satildi ? "bg-gray-600 hover:bg-gray-700" : "bg-red-400 hover:bg-red-500"
+                                        } text-white px-6 py-3 rounded-lg shadow-lg transition`}
+                                >
+                                    {satildi ? "İşareti Geri Al" : "Satıldı İşaretle"}
                                 </button>
                             </div>
                         ) : (

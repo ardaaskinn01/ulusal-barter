@@ -21,6 +21,7 @@ export default function Dashboard() {
   const [showFilterMobile, setShowFilterMobile] = useState(false);
   const [pendingRequests, setPendingRequests] = useState([]);
   const [searchLocation, setSearchLocation] = useState("");
+  const [soldFilter, setSoldFilter] = useState("all");
   const normalizedSearch = normalizeString(searchLocation.trim());
   const [selectedTypes, setSelectedTypes] = useState([]);
   const [selectedUserId, setSelectedUserId] = useState(null);
@@ -65,7 +66,14 @@ export default function Dashboard() {
     const typeMatch = selectedTypes.length === 0 ||
       selectedTypes.some(type => productName.includes(normalizeString(type)));
 
-    return locationMatch && typeMatch;
+    const soldMatch =
+      soldFilter === "all"
+        ? true
+        : soldFilter === "sold"
+          ? product.satildi === true
+          : !("satildi" in product) || product.satildi === false;
+
+    return locationMatch && typeMatch && soldMatch;
   });
 
   const fetchPendingRequests = async () => {
@@ -673,6 +681,8 @@ export default function Dashboard() {
               selectedTypes={selectedTypes}
               setSelectedTypes={setSelectedTypes}
               productTypes={productTypes}
+              soldFilter={soldFilter}
+              setSoldFilter={setSoldFilter}
             />
           </aside>
 
@@ -705,8 +715,16 @@ export default function Dashboard() {
                     }
                     router.push(`/urun/${encodeURIComponent(product.isim)}`);
                   }}
-                  className="group bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition duration-150 ease-in-out cursor-pointer flex flex-col h-full"
+                  className={`group relative bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition duration-150 ease-in-out cursor-pointer flex flex-col h-full ${"satildi" in product && product.satildi === true ? "opacity-50" : ""
+                    }`}
                 >
+                  {/* SATILDI etiketi */}
+                  {("satildi" in product && product.satildi === true) && (
+                    <div className="absolute top-7 left-[-32px] -rotate-12 bg-red-600 text-white font-bold px-12 py-1 text-sm shadow-lg z-10">
+                      TAKASIMIZ GERÇEKLEŞTİRİLMİŞTİR.
+                    </div>
+                  )}
+
                   <div className="aspect-w-1 aspect-h-1 bg-gray-50 relative flex-shrink-0">
                     <img
                       src={product.anaGorselUrl}
@@ -739,7 +757,7 @@ export default function Dashboard() {
   );
 }
 
-function FilterPanel({ searchLocation, setSearchLocation, selectedTypes, setSelectedTypes, productTypes }) {
+function FilterPanel({ searchLocation, setSearchLocation, selectedTypes, setSelectedTypes, productTypes, soldFilter, setSoldFilter }) {
   return (
     <>
       {/* Konum Arama */}
@@ -783,6 +801,46 @@ function FilterPanel({ searchLocation, setSearchLocation, selectedTypes, setSele
           ))}
         </div>
       </fieldset>
+
+      <fieldset className="mb-6">
+        <legend className="text-sm font-medium text-gray-700 mb-3">Satış Durumu</legend>
+        <div className="space-y-2">
+          <div className="flex items-start">
+            <input
+              id="filter-sold-all"
+              type="radio"
+              value="all"
+              checked={soldFilter === "all"}
+              onChange={() => setSoldFilter("all")}
+              className="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
+            />
+            <label htmlFor="filter-sold-all" className="ml-3 text-sm text-gray-700">Tümü</label>
+          </div>
+          <div className="flex items-start">
+            <input
+              id="filter-sold-unsold"
+              type="radio"
+              value="unsold"
+              checked={soldFilter === "unsold"}
+              onChange={() => setSoldFilter("unsold")}
+              className="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
+            />
+            <label htmlFor="filter-sold-unsold" className="ml-3 text-sm text-gray-700">Satılmayanlar</label>
+          </div>
+          <div className="flex items-start">
+            <input
+              id="filter-sold-sold"
+              type="radio"
+              value="sold"
+              checked={soldFilter === "sold"}
+              onChange={() => setSoldFilter("sold")}
+              className="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
+            />
+            <label htmlFor="filter-sold-sold" className="ml-3 text-sm text-gray-700">Satılanlar</label>
+          </div>
+        </div>
+      </fieldset>
+
     </>
   );
 }
