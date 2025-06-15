@@ -1,6 +1,5 @@
 import "./globals.css";
 import Script from "next/script";
-import PushPermissionButton from "./components/PushPermissionButton";
 
 export const metadata = {
   title: "Ulusal Barter A.Ş.",
@@ -32,26 +31,40 @@ export default function RootLayout({ children }) {
         />
         <Script id="onesignal-init" strategy="beforeInteractive">
           {`
-    window.OneSignalDeferred = window.OneSignalDeferred || [];
-    OneSignalDeferred.push(async function(OneSignal) {
-      await OneSignal.init({
-        appId: "d4f432ca-d0cc-4d13-873d-b24b41de5699",
-        promptOptions: {
-          slidedown: {
-            enabled: false // İngilizce preprompt'u devre dışı bırak
-          }
-        },
-        notifyButton: {
-          enable: false // köşedeki varsayılan çan simgesini de kapatıyoruz
-        }
-      });
-    });
-  `}
+            window.OneSignalDeferred = window.OneSignalDeferred || [];
+            OneSignalDeferred.push(async function(OneSignal) {
+              await OneSignal.init({
+                appId: "d4f432ca-d0cc-4d13-873d-b24b41de5699",
+                // Add this configuration for welcome notification
+                welcomeNotification: {
+                  disable: false, // Ensure it's not disabled if you want to show it
+                  title: "Bildirimlerimize Abone Olun", // Turkish title
+                  message: "En son haberler ve güncellemeler için bildirimlerimize abone olun. İstediğiniz zaman devre dışı bırakabilirsiniz.", // Turkish message
+                  url: null // Optional: URL to open when clicking the notification
+                },
+                // You might also want to set the language for the prompt itself
+                // This targets the category of "prompts" which includes the bell icon and slide prompt
+                promptAndEffort: {
+                    acceptButtonText: 'ABONE OL',
+                    cancelButtonText: 'SONRA',
+                    text: {
+                        prompt: {
+                            title: 'Bildirimleri Açmak İster Misiniz?',
+                            message: 'Web sitemizden en son haberleri ve güncellemeleri almak için bildirimleri açın.'
+                        },
+                        autoPrompt: {
+                            title: 'Bildirimlerimize Abone Olun',
+                            message: 'En son haberler ve güncellemeler için bildirimlerimize abone olun. İstediğiniz zaman devre dışı bırakabilirsiniz.'
+                        }
+                    }
+                }
+              });
+            });
+          `}
         </Script>
       </head>
       <body>
         {children}
-         <PushPermissionButton />
       </body>
     </html>
   );

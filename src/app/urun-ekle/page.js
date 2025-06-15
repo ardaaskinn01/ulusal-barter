@@ -178,6 +178,7 @@ function UrunEkleContent() {
                 ekGorselUrl: uploadedExtraImageUrls,
                 aciklamalar: descriptions,
                 userId: user.uid,
+                sabitle: false,
                 createdAt: createdAt || serverTimestamp(),
             });
 
