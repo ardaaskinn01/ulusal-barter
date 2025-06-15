@@ -297,7 +297,7 @@ export default function ProductDetail() {
                 </div>
             )}
 
-            <div className="container mx-auto px-6 py-24 relative mt-24">
+            <div className="container mx-auto px-4 py-16 md:py-24 relative md:mt-24 mt-12">
                 {/* Sağ üstte ilan numarası kutusu */}
                 <div className="text-sm absolute top-20 right-0 bg-amber-600 text-white px-4 py-2 rounded-lg shadow-lg z-20">
                     İlan Numarası: {product.id}
