@@ -193,7 +193,8 @@ function UrunEkleContent() {
         if (type.includes("image/jpeg")) return "jpg";
         if (type.includes("image/png")) return "png";
         if (type.includes("video/mp4")) return "mp4";
-        return ""; // bilinmeyen tip
+        if (type.includes("video/quicktime")) return "mov"; // iPhone’dan gelen videolar
+        return "bin"; // bilinmeyen tür
     }
 
     return (

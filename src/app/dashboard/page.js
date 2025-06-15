@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { onAuthStateChanged, signOut } from "firebase/auth";
-import { doc, getDoc, query, orderBy, collection, getDocs, updateDoc, where, addDoc, onSnapshot } from "firebase/firestore";
+import { writeBatch, doc, getDoc, query, orderBy, collection, getDocs, updateDoc, where, addDoc, onSnapshot } from "firebase/firestore";
 import { auth, db } from "../../../firebase";
 import Navbar from "../components/Navbar";
 
@@ -89,6 +89,24 @@ export default function Dashboard() {
     }
   };
 
+  const fetchProducts = async () => {
+    try {
+      const q = query(
+        collection(db, "products"),
+        orderBy("sabitle", "desc"),
+        orderBy("createdAt", "desc")
+      );
+      const querySnapshot = await getDocs(q);
+      const productsList = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      setProducts(productsList);
+      setLoading(false);
+    } catch (error) {
+      console.error("Ürünler alınırken hata oluştu:", error);
+      setLoading(false);
+    }
+  };
+
+
   useEffect(() => {
     const checkPending = async () => {
       await fetchPendingRequests();
@@ -114,22 +132,7 @@ export default function Dashboard() {
   }, []);
 
   // Ürünleri al
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const q = query(collection(db, "products"), orderBy("createdAt", "desc"));
-        const querySnapshot = await getDocs(q);
-        const productsList = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-        setProducts(productsList);
-        setLoading(false);
-      } catch (error) {
-        console.error("Ürünler alınırken hata oluştu:", error);
-        setLoading(false);
-      }
-    };
-
-    fetchProducts();
-  }, []);
+  useEffect(() => { fetchProducts(); }, []);
 
   useEffect(() => {
     if (!showOffersModal) return;
@@ -744,9 +747,45 @@ export default function Dashboard() {
                           ? product.fiyat
                           : `${product.fiyat} ₺`}
                       </p>
-                      <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800">
-                        Detay
-                      </span>
+                      <span
+  className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium cursor-pointer
+    ${userData?.role === "admin"
+      ? (product.sabitle ? "bg-yellow-100 text-yellow-800" : "bg-green-100 text-green-800")
+      : "bg-indigo-100 text-indigo-800"}`}
+  onClick={async (e) => {
+    e.stopPropagation();
+
+    if (userData?.role === "admin") {
+      try {
+        const newSabitle = !product.sabitle;
+
+        await updateDoc(doc(db, "products", product.isim), {
+          sabitle: newSabitle,
+        });
+
+        // UI anlık güncellensin
+        setProducts(prev =>
+          prev.map(p =>
+            p.id === product.id ? { ...p, sabitle: newSabitle } : p
+          )
+        );
+
+        fetchProducts(); // opsiyonel: sıralama güncellenecekse
+        alert(`Ürün ${newSabitle ? "sabitlendi" : "sıralamaya geri alındı"}.`);
+      } catch (error) {
+        console.error("Sabitleme/Kaldırma hatası:", error);
+      }
+    } else {
+      router.push(`/urun/${encodeURIComponent(product.isim)}`);
+    }
+  }}
+>
+  {userData?.role === "admin"
+    ? product.sabitle
+      ? "Üstten Kaldır"
+      : "Üste Sabitle"
+    : "Detay"}
+</span>
                     </div>
                   </div>
                 </div>
