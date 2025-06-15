@@ -1,4 +1,5 @@
 import "./globals.css";
+import Script from "next/script";
 
 export const metadata = {
   title: "Ulusal Barter A.Ş.",
@@ -22,6 +23,23 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="tr" className="geist-sans geist-mono">
+      <head>
+        {/* OneSignal SDK v16 scriptleri */}
+        <Script
+          src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js"
+          strategy="beforeInteractive"
+        />
+        <Script id="onesignal-init" strategy="beforeInteractive">
+          {`
+            window.OneSignalDeferred = window.OneSignalDeferred || [];
+            OneSignalDeferred.push(async function(OneSignal) {
+              await OneSignal.init({
+                appId: "d4f432ca-d0cc-4d13-873d-b24b41de5699",
+              });
+            });
+          `}
+        </Script>
+      </head>
       <body>
         {children}
       </body>

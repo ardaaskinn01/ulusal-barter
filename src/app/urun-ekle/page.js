@@ -84,37 +84,6 @@ function UrunEkleContent() {
         fetchProductToEdit();
     }, [editId]);
 
-    useEffect(() => {
-    if (typeof window !== "undefined") {
-        const loadOneSignal = async () => {
-            if (!window.OneSignal) {
-                const script = document.createElement("script");
-                script.src = "https://cdn.onesignal.com/sdks/OneSignalSDK.js";
-                script.async = true;
-                document.head.appendChild(script);
-                script.onload = () => {
-                    window.OneSignal = window.OneSignal || [];
-                    window.OneSignal.push(() => {
-                        window.OneSignal.init({
-                            appId: "d4f432ca-d0cc-4d13-873d-b24b41de5699",
-                            notifyButton: {
-                                enable: true
-                            },
-                            allowLocalhostAsSecureOrigin: true // localhost testleri için
-                        });
-
-                        // Kullanıcı giriş yaptıysa external ID ayarla
-                        if (user?.uid) {
-                            window.OneSignal.setExternalUserId(user.uid);
-                        }
-                    });
-                };
-            }
-        };
-
-        loadOneSignal();
-    }
-}, [user]);
 
     const handleAddDescription = () => {
         setDescriptions([...descriptions, ""]);
