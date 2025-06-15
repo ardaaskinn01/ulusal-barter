@@ -1,6 +1,6 @@
 import "./globals.css";
 import Script from "next/script";
-import PushPermissionButton from "./PushPermissionButton";
+import PushPermissionButton from "./components/PushPermissionButton";
 
 export const metadata = {
   title: "Ulusal Barter A.Ş.",
