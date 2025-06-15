@@ -84,6 +84,38 @@ function UrunEkleContent() {
         fetchProductToEdit();
     }, [editId]);
 
+    useEffect(() => {
+    if (typeof window !== "undefined") {
+        const loadOneSignal = async () => {
+            if (!window.OneSignal) {
+                const script = document.createElement("script");
+                script.src = "https://cdn.onesignal.com/sdks/OneSignalSDK.js";
+                script.async = true;
+                document.head.appendChild(script);
+                script.onload = () => {
+                    window.OneSignal = window.OneSignal || [];
+                    window.OneSignal.push(() => {
+                        window.OneSignal.init({
+                            appId: "d4f432ca-d0cc-4d13-873d-b24b41de5699",
+                            notifyButton: {
+                                enable: true
+                            },
+                            allowLocalhostAsSecureOrigin: true // localhost testleri için
+                        });
+
+                        // Kullanıcı giriş yaptıysa external ID ayarla
+                        if (user?.uid) {
+                            window.OneSignal.setExternalUserId(user.uid);
+                        }
+                    });
+                };
+            }
+        };
+
+        loadOneSignal();
+    }
+}, [user]);
+
     const handleAddDescription = () => {
         setDescriptions([...descriptions, ""]);
     };
@@ -180,6 +212,21 @@ function UrunEkleContent() {
                 createdAt: createdAt || serverTimestamp(),
             });
 
+            await fetch("https://onesignal.com/api/v1/notifications", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+    "Authorization": "Basic os_v2_app_2t2dfswqzrgrhbz5wjfudxswtgoodtrsmpbe4znf3nnrmncrg5triwmlmxgbl7ewjhvumikoguv5mvjy5g2n6frlrdtylklan3hnlji", // OneSignal Dashboard → Settings → Keys & IDs
+  },
+  body: JSON.stringify({
+    app_id: "d4f432ca-d0cc-4d13-873d-b24b41de5699",
+    included_segments: ["All"], // Tüm kullanıcılar
+    headings: { en: "Yeni Ürün!" },
+    contents: { en: `${productName} adlı ürün eklendi!` },
+    url: "https://ulusalbarter.com/dashboard/productName", // Bildirime tıklayınca açılacak URL
+  }),
+});
+
             alert("Ürün başarıyla kaydedildi!");
             router.push("/dashboard");
         } catch (error) {
@@ -194,7 +241,7 @@ function UrunEkleContent() {
         if (type.includes("image/png")) return "png";
         if (type.includes("video/mp4")) return "mp4";
         if (type.includes("video/quicktime")) return "mov"; // iPhone’dan gelen videolar
-        return "bin"; // bilinmeyen tür
+        return ""; // bilinmeyen tür
     }
 
     return (
