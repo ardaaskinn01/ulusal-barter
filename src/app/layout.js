@@ -1,5 +1,6 @@
 import "./globals.css";
 import Script from "next/script";
+import PushPermissionButton from "./PushPermissionButton";
 
 export const metadata = {
   title: "Ulusal Barter A.Ş.",
@@ -31,17 +32,26 @@ export default function RootLayout({ children }) {
         />
         <Script id="onesignal-init" strategy="beforeInteractive">
           {`
-            window.OneSignalDeferred = window.OneSignalDeferred || [];
-            OneSignalDeferred.push(async function(OneSignal) {
-              await OneSignal.init({
-                appId: "d4f432ca-d0cc-4d13-873d-b24b41de5699",
-              });
-            });
-          `}
+    window.OneSignalDeferred = window.OneSignalDeferred || [];
+    OneSignalDeferred.push(async function(OneSignal) {
+      await OneSignal.init({
+        appId: "d4f432ca-d0cc-4d13-873d-b24b41de5699",
+        promptOptions: {
+          slidedown: {
+            enabled: false // İngilizce preprompt'u devre dışı bırak
+          }
+        },
+        notifyButton: {
+          enable: false // köşedeki varsayılan çan simgesini de kapatıyoruz
+        }
+      });
+    });
+  `}
         </Script>
       </head>
       <body>
         {children}
+         <PushPermissionButton />
       </body>
     </html>
   );
