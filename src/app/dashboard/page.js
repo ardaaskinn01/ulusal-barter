@@ -134,57 +134,6 @@ export default function Dashboard() {
   // Ürünleri al
   useEffect(() => { fetchProducts(); }, []);
 
-  useEffect(() => {
-  if (typeof window !== "undefined") {
-    const loadOneSignal = async () => {
-      if (!window.OneSignal) {
-        const script = document.createElement("script");
-        script.src = "https://cdn.onesignal.com/sdks/OneSignalSDK.js";
-        script.async = true;
-        document.head.appendChild(script);
-        script.onload = () => {
-          window.OneSignal = window.OneSignal || [];
-          window.OneSignal.push(() => {
-            window.OneSignal.init({
-              appId: "d4f432ca-d0cc-4d13-873d-b24b41de5699",
-              notifyButton: {
-                enable: true,
-              },
-              allowLocalhostAsSecureOrigin: true,
-            });
-
-            if (userData?.uid) {
-              window.OneSignal.setExternalUserId(userData.uid);
-            }
-
-            // Burada izin isteme prompt'unu otomatik aç
-            window.OneSignal.showSlidedownPrompt();
-          });
-        };
-      } else {
-        // Eğer OneSignal zaten yüklüyse direkt izin iste
-        window.OneSignal.push(() => {
-          window.OneSignal.init({
-            appId: "d4f432ca-d0cc-4d13-873d-b24b41de5699",
-            notifyButton: {
-              enable: true,
-            },
-            allowLocalhostAsSecureOrigin: true,
-          });
-
-          if (userData?.uid) {
-            window.OneSignal.setExternalUserId(userData.uid);
-          }
-
-          window.OneSignal.showSlidedownPrompt();
-        });
-      }
-    };
-
-    loadOneSignal();
-  }
-}, [userData]);
-
 
   useEffect(() => {
     if (!showOffersModal) return;
