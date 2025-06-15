@@ -193,7 +193,7 @@ function UrunEkleContent() {
     included_segments: ["All"], // Tüm kullanıcılar
     headings: { en: "Yeni Ürün!" },
     contents: { en: `${productName} adlı ürün eklendi!` },
-    url: "https://ulusalbarter.com/dashboard/${productName}", // Bildirime tıklayınca açılacak URL
+    "url": `https://ulusalbarter.com/dashboard/${productName}`,// Bildirime tıklayınca açılacak URL
   }),
 });
 
