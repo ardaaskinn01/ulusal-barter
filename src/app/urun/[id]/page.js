@@ -144,11 +144,11 @@ export default function ProductDetail() {
 
     useEffect(() => {
         const fetchFavorite = async () => {
-            const result = await checkFavoriteStatus(product.id);
+            const result = await checkFavoriteStatus(product.isim);
             setIsFavorited(result);
         };
         fetchFavorite();
-    }, [product.id]);
+    }, [product.isim]);
 
     const toggleFavorite = async () => {
         const user = auth.currentUser;
@@ -159,9 +159,9 @@ export default function ProductDetail() {
         let newFavorites;
 
         if (isFavorited) {
-            newFavorites = favorites.filter(fav => fav.ilanId !== product.id);
+            newFavorites = favorites.filter(fav => fav.ilanId !== product.isim);
         } else {
-            newFavorites = [...favorites, { ilanId: product.id }];
+            newFavorites = [...favorites, { ilanId: product.isim }];
         }
 
         await updateDoc(userRef, { favorites: newFavorites });

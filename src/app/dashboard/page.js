@@ -629,7 +629,7 @@ export default function Dashboard() {
                   Hesap Geçmişi
                 </button>
                 {favorites.length > 0 ? (
-                  <div className="mt-4">
+                  <div className>
                     <button
                       onClick={() => setShowFavorites(true)}
                       className="bg-red-400 hover:bg-red-500 text-white text-sm px-3 py-1.5 rounded shadow"
@@ -645,7 +645,7 @@ export default function Dashboard() {
                             {favorites.map((ilan, index) => (
                               <li
                                 key={index}
-                                className="p-3 bg-yellow-100 rounded-lg cursor-pointer hover:bg-yellow-200"
+                                className="p-3 bg-yellow-100 rounded-lg cursor-pointer hover:bg-yellow-200 text-black" // ← text-black eklendi
                                 onClick={() => {
                                   setShowFavorites(false);
                                   navigate(`/urun/${ilan.ilanId}`);
