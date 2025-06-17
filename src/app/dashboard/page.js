@@ -28,6 +28,7 @@ export default function Dashboard() {
   const [transactions, setTransactions] = useState([]);
   const [favorites, setFavorites] = useState([]);
   const [showOffersModal, setShowOffersModal] = useState(false);
+  const [showFavorites, setShowFavorites] = useState(false);
   const [offers, setOffers] = useState([]);
   const [showTransactionModal, setShowTransactionModal] = useState(false);
   const productTypes = [
