@@ -669,7 +669,7 @@ export default function Dashboard() {
                 ) : (
                   <button
                     onClick={() => alert("Favorilere eklenmiş ilan bulunamadı.")}
-                    className="bg-red-400 hover:bg-red-500 text-white px-4 py-2 rounded shadow"
+                    className="bg-red-400 hover:bg-red-500 text-white px-4 py-1.5 rounded shadow"
                   >
                     Favorilerim
                   </button>
