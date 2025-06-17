@@ -37,7 +37,7 @@ export default function ProductDetail() {
         const userSnap = await getDoc(userRef);
         favorites = userSnap.data()?.favorites || [];
 
-        return favorites.some(fav => fav.ilanId === productId || fav.ilanIsmi === productId);
+        return favorites.some(fav => fav.ilanId === productId);
     };
 
 
@@ -144,11 +144,11 @@ export default function ProductDetail() {
 
     useEffect(() => {
         const fetchFavorite = async () => {
-            const result = await checkFavoriteStatus(product.isim);
+            const result = await checkFavoriteStatus(id);
             setIsFavorited(result);
         };
         fetchFavorite();
-    }, [product.isim]);
+    }, [id]);
 
     const toggleFavorite = async () => {
         const user = auth.currentUser;
@@ -159,9 +159,9 @@ export default function ProductDetail() {
         let newFavorites;
 
         if (isFavorited) {
-            newFavorites = favorites.filter(fav => fav.ilanId !== product.isim);
+            newFavorites = favorites.filter(fav => fav.ilanId !== id);
         } else {
-            newFavorites = [...favorites, { ilanId: product.isim }];
+            newFavorites = [...favorites, { ilanId: id }];
         }
 
         await updateDoc(userRef, { favorites: newFavorites });
