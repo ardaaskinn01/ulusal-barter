@@ -109,21 +109,6 @@ export default function Dashboard() {
   };
 
   useEffect(() => {
-    const fetchFavorites = async () => {
-      const user = getAuth().currentUser;
-      if (!user) return;
-
-      const userDoc = await getDoc(doc(db, "users", user.uid));
-      const userData = userDoc.data();
-
-      setFavorites(userData?.favorites || []);
-    };
-
-    fetchFavorites();
-  }, []);
-
-
-  useEffect(() => {
     const checkPending = async () => {
       await fetchPendingRequests();
     };
@@ -133,17 +118,20 @@ export default function Dashboard() {
 
   // Kullanıcı verisini al
   useEffect(() => {
-  const auth = getAuth();
-
   const unsubscribe = onAuthStateChanged(auth, async (user) => {
     if (user) {
       const userDoc = await getDoc(doc(db, "users", user.uid));
-      const userData = userDoc.data();
-      setFavorites(userData?.favorites || []);
+      if (userDoc.exists()) {
+        const data = userDoc.data();
+        setUserData(data);
+        setFavorites(data?.favorites || []); // FAVORİLERİ BURADA YÜKLE
+      }
+    } else {
+      router.push("/uyelik");
     }
   });
 
-  return () => unsubscribe(); // temizleme
+  return () => unsubscribe();
 }, []);
 
   // Ürünleri al
