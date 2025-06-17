@@ -133,19 +133,18 @@ export default function Dashboard() {
 
   // Kullanıcı verisini al
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (user) => {
-      if (user) {
-        const userDoc = await getDoc(doc(db, "users", user.uid));
-        if (userDoc.exists()) {
-          setUserData(userDoc.data());
-        }
-      } else {
-        router.push("/uyelik");
-      }
-    });
+  const auth = getAuth();
 
-    return () => unsubscribe();
-  }, []);
+  const unsubscribe = onAuthStateChanged(auth, async (user) => {
+    if (user) {
+      const userDoc = await getDoc(doc(db, "users", user.uid));
+      const userData = userDoc.data();
+      setFavorites(userData?.favorites || []);
+    }
+  });
+
+  return () => unsubscribe(); // temizleme
+}, []);
 
   // Ürünleri al
   useEffect(() => { fetchProducts(); }, []);
