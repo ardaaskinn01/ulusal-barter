@@ -26,6 +26,7 @@ export default function Dashboard() {
   const [selectedTypes, setSelectedTypes] = useState([]);
   const [selectedUserId, setSelectedUserId] = useState(null);
   const [transactions, setTransactions] = useState([]);
+  const [favorites, setFavorites] = useState([]);
   const [showOffersModal, setShowOffersModal] = useState(false);
   const [offers, setOffers] = useState([]);
   const [showTransactionModal, setShowTransactionModal] = useState(false);
@@ -105,6 +106,20 @@ export default function Dashboard() {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    const fetchFavorites = async () => {
+      const user = getAuth().currentUser;
+      if (!user) return;
+
+      const userDoc = await getDoc(doc(db, "users", user.uid));
+      const userData = userDoc.data();
+
+      setFavorites(userData?.favorites || []);
+    };
+
+    fetchFavorites();
+  }, []);
 
 
   useEffect(() => {
@@ -612,7 +627,55 @@ export default function Dashboard() {
                 >
                   Hesap Geçmişi
                 </button>
+                {favorites.length > 0 ? (
+                  <div className="mt-4">
+                    <button
+                      onClick={() => setShowFavorites(true)}
+                      className="bg-red-400 hover:bg-red-500 text-white px-4 py-2 rounded shadow"
+                    >
+                      Favorilerim
+                    </button>
+
+                    {showFavorites && (
+                      <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                        <div className="bg-white p-6 rounded shadow-lg max-w-md w-full">
+                          <h2 className="text-xl font-bold mb-4 text-center">Favori İlanlarım</h2>
+                          <ul className="space-y-3 max-h-64 overflow-y-auto">
+                            {favorites.map((ilan, index) => (
+                              <li
+                                key={index}
+                                className="p-3 bg-yellow-100 rounded-lg cursor-pointer hover:bg-yellow-200"
+                                onClick={() => {
+                                  setShowFavorites(false);
+                                  navigate(`/urun/${ilan.ilanId}`);
+                                }}
+                              >
+                                {ilan.ilanId || "İsimsiz İlan"}
+                              </li>
+                            ))}
+                          </ul>
+                          <div className="mt-4 text-center">
+                            <button
+                              onClick={() => setShowFavorites(false)}
+                              className="text-red-500 hover:text-red-700"
+                            >
+                              Kapat
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                ) : (
+                  <button
+                    onClick={() => alert("Favorilere eklenmiş ilan bulunamadı.")}
+                    className="bg-red-400 hover:bg-red-500 text-white px-4 py-2 rounded shadow"
+                  >
+                    Favorilerim
+                  </button>
+                )}
               </div>
+
             )}
 
             {userData?.role === "admin" && (
@@ -749,44 +812,44 @@ export default function Dashboard() {
                           : `${product.fiyat} ₺`}
                       </p>
                       <span
-  className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium cursor-pointer
+                        className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium cursor-pointer
     ${userData?.role === "admin"
-      ? (product.sabitle ? "bg-yellow-100 text-yellow-800" : "bg-green-100 text-green-800")
-      : "bg-indigo-100 text-indigo-800"}`}
-  onClick={async (e) => {
-    e.stopPropagation();
+                            ? (product.sabitle ? "bg-yellow-100 text-yellow-800" : "bg-green-100 text-green-800")
+                            : "bg-indigo-100 text-indigo-800"}`}
+                        onClick={async (e) => {
+                          e.stopPropagation();
 
-    if (userData?.role === "admin") {
-      try {
-        const newSabitle = !product.sabitle;
+                          if (userData?.role === "admin") {
+                            try {
+                              const newSabitle = !product.sabitle;
 
-        await updateDoc(doc(db, "products", product.isim), {
-          sabitle: newSabitle,
-        });
+                              await updateDoc(doc(db, "products", product.isim), {
+                                sabitle: newSabitle,
+                              });
 
-        // UI anlık güncellensin
-        setProducts(prev =>
-          prev.map(p =>
-            p.id === product.id ? { ...p, sabitle: newSabitle } : p
-          )
-        );
+                              // UI anlık güncellensin
+                              setProducts(prev =>
+                                prev.map(p =>
+                                  p.id === product.id ? { ...p, sabitle: newSabitle } : p
+                                )
+                              );
 
-        fetchProducts(); // opsiyonel: sıralama güncellenecekse
-        alert(`Ürün ${newSabitle ? "sabitlendi" : "sıralamaya geri alındı"}.`);
-      } catch (error) {
-        console.error("Sabitleme/Kaldırma hatası:", error);
-      }
-    } else {
-      router.push(`/urun/${encodeURIComponent(product.isim)}`);
-    }
-  }}
->
-  {userData?.role === "admin"
-    ? product.sabitle
-      ? "Üstten Kaldır"
-      : "Üste Sabitle"
-    : "Detay"}
-</span>
+                              fetchProducts(); // opsiyonel: sıralama güncellenecekse
+                              alert(`Ürün ${newSabitle ? "sabitlendi" : "sıralamaya geri alındı"}.`);
+                            } catch (error) {
+                              console.error("Sabitleme/Kaldırma hatası:", error);
+                            }
+                          } else {
+                            router.push(`/urun/${encodeURIComponent(product.isim)}`);
+                          }
+                        }}
+                      >
+                        {userData?.role === "admin"
+                          ? product.sabitle
+                            ? "Üstten Kaldır"
+                            : "Üste Sabitle"
+                          : "Detay"}
+                      </span>
                     </div>
                   </div>
                 </div>

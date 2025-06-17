@@ -26,6 +26,20 @@ export default function ProductDetail() {
     const [canEdit, setCanEdit] = useState(false);
     const [currentIndex, setCurrentIndex] = useState(null);
     const [offerDocId, setOfferDocId] = useState(null);
+    let favorites = [];
+    const [isFavorited, setIsFavorited] = useState(false);
+
+    const checkFavoriteStatus = async (productId) => {
+        const user = auth.currentUser;
+        if (!user) return false;
+
+        const userRef = doc(db, "users", user.uid);
+        const userSnap = await getDoc(userRef);
+        favorites = userSnap.data()?.favorites || [];
+
+        return favorites.some(fav => fav.ilanId === productId || fav.ilanIsmi === productId);
+    };
+
 
     const openModal = (index) => {
         setCurrentIndex(index);
@@ -127,6 +141,33 @@ export default function ProductDetail() {
 
         checkOffer();
     }, [currentUser, id]);
+
+    useEffect(() => {
+        const fetchFavorite = async () => {
+            const result = await checkFavoriteStatus(product.id);
+            setIsFavorited(result);
+        };
+        fetchFavorite();
+    }, [product.id]);
+
+    const toggleFavorite = async () => {
+        const user = auth.currentUser;
+        if (!user) return;
+
+        const userRef = doc(db, "users", user.uid);
+
+        let newFavorites;
+
+        if (isFavorited) {
+            newFavorites = favorites.filter(fav => fav.ilanId !== product.id);
+        } else {
+            newFavorites = [...favorites, { ilanId: product.id }];
+        }
+
+        await updateDoc(userRef, { favorites: newFavorites });
+        setIsFavorited(!isFavorited);
+        favorites = newFavorites; // güncelle
+    };
 
     const toggleSatildi = async () => {
         const confirmation = window.confirm(
@@ -422,6 +463,12 @@ export default function ProductDetail() {
                                             Teklifi Geri Çek
                                         </button>
                                     )}
+                                    <button
+                                        onClick={toggleFavorite}
+                                        className={`px-4 py-2 rounded ${isFavorited ? "bg-gray-400" : "bg-red-500"} text-white`}
+                                    >
+                                        {isFavorited ? "Favorilerden Çıkar" : "Favorilere Ekle"}
+                                    </button>
                                 </div>
                             )
                         )}
