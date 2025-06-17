@@ -1,8 +1,8 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { onAuthStateChanged, signOut } from "firebase/auth";
-import { writeBatch, doc, getDoc, query, orderBy, collection, getDocs, updateDoc, where, addDoc, onSnapshot, getAuth } from "firebase/firestore";
+import { onAuthStateChanged, signOut, getAuth } from "firebase/auth";
+import { writeBatch, doc, getDoc, query, orderBy, collection, getDocs, updateDoc, where, addDoc, onSnapshot } from "firebase/firestore";
 import { auth, db } from "../../../firebase";
 import Navbar from "../components/Navbar";
 
@@ -631,7 +631,7 @@ export default function Dashboard() {
                   <div className="mt-4">
                     <button
                       onClick={() => setShowFavorites(true)}
-                      className="bg-red-400 hover:bg-red-500 text-white px-4 py-2 rounded shadow"
+                      className="bg-red-400 hover:bg-red-500 text-white text-sm px-3 py-1.5 rounded shadow"
                     >
                       Favorilerim
                     </button>
