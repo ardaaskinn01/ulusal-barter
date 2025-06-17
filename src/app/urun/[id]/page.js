@@ -26,21 +26,20 @@ export default function ProductDetail() {
     const [canEdit, setCanEdit] = useState(false);
     const [currentIndex, setCurrentIndex] = useState(null);
     const [offerDocId, setOfferDocId] = useState(null);
-    let favorites = [];
+    const [favorites, setFavorites] = useState([]);
     const [isFavorited, setIsFavorited] = useState(false);
-
     const checkFavoriteStatus = async (ilanId) => {
-    const user = auth.currentUser;
-    if (!user) return false;
+        const user = auth.currentUser;
+        if (!user) return false;
 
-    const userRef = doc(db, "users", user.uid);
-    const userSnap = await getDoc(userRef);
+        const userRef = doc(db, "users", user.uid);
+        const userSnap = await getDoc(userRef);
 
-    const favList = userSnap.data()?.favorites || [];
-    setFavorites(favList); // ✅ favorileri state'e kaydet
+        const favList = userSnap.data()?.favorites || [];
+        setFavorites(favList); // ✅ favorileri state'e kaydet
 
-    return favList.some(fav => fav.ilanId === ilanId);
-};
+        return favList.some(fav => fav.ilanId === ilanId);
+    };
 
 
     const openModal = (index) => {
@@ -153,29 +152,29 @@ export default function ProductDetail() {
     }, [id]);
 
     const toggleFavorite = async () => {
-    const user = auth.currentUser;
-    if (!user) return;
+        const user = auth.currentUser;
+        if (!user) return;
 
-    const userRef = doc(db, "users", user.uid);
+        const userRef = doc(db, "users", user.uid);
 
-    let newFavorites;
+        let newFavorites;
 
-    if (isFavorited) {
-        newFavorites = favorites.filter(fav => fav.ilanId !== id);
-    } else {
-        // Aynı ilan zaten varsa tekrar eklemeyelim
-        const alreadyExists = favorites.some(fav => fav.ilanId === id);
-        if (!alreadyExists) {
-            newFavorites = [...favorites, { ilanId: id }];
+        if (isFavorited) {
+            newFavorites = favorites.filter(fav => fav.ilanId !== id);
         } else {
-            newFavorites = [...favorites]; // değişiklik yapma
+            // Aynı ilan zaten varsa tekrar eklemeyelim
+            const alreadyExists = favorites.some(fav => fav.ilanId === id);
+            if (!alreadyExists) {
+                newFavorites = [...favorites, { ilanId: id }];
+            } else {
+                newFavorites = [...favorites]; // değişiklik yapma
+            }
         }
-    }
 
-    await updateDoc(userRef, { favorites: newFavorites });
-    setIsFavorited(!isFavorited);
-    setFavorites(newFavorites); // ✅ burası kritik
-};
+        await updateDoc(userRef, { favorites: newFavorites });
+        setIsFavorited(!isFavorited);
+        setFavorites(newFavorites); // ✅ burası kritik
+    };
 
     const toggleSatildi = async () => {
         const confirmation = window.confirm(
