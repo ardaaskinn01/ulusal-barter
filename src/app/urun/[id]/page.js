@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { doc, getDoc, deleteDoc, setDoc, collection, query, where, getDocs, updateDoc } from "firebase/firestore";
-import { db } from "../../../../firebase";
+import { db, auth } from "../../../../firebase";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import Navbar from "../../components/Navbar";
 import { v4 as uuidv4 } from 'uuid';
@@ -447,7 +447,7 @@ export default function ProductDetail() {
                             </div>
                         ) : (
                             currentUser && !satildi && ( // 🔴 Satıldıysa gösterme!
-                                <div className="mt-6">
+                                <div className="gap-4 mt-6">
                                     {!hasOffered ? (
                                         <button
                                             onClick={() => setShowOfferModal(true)}

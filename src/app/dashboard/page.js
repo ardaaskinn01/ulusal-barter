@@ -632,7 +632,7 @@ export default function Dashboard() {
                   <div className>
                     <button
                       onClick={() => setShowFavorites(true)}
-                      className="bg-red-400 hover:bg-red-500 text-white text-sm px-3 py-1.5 rounded shadow"
+                      className="bg-red-400 hover:bg-red-500 text-white text-sm px-2 py-1.5 rounded shadow font-medium"
                     >
                       Favorilerim
                     </button>
@@ -670,7 +670,7 @@ export default function Dashboard() {
                 ) : (
                   <button
                     onClick={() => alert("Favorilere eklenmiş ilan bulunamadı.")}
-                    className="bg-red-400 hover:bg-red-500 text-white px-4 py-1.5 rounded shadow"
+                    className="bg-red-400 hover:bg-red-500 text-white px-2 py-1.5 text-sm font-medium rounded shadow"
                   >
                     Favorilerim
                   </button>
