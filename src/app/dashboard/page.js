@@ -648,7 +648,7 @@ export default function Dashboard() {
                                 className="p-3 bg-yellow-100 rounded-lg cursor-pointer hover:bg-yellow-200 text-black" // ← text-black eklendi
                                 onClick={() => {
                                   setShowFavorites(false);
-                                  navigate(`/urun/${ilan.ilanId}`);
+                                  router.push(`/urun/${ilan.ilanId}`);
                                 }}
                               >
                                 {ilan.ilanId || "İsimsiz İlan"}
