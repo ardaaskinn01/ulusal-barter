@@ -29,7 +29,7 @@ export default function ProductDetail() {
     let favorites = [];
     const [isFavorited, setIsFavorited] = useState(false);
 
-    const checkFavoriteStatus = async (productId) => {
+    const checkFavoriteStatus = async (id) => {
         const user = auth.currentUser;
         if (!user) return false;
 
@@ -37,7 +37,7 @@ export default function ProductDetail() {
         const userSnap = await getDoc(userRef);
         favorites = userSnap.data()?.favorites || [];
 
-        return favorites.some(fav => fav.ilanId === productId);
+        return favorites.some(fav => fav.ilanId === id);
     };
 
 
@@ -447,7 +447,7 @@ export default function ProductDetail() {
                             </div>
                         ) : (
                             currentUser && !satildi && ( // 🔴 Satıldıysa gösterme!
-                                <div className="gap-4 mt-6">
+                                <div className="flex gap-4 mt-6">
                                     {!hasOffered ? (
                                         <button
                                             onClick={() => setShowOfferModal(true)}
