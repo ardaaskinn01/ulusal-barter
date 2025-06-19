@@ -239,12 +239,16 @@ export default function MainClient() {
               {/* Sağ taraf - Açıklama metni */}
               <div className="lg:w-1/2 lg:pl-8 lg:border-l lg:border-gray-700">
                 <div className="space-y-6">
-                  {/* Görseli ekliyoruz */}
+
+                  {/* Tanıtım Başlığı */}
+                  <h2 className="text-3xl font-bold text-yellow-500 text-center">Ulusal Barter A.Ş. Tanıtım Videomuz</h2>
+
+                  {/* Video alanı */}
                   <div className="w-full flex justify-center">
-                    <img
-                      src="/bg03.jpg"
-                      alt="Barter Görseli"
-                      className="w-108 h-auto object-contain mb-4 drop-shadow-md"
+                    <video
+                      src="/tanitim.mp4"
+                      controls
+                      className="w-full max-w-xl rounded-lg shadow-md"
                     />
                   </div>
 
@@ -252,6 +256,7 @@ export default function MainClient() {
                   <p className="text-base md:text-lg leading-relaxed text-gray-600 text-justify">
                     Türkiye&apos;nin önde gelen barter platformu olarak, işletmelerin değer üreten yönlerini öne çıkarıyor ve nakit sıkışıklığı yaşamadan büyümelerini sağlıyoruz. Ulusal Barter A.Ş. olarak, geleneksel finans sistemlerinin ötesinde çözümler sunuyoruz.
                   </p>
+
                 </div>
               </div>
             </div>
@@ -273,28 +278,29 @@ export default function MainClient() {
         </section>
 
         <section
-          ref={el => sectionRefs.current[1] = el}
-          className="w-full py-16 sm:py-20 md:py-24 bg-gray-100 text-gray-800 relative overflow-hidden opacity-0 translate-y-10 transition-all duration-500"
-        >
-          {/* Arka Plan Efektleri - Daha Hafif */}
-          <div className="absolute inset-0 z-0">
-            <div className="absolute inset-0 bg-gradient-to-br from-yellow-100/10 to-transparent opacity-20"></div>
-            <div className="absolute bottom-0 left-1/4 -translate-x-1/2 w-48 h-48 bg-yellow-200 rounded-full mix-blend-multiply filter blur-xl opacity-5"></div>
-            <div className="absolute top-1/4 right-1/4 translate-x-1/2 w-64 h-64 bg-blue-200 rounded-full mix-blend-multiply filter blur-xl opacity-5"></div>
-          </div>
+  ref={(el) => (sectionRefs.current[1] = el)}
+  className="w-full py-16 sm:py-20 md:py-24 bg-gray-100 text-gray-800 relative overflow-hidden opacity-0 translate-y-10 transition-all duration-500"
+>
+  {/* Arka Plan Efektleri */}
+  <div className="absolute inset-0 z-0">
+    <div className="absolute inset-0 bg-gradient-to-br from-yellow-100/10 to-transparent opacity-20"></div>
+    <div className="absolute bottom-0 left-1/4 -translate-x-1/2 w-48 h-48 bg-yellow-200 rounded-full mix-blend-multiply filter blur-xl opacity-5"></div>
+    <div className="absolute top-1/4 right-1/4 translate-x-1/2 w-64 h-64 bg-blue-200 rounded-full mix-blend-multiply filter blur-xl opacity-5"></div>
+  </div>
 
-          <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
-            <div className="text-center mb-12 md:mb-16">
-              <h2 className="text-3xl sm:text-4xl font-bold text-yellow-600 leading-tight">
-                Barter ile Elde Edeceğiniz Avantajlar
-              </h2>
-              <p className="mt-4 text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto">
-                Nakitsiz ticaretin sunduğu fırsatları keşfedin.
-              </p>
-              <div className="w-16 h-0.5 bg-yellow-500 mx-auto mt-4 rounded-full"></div>
-            </div>
+  <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
+    <div className="text-center mb-12 md:mb-16">
+      <h2 className="text-3xl sm:text-4xl font-bold text-yellow-600 leading-tight">
+        Barter ile Elde Edeceğiniz Avantajlar
+      </h2>
+      <p className="mt-4 text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto">
+        Nakitsiz ticaretin sunduğu fırsatları keşfedin.
+      </p>
+      <div className="w-16 h-0.5 bg-yellow-500 mx-auto mt-4 rounded-full"></div>
+    </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+    {/* Sol: Avantajlar / Sağ: Görsel */}
+    <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
               {/* Avantaj Kart 1 - Daha Minimal */}
               <div className="bg-white rounded-xl p-6 sm:p-8 flex flex-col items-center text-center border border-gray-200 shadow-sm hover:shadow-md transition-all duration-300">
                 <div className="text-yellow-500 mb-3">
