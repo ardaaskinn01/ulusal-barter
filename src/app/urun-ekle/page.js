@@ -287,7 +287,7 @@ function UrunEkleContent() {
                     <button
                         type="button"
                         onClick={handleAddDescription}
-                        className="px-3 py-1 bg-blue-700 text-white rounded"
+                        className="px-3 py-1 bg-white text-black rounded"
                     >
                         Ek Açıklama Ekle
                     </button>
@@ -295,7 +295,7 @@ function UrunEkleContent() {
                     <button
                         type="button"
                         onClick={handleDeleteDescription}
-                        className="px-3 py-1 bg-red-700 text-white rounded"
+                        className="px-3 py-1 bg-black text-white rounded"
                     >
                         Ek Açıklama Sil
                     </button>
