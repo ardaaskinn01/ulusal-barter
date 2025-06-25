@@ -9,7 +9,7 @@ import Navbar from "../../components/Navbar";
 import { v4 as uuidv4 } from 'uuid';
 import Zoom from 'react-medium-image-zoom';
 import 'react-medium-image-zoom/dist/styles.css';
-import { useLanguage } from '.../LanguageContext';
+import { useLanguage } from '../../LanguageContext';
 
 export default function ProductDetail() {
     const { translate } = useLanguage();
