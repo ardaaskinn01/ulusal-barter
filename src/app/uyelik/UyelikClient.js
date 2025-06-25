@@ -7,8 +7,10 @@ import Image from "next/image";
 import { onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
 import { auth, db } from "../../../firebase";
+import { useLanguage } from '../LanguageContext';
 
 export default function UyelikClient() {
+    const { translate } = useLanguage();
     const router = useRouter();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -47,17 +49,17 @@ export default function UyelikClient() {
                 const userData = userDoc.data();
 
                 if (userData.isAccept === false) {
-                    setError("Hesabınız henüz onaylanmadı. Lütfen yönetici onayını bekleyin.");
+                    setError("loginErrorApprove");
                     auth.signOut();
                 } else {
                     router.push("/dashboard");
                 }
             } else {
-                setError("Kullanıcı bilgileri bulunamadı.");
+                setError("loginErrorNotFound");
                 auth.signOut();
             }
         } catch (err) {
-            setError("Giriş başarısız. Lütfen bilgilerinizi kontrol edin.");
+            setError("loginErrorFailed");
             console.error(err);
         }
     };
@@ -70,7 +72,7 @@ export default function UyelikClient() {
                     <Image src="/bg22.jpg" alt="background" fill className="object-cover blur-[2px]" priority />
                     <div className="absolute inset-0 bg-black opacity-55"></div>
                 </div>
-                <div className="relative z-10 text-white text-xl font-semibold">Yükleniyor...</div>
+                <div className="relative z-10 text-white text-xl font-semibold">{translate("loginLoading")}</div>
             </div>
         );
     }
@@ -85,31 +87,31 @@ export default function UyelikClient() {
 
             <div className="flex-grow flex items-center justify-center relative z-10 px-4">
                 <div className="text-center bg-white/60 backdrop-blur-md p-8 rounded-2xl shadow-lg max-w-md w-full">
-                    <h1 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-6">Giriş Yap</h1>
+                    <h1 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-6">{translate("loginTitle")}</h1>
                     <input
                         type="email"
-                        placeholder="E-posta"
+                        placeholder={translate("loginEmail")}
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         className="w-full px-4 py-2 mb-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500 text-black"
                     />
                     <input
                         type="password"
-                        placeholder="Şifre"
+                        placeholder={translate("loginPassword")}
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         className="w-full px-4 py-2 mb-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500 text-black"
                     />
-                    {error && <p className="text-red-600 mb-4">{error}</p>}
+                    {error && <p className="text-red-600 mb-4">{translate(error)}</p>}
                     <button
                         onClick={handleLogin}
                         className="w-full py-2 text-white font-semibold rounded-lg bg-gradient-to-r from-yellow-600 to-yellow-400 hover:opacity-90 mb-4 transition"
                     >
-                        Giriş Yap
+                        {translate("loginButton")}
                     </button>
                     <div className="flex justify-between text-sm text-yellow-700 font-medium">
-                        <button onClick={() => router.push("/kayit")}>Kayıt Ol</button>
-                        <button onClick={() => router.push("/sifremi-unuttum")}>Şifremi Unuttum</button>
+                        <button onClick={() => router.push("/kayit")}>{translate("loginRegister")}</button>
+                        <button onClick={() => router.push("/sifremi-unuttum")}>{translate("loginForgotPassword")}</button>
                     </div>
                 </div>
             </div>

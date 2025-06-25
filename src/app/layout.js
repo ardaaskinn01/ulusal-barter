@@ -1,5 +1,6 @@
 import "./globals.css";
 import Script from "next/script";
+import { LanguageProvider } from "./LanguageContext.js"; // Bu yolu doğru ayarlamalısın
 
 export const metadata = {
   title: "Ulusal Barter A.Ş.",
@@ -24,7 +25,6 @@ export default function RootLayout({ children }) {
   return (
     <html lang="tr" className="geist-sans geist-mono">
       <head>
-        {/* OneSignal SDK v16 scriptleri */}
         <Script
           src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js"
           strategy="beforeInteractive"
@@ -41,7 +41,9 @@ export default function RootLayout({ children }) {
         </Script>
       </head>
       <body>
-        {children}
+        <LanguageProvider>
+          {children}
+        </LanguageProvider>
       </body>
     </html>
   );

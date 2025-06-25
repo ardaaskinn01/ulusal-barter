@@ -1,8 +1,5 @@
-// app/hakkinda/page.js (server component)
-
 import dynamic from "next/dynamic";
 
-// Client component'i dinamik olarak import et (ssr kapalı)
 const HakkindaClient = dynamic(() => import("./HakkindaClient"), { ssr: true });
 
 export const metadata = {

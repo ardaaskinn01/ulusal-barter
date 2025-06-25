@@ -9,8 +9,10 @@ import Navbar from "../../components/Navbar";
 import { v4 as uuidv4 } from 'uuid';
 import Zoom from 'react-medium-image-zoom';
 import 'react-medium-image-zoom/dist/styles.css';
+import { useLanguage } from '../LanguageContext';
 
 export default function ProductDetail() {
+    const { translate } = useLanguage();
     const [satildi, setSatildi] = useState(false);
     const { id: rawId } = useParams();
     const id = decodeURIComponent(rawId);
@@ -178,9 +180,7 @@ export default function ProductDetail() {
 
     const toggleSatildi = async () => {
         const confirmation = window.confirm(
-            satildi
-                ? "Bu ilanı tekrar 'satılmadı' olarak işaretlemek istiyor musunuz?"
-                : "Bu ilanı 'satıldı' olarak işaretlemek istiyor musunuz?"
+            satildi ? translate("confirmMarkAsUnsold") : translate("confirmMarkAsSold")
         );
 
         if (!confirmation) return;
@@ -201,7 +201,7 @@ export default function ProductDetail() {
         const numericAmount = parseFloat(offerAmount.replace(/\./g, '').replace(',', '.'));
 
         if (!numericAmount || isNaN(numericAmount)) {
-            alert("Geçerli bir miktar giriniz.");
+            alert(translate("invalidAmount"));
             return;
         }
 
@@ -210,7 +210,7 @@ export default function ProductDetail() {
             const userDocRef = doc(db, "users", currentUser.uid);
             const userDocSnap = await getDoc(userDocRef);
 
-            let fullName = "Bilinmeyen Kullanıcı";
+            let fullName = translate("unknownUser");
             if (userDocSnap.exists()) {
                 const userData = userDocSnap.data();
                 fullName = `${userData.ad || ""} ${userData.soyad || ""}`.trim();
@@ -232,38 +232,39 @@ export default function ProductDetail() {
 
             setHasOffered(true);
             setShowOfferModal(false);
-            alert("Teklif başarıyla verildi.");
+            alert(translate("successOffer"));
         } catch (error) {
             console.error("Teklif verirken hata oluştu:", error);
-            alert("Bir hata oluştu.");
+            alert(translate("errorOffer"));
         }
     };
 
     const handleWithdrawOffer = async () => {
         try {
-            if (!offerDocId) return alert("Silinecek teklif bulunamadı.");
+            if (!offerDocId) return alert(translate("offerNotFound"));
+
 
             await deleteDoc(doc(db, "offers", offerDocId));
             setHasOffered(false);
             setOfferDocId(null);
-            alert("Teklif geri çekildi.");
+            alert(translate("withdrawSuccess"));
         } catch (err) {
             console.error("Geri çekme hatası:", err);
-            alert("Teklif geri çekilirken hata oluştu.");
+            alert(translate("withdrawError"));
         }
     };
 
     const handleDelete = async () => {
-        const confirmDelete = window.confirm("Bu ürünü silmek istediğinize emin misiniz?");
+        const confirmDelete = window.confirm(translate("deleteConfirm"));
         if (!confirmDelete) return;
 
         try {
             await deleteDoc(doc(db, "products", id));
-            alert("Ürün silindi.");
+            alert(translate("deleteSuccess"));
             router.push("/dashboard");
         } catch (error) {
             console.error("Silme hatası:", error);
-            alert("Ürün silinirken bir hata oluştu.");
+            alert(translate("deleteError"));
         }
     };
 
@@ -276,7 +277,7 @@ export default function ProductDetail() {
             <div className="min-h-screen bg-gradient-to-b from-yellow-600 to-yellow-400 flex items-center justify-center">
                 <div className="animate-pulse flex flex-col items-center">
                     <div className="h-12 w-12 bg-yellow-600 rounded-full mb-4"></div>
-                    <div className="text-yellow-800 font-medium">Yükleniyor...</div>
+                    <div className="text-yellow-800 font-medium">{translate("loading")}</div>
                 </div>
             </div>
         );
@@ -289,11 +290,11 @@ export default function ProductDetail() {
             {showOfferModal && (
                 <div className="fixed inset-0 bg-black bg-opacity-60 z-50 flex items-center justify-center">
                     <div className="bg-white rounded-lg p-6 w-[90%] max-w-md shadow-lg">
-                        <h2 className="text-xl font-semibold mb-4 text-gray-800">Teklif Ver</h2>
+                        <h2 className="text-xl font-semibold mb-4 text-gray-800">{translate("giveOffer")}</h2>
 
                         <input
                             type="text"
-                            placeholder="Miktar girin"
+                            placeholder={translate("enterAmount")}
                             className="w-full border px-4 py-2 mb-4 rounded"
                             value={offerAmount}
                             onChange={(e) => {
@@ -332,13 +333,13 @@ export default function ProductDetail() {
                                 onClick={() => setShowOfferModal(false)}
                                 className="px-4 py-2 rounded bg-gray-800 hover:bg-gray-900"
                             >
-                                İptal
+                                {translate("cancel")}
                             </button>
                             <button
                                 onClick={handleOfferSubmit}
                                 className="px-4 py-2 rounded bg-green-600 text-white hover:bg-green-700"
                             >
-                                Gönder
+                                {translate("submit")}
                             </button>
                         </div>
                     </div>
@@ -348,7 +349,7 @@ export default function ProductDetail() {
             <div className="container mx-auto px-6 py-24 relative md:mt-24 mt-16">
                 {/* Sağ üstte ilan numarası kutusu */}
                 <div className="text-sm absolute top-20 right-0 bg-amber-600 text-white px-4 py-2 rounded-lg shadow-lg z-20">
-                    İlan Numarası: {product.id}
+                    {translate("listingNumber")}: {product.id}
                 </div>
 
                 <div className="relative top-6 mb-12 border-b border-gray-300 pb-12 text-center">
@@ -360,7 +361,7 @@ export default function ProductDetail() {
                     {/* Fiyat - Başlığın altında */}
                     {product.fiyat && (
                         <div className="text-xl sm:text-2xl md:text-3xl font-semibold text-red-600 bg-white inline-block px-6 py-2 rounded-xl shadow-sm">
-                            Fiyat: {
+                            {translate("price")}: {
                                 /\d\s*(₺|\$|€)$/.test(product.fiyat.trim())
                                     ? product.fiyat
                                     : `${product.fiyat} ₺`
@@ -386,7 +387,9 @@ export default function ProductDetail() {
                         {/* Ek görseller */}
                         {product.ekGorselUrl?.length > 0 && (
                             <div>
-                                <h2 className="text-lg font-semibold text-gray-700 mb-3">Diğer Medya</h2>
+                                <h2 className="text-lg font-semibold text-gray-700 mb-3">
+                                    {translate("otherMedia")}
+                                </h2>
                                 <div className="grid grid-cols-3 gap-4">
                                     {product.ekGorselUrl.map((url, idx) => (
                                         <div
@@ -418,7 +421,9 @@ export default function ProductDetail() {
                     {/* Ürün Detayları */}
                     <div className="space-y-8">
                         <div className="bg-white shadow-xl rounded-2xl p-8">
-                            <h2 className="text-2xl font-bold text-gray-800 mb-6">Ürün Detayları</h2>
+                            <h2 className="text-2xl font-bold text-gray-800 mb-6">
+                                {translate("productDetails")}
+                            </h2>
                             {product.aciklamalar?.length > 0 ? (
                                 <ul className="list-none list-inside space-y-3 text-gray-700 leading-relaxed">
                                     {product.aciklamalar.map((desc, idx) => (
@@ -426,7 +431,9 @@ export default function ProductDetail() {
                                     ))}
                                 </ul>
                             ) : (
-                                <p className="text-gray-500 italic">Açıklama bulunamadı.</p>
+                                <p className="text-gray-500 italic">
+                                    {translate("noDescription")}
+                                </p>
                             )}
                         </div>
 
@@ -436,20 +443,20 @@ export default function ProductDetail() {
                                     onClick={handleEdit}
                                     className="flex items-center gap-2 bg-red-800 hover:bg-red-900 text-white px-6 py-3 rounded-lg shadow-lg transition"
                                 >
-                                    Düzenle
+                                    <button>{translate("edit")}</button>
                                 </button>
                                 <button
                                     onClick={handleDelete}
                                     className="flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg shadow-lg transition"
                                 >
-                                    Sil
+                                    <button>{translate("delete")}</button>
                                 </button>
                                 <button
                                     onClick={toggleSatildi}
                                     className={`flex items-center gap-2 ${satildi ? "bg-gray-600 hover:bg-gray-700" : "bg-red-400 hover:bg-red-500"
                                         } text-white px-6 py-3 rounded-lg shadow-lg transition`}
                                 >
-                                    {satildi ? "İşareti Geri Al" : "Satıldı İşaretle"}
+                                    {satildi ? translate("unmarkSold") : translate("markAsSold")}
                                 </button>
                             </div>
                         ) : (
@@ -460,21 +467,21 @@ export default function ProductDetail() {
                                             onClick={() => setShowOfferModal(true)}
                                             className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg shadow-lg transition"
                                         >
-                                            Teklif Ver
+                                            <button>{translate("giveOfferButton")}</button>
                                         </button>
                                     ) : (
                                         <button
                                             onClick={handleWithdrawOffer}
                                             className="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg shadow-lg transition"
                                         >
-                                            Teklifi Geri Çek
+                                            <button>{translate("withdrawOffer")}</button>
                                         </button>
                                     )}
                                     <button
                                         onClick={toggleFavorite}
                                         className={`px-4 py-2 rounded ${isFavorited ? "bg-gray-400" : "bg-red-500"} text-white`}
                                     >
-                                        {isFavorited ? "Favorilerden Çıkar" : "Favorilere Ekle"}
+                                        {isFavorited ? translate("removeFavorite") : translate("addFavorite")}
                                     </button>
                                 </div>
                             )

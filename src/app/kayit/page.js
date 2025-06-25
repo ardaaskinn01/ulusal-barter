@@ -6,8 +6,10 @@ import Image from "next/image";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { doc, setDoc, getDoc } from "firebase/firestore";
 import { auth, db } from "../../../firebase"; // ← firebase yapılandırmanı buraya ekleyeceğiz
+import { useLanguage } from '../LanguageContext.js';
 
 export default function Kayit() {
+    const { translate } = useLanguage();
     const router = useRouter();
     const [form, setForm] = useState({
         ad: "",
@@ -49,8 +51,7 @@ export default function Kayit() {
             if (userDocSnap.exists()) {
                 const userData = userDocSnap.data();
                 if (!userData.isAccept) {
-                    setError("Hesabınız yönetici onayı bekliyor.");
-                    // Giriş yapan kullanıcıyı çıkış yap:
+                    setError(translate("registerErrorApproval"));
                     await auth.signOut();
                     return;
                 } else {
@@ -58,7 +59,7 @@ export default function Kayit() {
                 }
             }
         } catch (err) {
-            setError("Kayıt başarısız. Lütfen bilgilerinizi kontrol edin.");
+            setError(translate("registerErrorGeneral"));
             console.error(err);
         }
     };
@@ -83,53 +84,53 @@ export default function Kayit() {
             <div className="flex-grow flex items-start justify-center relative z-10 px-4 pt-24">
                 <div className="bg-white/90 backdrop-blur-md p-8 rounded-2xl shadow-lg max-w-xl w-full">
                     <h1 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-6 text-center">
-                        Kayıt Ol
+                        {translate("registerTitle")}
                     </h1>
 
                     <div className="flex flex-col gap-4 mb-6">
                         <input
                             name="ad"
                             onChange={handleChange}
-                            placeholder="Ad"
+                            placeholder={translate("registerPlaceholderFirstName")}
                             className="w-full py-3 px-4 rounded-lg border border-gray-300 bg-white text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-yellow-500"
                         />
                         <input
                             name="soyad"
                             onChange={handleChange}
-                            placeholder="Soyad"
+                            placeholder={translate("registerPlaceholderLastName")}
                             className="w-full py-3 px-4 rounded-lg border border-gray-300 bg-white text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-yellow-500"
                         />
                         <input
                             name="telefon"
                             onChange={handleChange}
-                            placeholder="Telefon"
+                            placeholder={translate("registerPlaceholderPhone")}
                             className="w-full py-3 px-4 rounded-lg border border-gray-300 bg-white text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-yellow-500"
                         />
                         <input
                             name="adres"
                             onChange={handleChange}
-                            placeholder="Adres"
+                            placeholder={translate("registerPlaceholderAddress")}
                             className="w-full py-3 px-4 rounded-lg border border-gray-300 bg-white text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-yellow-500"
                         />
                         <input
                             name="email"
                             type="email"
                             onChange={handleChange}
-                            placeholder="E-Posta"
+                            placeholder={translate("registerPlaceholderEmail")}
                             className="w-full py-3 px-4 rounded-lg border border-gray-300 bg-white text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-yellow-500"
                         />
                         <input
                             name="password"
                             type="password"
                             onChange={handleChange}
-                            placeholder="Şifre"
+                            placeholder={translate("registerPlaceholderPassword")}
                             className="w-full py-3 px-4 rounded-lg border border-gray-300 bg-white text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-yellow-500"
                         />
                     </div>
 
                     {error && (
                         <div className="bg-green-100 border border-red-400 text-gray-900 px-4 py-3 rounded relative mb-4" role="alert">
-                            <strong className="font-bold">Uyarı! </strong>
+                            <strong className="font-bold">{translate("registerWarning")} </strong>
                             <span className="block sm:inline">{error}</span>
                         </div>
                     )}
@@ -139,7 +140,7 @@ export default function Kayit() {
                         onClick={handleRegister}
                         className="w-full py-2 text-white font-semibold rounded-lg bg-gradient-to-r from-yellow-600 to-yellow-400 hover:opacity-90 transition"
                     >
-                        Kayıt Ol
+                        {translate("registerButton")}
                     </button>
                 </div>
             </div>

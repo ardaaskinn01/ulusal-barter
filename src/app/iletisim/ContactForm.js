@@ -3,8 +3,10 @@ import { useState } from "react";
 import Navbar from "../components/Navbar";
 import Image from "next/image";
 import Head from "next/head";
+import { useLanguage } from '../LanguageContext.js';
 
 export default function ContactForm() {
+  const { translate } = useLanguage();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -64,14 +66,14 @@ export default function ContactForm() {
         <div className="flex-grow py-40 px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-16 mt-8">
-              <h1 className="text-5xl font-bold text-yellow-600 mb-4">İLETİŞİM</h1>
-              <p className="text-lg text-gray-500">Bizimle iletişime geçmekten çekinmeyin.</p>
+              <h1 className="text-5xl font-bold text-yellow-600 mb-4">{translate('contactPageTitle')}</h1>
+              <p className="text-lg text-gray-500">{translate('contactPageSubtitle')}</p>
             </div>
 
             <div className="grid md:grid-cols-2 gap-8">
               {/* İletişim Bilgileri - Minimal Versiyon */}
               <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
-                <h3 className="text-xl font-semibold text-gray-800 mb-6">İletişim Bilgileri</h3>
+                <h3 className="text-xl font-semibold text-gray-800 mb-6">{translate('contactInfoTitle')}</h3>
                 <ul className="space-y-5">
                   <li className="flex gap-3 items-start">
                     <div className="bg-amber-100 p-2 rounded-full">
@@ -80,7 +82,7 @@ export default function ContactForm() {
                       </svg>
                     </div>
                     <div>
-                      <p className="text-sm text-gray-500">E-Posta</p>
+                      <p className="text-sm text-gray-500">{translate('contactEmailLabel')}</p>
                       <a href="mailto:ulusalbarter@gmail.com" className="text-gray-700 hover:text-amber-600 transition">
                         ulusalbarter@gmail.com
                       </a>
@@ -94,7 +96,7 @@ export default function ContactForm() {
                       </svg>
                     </div>
                     <div>
-                      <p className="text-sm text-gray-500">Telefon</p>
+                      <p className="text-sm text-gray-500">{translate('contactPhoneLabel')}</p>
                       <a href="tel:02326002525" className="text-gray-700 hover:text-amber-600 transition">
                         0232 600 25 25
                       </a>
@@ -109,9 +111,9 @@ export default function ContactForm() {
                       </svg>
                     </div>
                     <div>
-                      <p className="text-sm text-gray-500">Adres</p>
+                      <p className="text-sm text-gray-500">{translate('contactAddressLabel')}</p>
                       <p className="text-gray-700">
-                        Mansuroğlu Mah. 283/1 Sk. No:2 GSK Plaza K:1 D:201 Bayraklı/İzmir
+                        {translate('contactAddress')}
                       </p>
                     </div>
                   </li>
@@ -133,10 +135,10 @@ export default function ContactForm() {
 
               {/* İletişim Formu - Minimal Versiyon */}
               <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
-                <h3 className="text-xl font-semibold text-gray-800 mb-6">Mesaj Gönderin</h3>
+                <h3 className="text-xl font-semibold text-gray-800 mb-6">{translate('contactFormTitle')}</h3>
                 <form onSubmit={handleSubmit} className="space-y-4">
                   <div>
-                    <label htmlFor="name" className="block text-sm text-gray-600 mb-1">Ad Soyad</label>
+                    <label htmlFor="name" className="block text-sm text-gray-600 mb-1">{translate('contactFormName')}</label>
                     <input
                       type="text"
                       id="name"
@@ -148,7 +150,7 @@ export default function ContactForm() {
                     />
                   </div>
                   <div>
-                    <label htmlFor="email" className="block text-sm text-gray-600 mb-1">E-posta</label>
+                    <label htmlFor="email" className="block text-sm text-gray-600 mb-1">{translate('contactFormEmail')}</label>
                     <input
                       type="email"
                       id="email"
@@ -160,7 +162,7 @@ export default function ContactForm() {
                     />
                   </div>
                   <div>
-                    <label htmlFor="phone" className="block text-sm text-gray-600 mb-1">Telefon</label>
+                    <label htmlFor="phone" className="block text-sm text-gray-600 mb-1">{translate('contactFormPhone')}</label>
                     <input
                       type="tel"
                       id="phone"
@@ -171,7 +173,7 @@ export default function ContactForm() {
                     />
                   </div>
                   <div>
-                    <label htmlFor="message" className="block text-sm text-gray-600 mb-1">Mesajınız</label>
+                    <label htmlFor="message" className="block text-sm text-gray-600 mb-1">{translate('contactFormMessage')}</label>
                     <textarea
                       id="message"
                       name="message"
@@ -186,7 +188,7 @@ export default function ContactForm() {
                     type="submit"
                     className="w-full bg-yellow-600 hover:bg-amber-700 text-white font-medium py-2.5 rounded-md transition mt-2"
                   >
-                    Mesaj Gönder
+                    {translate('contactFormSubmit')}
                   </button>
                 </form>
               </div>
